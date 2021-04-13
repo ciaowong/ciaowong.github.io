@@ -170,7 +170,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -233,7 +233,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/JVM%E7%9F%A5%E8%AF%86%E7%82%B9/">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/09/Java%E9%9D%A2%E8%AF%95/%E5%8D%95%E4%BE%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -246,7 +246,87 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/JVM%E7%9F%A5%E8%AF%86%E7%82%B9/" class="post-title-link" itemprop="url">JVM</a>
+          <a href="/2021/04/09/Java%E9%9D%A2%E8%AF%95/%E5%8D%95%E4%BE%8B/" class="post-title-link" itemprop="url">单例</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-09 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-09T00:00:00+08:00">2021-04-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-13 15:01:35" itemprop="dateModified" datetime="2021-04-13T15:01:35+08:00">2021-04-13</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>DCL Double Check Lock</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/07/Java%E9%9D%A2%E8%AF%95/%E7%94%B5%E5%95%86%E8%B6%85%E5%8D%96%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/07/Java%E9%9D%A2%E8%AF%95/%E7%94%B5%E5%95%86%E8%B6%85%E5%8D%96%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">电商超卖问题</a>
         </h2>
 
         <div class="post-meta-container">
@@ -258,8 +338,172 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-04-06 00:00:00 / 修改时间：17:40:48" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
+      <time title="创建时间：2021-04-07 00:00:00 / 修改时间：15:37:16" itemprop="dateCreated datePublished" datetime="2021-04-07T00:00:00+08:00">2021-04-07</time>
     </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>怎么防止电商超卖？</p>
+<p>情况1: 单机，高并发，用 synchronized 关键字加锁；<br>情况2: 多机，引入中介防止订单重复：<br>中介1: 生成订单通过 MySQL 主键，防止重复；<br>中介2: 通过 Redis setnx key value<br>Q1: 无法释放锁，所以加超时时间 expire time ;<br>Q2: 生成完成后要释放锁 delete key;<br>Q3: 怎么确定你删除的锁是你自己加的锁？给锁增加线程唯一标示；<br>Q4: 超时时间内无法执行完怎么办？通过 watch dog 临近结束前增加超时时间;(Redission)；<br>Q5: Redis 挂了，由于数据同步异步问题，导致2个线程获得同一把锁怎么办？部署奇数台 Redis，依次获取锁，当成功获取半数以上的锁才视为加锁成功；<br>Q6: 2个线程都在争锁，其中一台 Redis 挂了，一个请求只要获得4台中的2台就拿到锁了；这时候重启，另一请求拿到了剩下3台的锁，也拿到锁成功？告诉运维，等key都过期了再重启；<br>Q7: 如果多台 Redis 挂了怎么办？部署多台 Redis 的目的就是为了防止某台挂掉，最后还挂了多台，要把运维开了。</p>
+<p>终极解决方案 MySQL 乐观锁 + zk</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/07/Java%E9%9D%A2%E8%AF%95/HashMap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/07/Java%E9%9D%A2%E8%AF%95/HashMap/" class="post-title-link" itemprop="url">HashMap</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-07 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-07T00:00:00+08:00">2021-04-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-12 10:05:00" itemprop="dateModified" datetime="2021-04-12T10:05:00+08:00">2021-04-12</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>数据结构：链表、数组<br>数组时间复杂度：查询 O(1) 快, 插入删除 O(N) 慢；<br>链表时间复杂度：查询 O(N) 慢, 插入删除 O(1) 快；</p>
+<p>算法：哈希算法-&gt;底层<br>取模目的是为了节省空间，但是会引起哈希碰撞，所以要用链表进行存储；数组只能存一个对象；</p>
+<p>JDK8 优化<br>红黑树</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/JVM%E7%9F%A5%E8%AF%86%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/JVM%E7%9F%A5%E8%AF%86%E7%82%B9/" class="post-title-link" itemprop="url">JVM</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-07 15:21:43" itemprop="dateModified" datetime="2021-04-07T15:21:43+08:00">2021-04-07</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -285,9 +529,12 @@
 <p>内存布局<br>|eden(伊甸区)|Survivor0|S1|Tenured|<br>|          young         |  old  |<br>新生代一次回收的垃圾比较多，要求算法比较快<br>1.新生代有用的拷到s0，清空新生代；<br>2.新生代有用的拷到s1，s0拷到s1，清空新生代和s0；<br>3….<br>4.存活n次以后的对象移至老年代(ps的age是15，cms的age是6)；</p>
 <p>分代垃圾回收器，young old 搭配使用(单线程、多线程)<br>young             old<br>Serial            Serial Old<br>Parallel Scavenge Parallel Old<br>ParaNew           Concurent Mark Sweep</p>
 <p>不分代垃圾回收器<br>G1, ZGC, Shenandoah</p>
-<p>CMS,Concurent Mark Sweep, 并发标记清除，一边工作一边进行垃圾回收；<br>采用三色标记算法：<br>1.已经触达且所有字节点都已经触达的标为黑色；<br>2.已经触达但是有字节点未触达的标为灰色；<br>3.未触达的标为白色；<br>存在问题：白色被黑色引用，黑色已经触达不会再扫，所以白色会被回收；<br>解决：incremental update, 当白色被黑色引用的时候，要重新扫描一遍，重新标记。</p>
-<p>JVM Tuning 调试，目的是为了尽量减少 FGC (无法避免)<br>FGC 导致 STW Stop the world<br>mirror gc = young gc; major gc = full gc;</p>
+<p>CMS,Concurent Mark Sweep, 并发标记清除，一边工作一边进行垃圾回收；<br>CMS极端情况会用 SerialOld 全部清除，特别慢<br>1.初始标记根对象(STW)<br>2.并发标记<br>3.重新标记(STW)<br>4.并发清理</p>
+<p>采用三色标记算法：<br>1.已经触达且所有字节点都已经触达的标为黑色；<br>2.已经触达但是有字节点未触达的标为灰色；<br>3.未触达的标为白色；<br>存在问题：白色被黑色引用，黑色已经触达不会再扫，所以白色会被回收；<br>解决：incremental update, 当白色被黑色引用的时候，要重新扫描一遍，重新标记。</p>
+<p>JVM Tuning 调试，目的是为了尽量减少 FGC (无法避免)<br>FGC 导致 STW Stop the world<br>mirror gc = young gc; major gc = full gc;<br>重启(🐶)</p>
+<p>jmap -histo xxx | head -20<br>列出占用最多的前20个对象，不适合电商，会产生 fullgc</p>
 <p>Xms Xmx 一致为了避免扩缩容；</p>
+<p>CPU突然飙高怎么办？<br>1.列出线程<br>2.分析哪些是业务线程、哪些是垃圾回收线程；</p>
 
       
     </div>
@@ -314,7 +561,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/Netty/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -327,149 +574,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">多线程</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-04-06 00:00:00 / 修改时间：17:40:50" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/%E9%9D%A2%E7%BB%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/%E9%9D%A2%E7%BB%8F/" class="post-title-link" itemprop="url">面试经验</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-04-06 00:00:00 / 修改时间：17:40:54" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>STAR: Situation Task Action Result(公司、自己)</p>
-<p>每个项目准备一两个值得深挖的问题；</p>
-<p>回答问题前要问清楚前提条件、具体配置等；</p>
-<p>面试的时候搂着点，给面试官发挥的余地，给他惊喜；你又满足了他，又拖延了面试时间…</p>
-<p>HR 面，HR 可能是10年经验的老程序员，悠着点；</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Netty/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/Netty/" class="post-title-link" itemprop="url">Netty</a>
+          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/Netty/" class="post-title-link" itemprop="url">Netty</a>
         </h2>
 
         <div class="post-meta-container">
@@ -529,7 +634,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/MySQL%E8%B0%83%E4%BC%98/">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/Redis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -542,7 +647,88 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/MySQL%E8%B0%83%E4%BC%98/" class="post-title-link" itemprop="url">MySQL调优</a>
+          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/Redis/" class="post-title-link" itemprop="url">Redis</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-13 14:49:20" itemprop="dateModified" datetime="2021-04-13T14:49:20+08:00">2021-04-13</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>跟数据库的区别：<br>缓存，不重要，可以丢，减轻数据库的压力，到数据库的都是有效请求。<br>存储，珍惜</p>
+<p>分布式一致性太难了<br>减少你认为的所谓的高效并行</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/ServiceMash/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/ServiceMash/" class="post-title-link" itemprop="url">ServiceMash</a>
         </h2>
 
         <div class="post-meta-container">
@@ -554,7 +740,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-04-06 00:00:00 / 修改时间：20:58:11" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
+      <time title="创建时间：2021-04-06 00:00:00 / 修改时间：21:27:19" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -602,7 +788,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Redis/">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/Zookeeper/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -615,80 +801,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/Redis/" class="post-title-link" itemprop="url">Redis</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-04-06 00:00:00 / 修改时间：20:58:16" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/zookeeper/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/zookeeper/" class="post-title-link" itemprop="url">Zookeeper</a>
+          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/Zookeeper/" class="post-title-link" itemprop="url">Zookeeper</a>
         </h2>
 
         <div class="post-meta-container">
@@ -748,7 +861,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/%E7%AE%97%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -761,153 +874,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">算法</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-04-06 00:00:00 / 修改时间：20:58:45" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-04-06 00:00:00 / 修改时间：20:58:29" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/05/%E9%A1%B9%E7%9B%AE%E7%BB%8F%E9%AA%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/05/%E9%A1%B9%E7%9B%AE%E7%BB%8F%E9%AA%8C/" class="post-title-link" itemprop="url">项目经验</a>
+          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">多线程</a>
         </h2>
 
         <div class="post-meta-container">
@@ -918,14 +885,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-04-05 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-05T00:00:00+08:00">2021-04-05</time>
+      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-06 17:40:55" itemprop="dateModified" datetime="2021-04-06T17:40:55+08:00">2021-04-06</time>
+        <time title="修改时间：2021-04-12 10:05:02" itemprop="dateModified" datetime="2021-04-12T10:05:02+08:00">2021-04-12</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -933,7 +900,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%9B%92%E5%AD%90%E7%A7%91%E6%8A%80/" itemprop="url" rel="index"><span itemprop="name">盒子科技</span></a>
+          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
         </span>
     </span>
 
@@ -947,42 +914,91 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="2020-至今-清结算-项目"><a href="#2020-至今-清结算-项目" class="headerlink" title="2020 - 至今 清结算 项目"></a>2020 - 至今 清结算 项目</h3><h3 id="2019-至今-盒伙人业绩、分润-项目"><a href="#2019-至今-盒伙人业绩、分润-项目" class="headerlink" title="2019 - 至今 盒伙人业绩、分润 项目"></a>2019 - 至今 盒伙人业绩、分润 项目</h3><ul>
-<li>S:从原先每天处理40w笔记录，到 每天处理30e流水，200w笔记录；30w用户</li>
-<li>T:生成30份不同纬度的统计报表（个人、团队、合并，业绩、新增商户、产品）</li>
-</ul>
-<ul>
-<li>A:<ul>
-<li>开发：采用了<kbd>elastic-job</kbd>分布式任务、<kbd>redis</kbd>缓存，进行多系统的分布式运算，每小时处理，生产数据；</li>
-<li>校验：采用定时任务进行sql统计分析，<kbd>企业微信机器人</kbd>通知，保障每小时产生的统计报表无误；</li>
-<li>未来：采用<kbd>kafka</kbd>实现实时统计；</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>R:公司：从原先每天7:30展示数据，每个月都有几天应各种问题导致数据不准；每天3:30展示数据，过去1年没有出过数据不准的问题；第二天让用户及时获取昨日业绩，更好地进行第二天的展业；自己：实践了很多性能优化的方案。</li>
-</ul>
-<h3 id="2018-环球客APP-项目"><a href="#2018-环球客APP-项目" class="headerlink" title="2018 环球客APP 项目"></a>2018 环球客APP 项目</h3><ul>
-<li>S:从0到1在上海新建一套APP；</li>
-<li>T:搭建APP所需的所有后台系统，数据库，完成改造、联调；</li>
-<li>A:独自完成了20+项目的开发，部署测试环境；</li>
-<li>R:公司：项目完成半年时间内达到了单天1e的交易额；自己：对公司APP相关的后台系统全都摸了一遍，整体架构有了概念。</li>
-</ul>
-<h3 id="2017-2018-盒伙人APP-项目"><a href="#2017-2018-盒伙人APP-项目" class="headerlink" title="2017 - 2018 盒伙人APP 项目"></a>2017 - 2018 盒伙人APP 项目</h3><ul>
-<li>S:发布会新功能；常规项目迭代；合规任务；</li>
-<li>T:按时完成迭代；</li>
-<li>A:系统详细设计、架构设计、开发、测试、上线；</li>
-<li>R:保障300w用户正常使用APP上各项功能。</li>
-</ul>
-<h3 id="技术应用"><a href="#技术应用" class="headerlink" title="技术应用"></a>技术应用</h3><ul>
-<li><kbd>Redis</kbd></li>
-<li><kbd>Kafka</kbd></li>
-<li><kbd>Elastic-job</kbd></li>
-<li><kbd>Skywalking</kbd></li>
-<li><kbd>Jenkins</kbd></li>
-<li><kbd>Shell</kbd></li>
-<li><kbd>企业微信机器人</kbd></li>
-</ul>
+          <h3 id="synchronized-关键字，无法保证-有序性"><a href="#synchronized-关键字，无法保证-有序性" class="headerlink" title="synchronized 关键字，无法保证 有序性"></a>synchronized 关键字，无法保证 有序性</h3><p>本质是修改了 Object Head 对象头的内容<br>jdk1.5 以前是悲观锁实现的<br>以后改成了 偏向锁(现在也已经弃用了)-乐观锁-重量级锁</p>
+<h3 id="乐观锁也叫自旋锁-CAS-Compare-and-Swap"><a href="#乐观锁也叫自旋锁-CAS-Compare-and-Swap" class="headerlink" title="乐观锁也叫自旋锁 CAS Compare and Swap"></a>乐观锁也叫自旋锁 CAS Compare and Swap</h3><p>实现思想：1.当前值是1，拿走加1完变成2，回来判断原先值是否是1，如果是就把2写回原处；<br>2.如果不是，把最新的值x拿走，再加1，回来判断原先值是否是x，，如果是就把x+1写回原处，否则重复2；<br>自旋，如果旋得太久，消耗CPU资源</p>
+<p>Q1: 会产生 ABA 问题，即回来判断的时候 值已经变过了，又变回来；<br>解决方案：1.加版本号；2.增加 Boolean 标记判断；</p>
+<p>Q2: 怎么保证操作的原子性？<br>JDK 用了 Unsafe.java compareAndSwap 方法<br>具体实现是 native Unsafe.cpp C++ 操作 (涉及指针操作，是给开发 JDK 的人用的，所以不安全) Atomic cmpxhg - asm 汇编 底层实现；<br>通过 LOCK_IF_MP = Lock cmpxchg (cmpxchg 不保证原子性，前面的 Lock 保证)<br>MP = multi process, 单 CPU 时不加 Lock ，多个才加，以此来保证原子性；</p>
+<h3 id="锁的升级过程"><a href="#锁的升级过程" class="headerlink" title="锁的升级过程"></a>锁的升级过程</h3><p>new 对象 偏向锁未启动 -&gt; 普通对象 -&gt; 偏向未启动 -&gt;  升级 轻量级锁<br>         偏向锁已启动 -&gt; 匿名对象 -&gt; 超过4s -&gt; 偏向锁 -&gt; 轻度竞争 -&gt;  升级 轻量级锁 -&gt; 重度竞争、耗时 -&gt; 升级 重量级锁 (OS 来操作)</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">算法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-09 09:22:25" itemprop="dateModified" datetime="2021-04-09T09:22:25+08:00">2021-04-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>BST树<br>AVL树<br>红黑树<br>B树<br>B+树</p>
 
       
     </div>
