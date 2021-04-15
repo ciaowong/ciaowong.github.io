@@ -23,15 +23,15 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"ciaowong.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
-<meta name="description" content="识别垃圾的方法1.标记算法，有标记+1，没标记-1，标记为0的时候认为是垃圾问题：循环依赖，大家都有标记，但是大家都是垃圾，无法处理；2.根可达算法（RootSearching）有引用就继续往下找，找不到的都是垃圾 算法1.标记清楚法(Mark-Sweep)，会导致内存碎片化的问题；2.Copy算法，会导致浪费空间的问题，每次都只用一半的内存；3.标记压缩算法，效率比较低 内存布局|eden(伊甸">
+<meta name="description" content="识别垃圾的方法1.标记算法，有引用标记+1，没引用标记-1，标记为0的时候认为是垃圾；问题：循环依赖，大家都有标记，但是大家都是垃圾，无法处理；2.根可达算法（RootSearching）有引用就继续往下找，找不到的都是垃圾 算法1.标记清楚法(Mark-Sweep)，会导致内存碎片化的问题；2.Copy算法，会导致浪费空间的问题，每次都只用一半的内存；3.标记压缩算法，效率比较低 内存布局">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM">
 <meta property="og:url" content="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/JVM%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
 <meta property="og:site_name" content="Stepping Stone">
-<meta property="og:description" content="识别垃圾的方法1.标记算法，有标记+1，没标记-1，标记为0的时候认为是垃圾问题：循环依赖，大家都有标记，但是大家都是垃圾，无法处理；2.根可达算法（RootSearching）有引用就继续往下找，找不到的都是垃圾 算法1.标记清楚法(Mark-Sweep)，会导致内存碎片化的问题；2.Copy算法，会导致浪费空间的问题，每次都只用一半的内存；3.标记压缩算法，效率比较低 内存布局|eden(伊甸">
+<meta property="og:description" content="识别垃圾的方法1.标记算法，有引用标记+1，没引用标记-1，标记为0的时候认为是垃圾；问题：循环依赖，大家都有标记，但是大家都是垃圾，无法处理；2.根可达算法（RootSearching）有引用就继续往下找，找不到的都是垃圾 算法1.标记清楚法(Mark-Sweep)，会导致内存碎片化的问题；2.Copy算法，会导致浪费空间的问题，每次都只用一半的内存；3.标记压缩算法，效率比较低 内存布局">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-04-05T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-04-07T07:21:43.759Z">
+<meta property="article:modified_time" content="2021-04-15T07:17:07.741Z">
 <meta property="article:author" content="Ciu Wong">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -148,7 +148,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -161,6 +161,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%86%E5%88%AB%E5%9E%83%E5%9C%BE%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">识别垃圾的方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="nav-number">3.</span> <span class="nav-text">内存布局</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E4%BB%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8"><span class="nav-number">4.</span> <span class="nav-text">分代垃圾回收器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CMS"><span class="nav-number">5.</span> <span class="nav-text">CMS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%87%87%E7%94%A8%E4%B8%89%E8%89%B2%E6%A0%87%E8%AE%B0%E7%AE%97%E6%B3%95%EF%BC%9A"><span class="nav-number">6.</span> <span class="nav-text">采用三色标记算法：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8D%E5%88%86%E4%BB%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8"><span class="nav-number">7.</span> <span class="nav-text">不分代垃圾回收器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JVM-Tuning"><span class="nav-number">8.</span> <span class="nav-text">JVM Tuning</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CPU%E7%AA%81%E7%84%B6%E9%A3%99%E9%AB%98%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="nav-number">9.</span> <span class="nav-text">CPU突然飙高怎么办？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE"><span class="nav-number">10.</span> <span class="nav-text">参数配置</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -268,7 +269,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-07 15:21:43" itemprop="dateModified" datetime="2021-04-07T15:21:43+08:00">2021-04-07</time>
+        <time title="修改时间：2021-04-15 15:17:07" itemprop="dateModified" datetime="2021-04-15T15:17:07+08:00">2021-04-15</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -297,17 +298,73 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>识别垃圾的方法<br>1.标记算法，有标记+1，没标记-1，标记为0的时候认为是垃圾<br>问题：循环依赖，大家都有标记，但是大家都是垃圾，无法处理；<br>2.根可达算法（RootSearching）<br>有引用就继续往下找，找不到的都是垃圾</p>
-<p>算法<br>1.标记清楚法(Mark-Sweep)，会导致内存碎片化的问题；<br>2.Copy算法，会导致浪费空间的问题，每次都只用一半的内存；<br>3.标记压缩算法，效率比较低</p>
-<p>内存布局<br>|eden(伊甸区)|Survivor0|S1|Tenured|<br>|          young         |  old  |<br>新生代一次回收的垃圾比较多，要求算法比较快<br>1.新生代有用的拷到s0，清空新生代；<br>2.新生代有用的拷到s1，s0拷到s1，清空新生代和s0；<br>3….<br>4.存活n次以后的对象移至老年代(ps的age是15，cms的age是6)；</p>
-<p>分代垃圾回收器，young old 搭配使用(单线程、多线程)<br>young             old<br>Serial            Serial Old<br>Parallel Scavenge Parallel Old<br>ParaNew           Concurent Mark Sweep</p>
-<p>不分代垃圾回收器<br>G1, ZGC, Shenandoah</p>
-<p>CMS,Concurent Mark Sweep, 并发标记清除，一边工作一边进行垃圾回收；<br>CMS极端情况会用 SerialOld 全部清除，特别慢<br>1.初始标记根对象(STW)<br>2.并发标记<br>3.重新标记(STW)<br>4.并发清理</p>
-<p>采用三色标记算法：<br>1.已经触达且所有字节点都已经触达的标为黑色；<br>2.已经触达但是有字节点未触达的标为灰色；<br>3.未触达的标为白色；<br>存在问题：白色被黑色引用，黑色已经触达不会再扫，所以白色会被回收；<br>解决：incremental update, 当白色被黑色引用的时候，要重新扫描一遍，重新标记。</p>
-<p>JVM Tuning 调试，目的是为了尽量减少 FGC (无法避免)<br>FGC 导致 STW Stop the world<br>mirror gc = young gc; major gc = full gc;<br>重启(🐶)</p>
-<p>jmap -histo xxx | head -20<br>列出占用最多的前20个对象，不适合电商，会产生 fullgc</p>
-<p>Xms Xmx 一致为了避免扩缩容；</p>
-<p>CPU突然飙高怎么办？<br>1.列出线程<br>2.分析哪些是业务线程、哪些是垃圾回收线程；</p>
+        <h5 id="识别垃圾的方法"><a href="#识别垃圾的方法" class="headerlink" title="识别垃圾的方法"></a>识别垃圾的方法</h5><p>1.标记算法，有引用标记+1，没引用标记-1，标记为0的时候认为是垃圾；<br>问题：循环依赖，大家都有标记，但是大家都是垃圾，无法处理；<br>2.根可达算法（RootSearching）<br>有引用就继续往下找，找不到的都是垃圾</p>
+<h5 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h5><p>1.标记清楚法(Mark-Sweep)，会导致内存碎片化的问题；<br>2.Copy算法，会导致浪费空间的问题，每次都只用一半的内存；<br>3.标记压缩算法，效率比较低</p>
+<h5 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h5><table>
+<thead>
+<tr>
+<th>eden(伊甸区)</th>
+<th>Survivor0</th>
+<th>S1</th>
+<th>Tenured</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>young</td>
+<td>young</td>
+<td>young</td>
+<td>old</td>
+</tr>
+</tbody></table>
+<p>新生代一次回收的垃圾比较多，要求算法比较快<br>1.新生代有用的拷到s0，清空新生代；<br>2.新生代有用的拷到s1，s0拷到s1，清空新生代和s0；<br>3….<br>4.存活n次以后的对象移至老年代(ps的age是15，cms的age是6)；</p>
+<h5 id="分代垃圾回收器"><a href="#分代垃圾回收器" class="headerlink" title="分代垃圾回收器"></a>分代垃圾回收器</h5><table>
+<thead>
+<tr>
+<th align="center">young</th>
+<th align="center">old</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Serial</td>
+<td align="center">Serial Old</td>
+</tr>
+<tr>
+<td align="center">Parallel Scavenge</td>
+<td align="center">Parallel Old (JDK 默认)</td>
+</tr>
+<tr>
+<td align="center">ParaNew</td>
+<td align="center">Concurent Mark Sweep</td>
+</tr>
+</tbody></table>
+<p>young old 搭配使用(单线程、多线程)；</p>
+<p>ParaNew 就是 Serial 改了一下支持多线程，搭配 CMS 使用；</p>
+<h5 id="CMS"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</h5><p>Concurent Mark Sweep, 并发标记清除，一边工作一边进行垃圾回收；</p>
+<p>CMS极端情况会用 SerialOld 全部清除，特别慢</p>
+<ol>
+<li>初始标记根对象(STW，Stop The World)</li>
+<li>并发标记</li>
+<li>重新标记(STW)</li>
+<li>并发清理</li>
+</ol>
+<h5 id="采用三色标记算法："><a href="#采用三色标记算法：" class="headerlink" title="采用三色标记算法："></a>采用三色标记算法：</h5><ol>
+<li>已经触达且所有字节点都已经触达的标为黑色；</li>
+<li>已经触达但是有字节点未触达的标为灰色；</li>
+<li>未触达的标为白色；</li>
+</ol>
+<p>存在问题：白色被黑色引用，黑色已经触达不会再扫，所以白色会被回收；<br>解决：incremental update, 当白色被黑色引用的时候，要重新扫描一遍，重新标记。</p>
+<h5 id="不分代垃圾回收器"><a href="#不分代垃圾回收器" class="headerlink" title="不分代垃圾回收器"></a>不分代垃圾回收器</h5><p>G1, ZGC, Shenandoah</p>
+<h5 id="JVM-Tuning"><a href="#JVM-Tuning" class="headerlink" title="JVM Tuning"></a>JVM Tuning</h5><p>调试，目的是为了尽量减少 FGC (无法避免)；FGC 导致 STW Stop the world<br>mirror gc = young gc; major gc = full gc;</p>
+<ul>
+<li><p>重启(🐶)</p>
+</li>
+<li><p>jmap -histo xxx | head -20<br>列出占用最多的前20个对象，不适合电商，会产生 fullgc</p>
+</li>
+<li><p>arthas 工具</p>
+</li>
+</ul>
+<h5 id="CPU突然飙高怎么办？"><a href="#CPU突然飙高怎么办？" class="headerlink" title="CPU突然飙高怎么办？"></a>CPU突然飙高怎么办？</h5><p>1.列出线程<br>2.分析哪些是业务线程、哪些是垃圾回收线程；</p>
+<h5 id="参数配置"><a href="#参数配置" class="headerlink" title="参数配置"></a>参数配置</h5><p>Xms Xmx 一致为了避免扩缩容；</p>
 
     </div>
 
@@ -324,13 +381,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/Netty/" rel="prev" title="Netty">
-                  <i class="fa fa-chevron-left"></i> Netty
+                <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/JVM%E8%B0%83%E4%BC%98%E5%AE%9E%E4%BE%8B/" rel="prev" title="JVM调优实例">
+                  <i class="fa fa-chevron-left"></i> JVM调优实例
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/04/07/Java%E9%9D%A2%E8%AF%95/HashMap/" rel="next" title="HashMap">
-                  HashMap <i class="fa fa-chevron-right"></i>
+                <a href="/2021/04/06/JVM%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="next" title="JVM">
+                  JVM <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

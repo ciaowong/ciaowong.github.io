@@ -233,6 +233,252 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/Zookeeper/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/Zookeeper/" class="post-title-link" itemprop="url">Zookeeper</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-04-06 00:00:00 / 修改时间：20:58:21" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">多线程</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-15 15:05:59" itemprop="dateModified" datetime="2021-04-15T15:05:59+08:00">2021-04-15</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h4 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h4><p>本质是修改了 Object Head 对象头的内容</p>
+<p>jdk1.5 以前是悲观锁实现的；以后改成了 偏向锁(现在也已经弃用了)-乐观锁-重量级锁</p>
+<p>无法保证 有序性</p>
+<h4 id="乐观锁-自旋锁-CAS"><a href="#乐观锁-自旋锁-CAS" class="headerlink" title="乐观锁 自旋锁 CAS"></a>乐观锁 自旋锁 CAS</h4><p>Compare and Swap </p>
+<p>实现思想：1.当前值是1，拿走加1完变成2，回来判断原先值是否是1，如果是就把2写回原处；<br>2.如果不是，把最新的值x拿走，再加1，回来判断原先值是否是x，如果是就把x+1写回原处，否则重复2；<br>自旋，如果旋得太久，消耗CPU资源（重量级锁放等待队列，不会消耗CPU资源）</p>
+<p>Q1: 会产生 ABA 问题，即回来判断的时候 值已经变过了，又变回来；<br>解决方案：1.加版本号；2.增加 Boolean 标记判断；</p>
+<p>Q2: 怎么保证操作的原子性？<br>JDK 用了 Unsafe.java compareAndSwap 方法<br>具体实现是 <strong>native Unsafe.cpp</strong> C++ 操作 (涉及指针操作，是给开发 JDK 的人用的，所以不安全) <strong>Atomic cmpxhg - asm</strong> 汇编 底层实现；<br>通过 <strong>LOCK_IF_MP</strong> = Lock cmpxchg (cmpxchg 不保证原子性，前面的 Lock 保证)<br>MP = multi process, 单 CPU 时不加 Lock ，多个才加，以此来保证原子性；</p>
+<h3 id="锁的升级过程"><a href="#锁的升级过程" class="headerlink" title="锁的升级过程"></a>锁的升级过程</h3><p>new 对象 偏向锁未启动 -&gt; 普通对象 -&gt; 偏向未启动 -&gt;  升级 轻量级锁<br>         偏向锁已启动 -&gt; 匿名对象 -&gt; 超过4s -&gt; 偏向锁 -&gt; 轻度竞争 -&gt;  升级 轻量级锁 -&gt; 重度竞争、耗时 -&gt; 升级 重量级锁 (OS 来操作)</p>
+<p>ReentrantLock 一个锁对一个队列，精确唤醒；<br>CountDownLatch 门闩</p>
+<p>不影响单线程最终一致性，可以进行 指令重排（乱序）</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">算法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-15 14:00:19" itemprop="dateModified" datetime="2021-04-15T14:00:19+08:00">2021-04-15</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h4 id="BST树"><a href="#BST树" class="headerlink" title="BST树"></a>BST树</h4><p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210415140003.png"></p>
+<h4 id="AVL树"><a href="#AVL树" class="headerlink" title="AVL树"></a>AVL树</h4><p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210415135525.png"></p>
+<h4 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h4><p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210415135407.png"></p>
+<h4 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h4><p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210415134657.png"></p>
+<h4 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h4><p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210415115633.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -256,10 +502,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-04-06 00:00:00 / 修改时间：20:58:29" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
+      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-15 13:45:45" itemprop="dateModified" datetime="2021-04-15T13:45:45+08:00">2021-04-15</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -329,10 +581,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-04-06 00:00:00 / 修改时间：17:40:54" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
+      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-15 14:55:45" itemprop="dateModified" datetime="2021-04-15T14:55:45+08:00">2021-04-15</time>
+      </span>
 
   
 </div>
@@ -349,308 +607,6 @@
 <p>回答问题前要问清楚前提条件、具体配置等；</p>
 <p>面试的时候搂着点，给面试官发挥的余地，给他惊喜；你又满足了他，又拖延了面试时间…</p>
 <p>HR 面，HR 可能是10年经验的老程序员，悠着点；</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/JVM%E8%B0%83%E4%BC%98%E5%AE%9E%E4%BE%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/JVM%E8%B0%83%E4%BC%98%E5%AE%9E%E4%BE%8B/" class="post-title-link" itemprop="url">JVM调优实例</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-07 09:19:20" itemprop="dateModified" datetime="2021-04-07T09:19:20+08:00">2021-04-07</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/MySQL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/MySQL/" class="post-title-link" itemprop="url">MySQL</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-15 11:57:57" itemprop="dateModified" datetime="2021-04-15T11:57:57+08:00">2021-04-15</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>数据库其实也是程序。数据结构+算法</p>
-<h4 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h4><p>偏移量、长度<br>存储在硬盘中，会预加载进内存；分页中存储着指向下一块索引页的地址；</p>
-<p>InnoDB 数据插入的时候跟索引存储在一起；</p>
-<p>有主键的话就跟主键存在一起，没有跟唯一键，再没有跟隐藏键 rowid；</p>
-<p><strong>聚簇/非聚簇索引</strong> 的区别就是看 <strong>数据</strong> 跟 索引是否存<strong>放在一起</strong>；</p>
-<p><strong>基数 (DV distinct value)</strong> 足够多创建才有意义，如果只有0，1，效果很差，反而查询很慢；</p>
-<ul>
-<li><h5 id="索引维护"><a href="#索引维护" class="headerlink" title="索引维护"></a>索引维护</h5><p>如果不是按照自增 id 插入数据，可能会引起页分裂<br>比如要一个 id 正好在一个页现有的2个 id 之间，这时候页满了，就要把页拆成2个新的页，把新数据放进去；由下往上，可能上面的索引页也会引起分裂；<br>反之删除数据，引起页合并；</p>
-</li>
-<li><h5 id="联合索引"><a href="#联合索引" class="headerlink" title="联合索引"></a>联合索引</h5><p>一个索引包含多个索引列；</p>
-</li>
-<li><h5 id="索引覆盖"><a href="#索引覆盖" class="headerlink" title="索引覆盖"></a>索引覆盖</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id,name <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> name <span class="operator">=</span> ?;</span><br></pre></td></tr></table></figure>
-
-<p>根据 name 去 B+ 树上取到了 id,name ，不需要回表，效率高； 这叫索引覆盖；</p>
-</li>
-<li><h5 id="索引下推-index-condition-pushdown-5-7后默认开启："><a href="#索引下推-index-condition-pushdown-5-7后默认开启：" class="headerlink" title="索引下推 (index_condition_pushdown) 5.7后默认开启："></a>索引下推 (index_condition_pushdown) 5.7后默认开启：</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> id <span class="operator">=</span> ? <span class="keyword">and</span> name <span class="operator">=</span> ?;</span><br></pre></td></tr></table></figure>
-
-<p>没开启:先根据 name 去存储引擎拉去符合结果的数据返回 server 再对 age 进行过滤；<br>开启后:直接根据2个条件进行拉取；</p>
-<p>“下推”就是本来是 server 层做的事情推到 存储引擎去做了；</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="center">client</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><strong>server</strong> 连接、分析、优化、执行</td>
-</tr>
-<tr>
-<td align="center">存储引擎 <strong>innodb myisam</strong></td>
-</tr>
-</tbody></table>
-<h4 id="页"><a href="#页" class="headerlink" title="页"></a>页</h4><p>默认大小 16kb 16384byte</p>
-<h4 id="数据结构-B-树"><a href="#数据结构-B-树" class="headerlink" title="数据结构 B+树"></a>数据结构 B+树</h4><p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210415115633.png"></p>
-<p>3-4层的 B+ 树就能支持 千万级别的 数据量<br>树要足够矮，减少检索的次数<br>保证key尽可能小地占用空间<br>叶子节点存储所有插入的数据<br>叶子节点之间存在指针，双向的<br>叶子节点有多个元素且排好序的</p>
-<h4 id="局部原理"><a href="#局部原理" class="headerlink" title="局部原理"></a>局部原理</h4><p>每次读取，周边一定范围内的数据也会被读到，一起加载进内存；<br>innodb 每页默认大小 16kb</p>
-<p>减少IO</p>
-<p>表a 有 id name age  id 主键 name 索引<br>select * from table where id = ? ; 可以根据主键直接找到记录；</p>
-<h4 id="回表"><a href="#回表" class="headerlink" title="回表"></a>回表</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> id <span class="operator">=</span> ? <span class="keyword">and</span> name <span class="operator">=</span> ?;</span><br></pre></td></tr></table></figure>
-
-<p> 1.根据索引找到主键，再根据主键找到记录，这叫回表；（效率不高，IO</p>
-<h4 id="最左匹配"><a href="#最左匹配" class="headerlink" title="最左匹配"></a>最左匹配</h4><p>table 建立了 name,age 的复合索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> name <span class="operator">=</span> ? ;<span class="comment">--符合</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> name <span class="operator">=</span> ? <span class="keyword">and</span> age <span class="operator">=</span> ? ;<span class="comment">--符合</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> age <span class="operator">=</span> ? <span class="keyword">and</span> name <span class="operator">=</span> ? ;<span class="comment">--符合（mysql 优化器会进行优化，因为调整顺序不影响查询结果）</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> age <span class="operator">=</span> ? ; <span class="comment">--不符合</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h4><ul>
-<li>binlog  二阶段提交</li>
-<li>redolog</li>
-<li>undolog –&gt; mvcc</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/JVM%E7%9F%A5%E8%AF%86%E7%82%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/JVM%E7%9F%A5%E8%AF%86%E7%82%B9/" class="post-title-link" itemprop="url">JVM</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-09 09:49:46" itemprop="dateModified" datetime="2021-04-09T09:49:46+08:00">2021-04-09</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>识别垃圾的方法<br>1.标记算法，有标记+1，没标记-1，标记为0的时候认为是垃圾<br>问题：循环依赖，大家都有标记，但是大家都是垃圾，无法处理；<br>2.根可达算法（RootSearching）<br>有引用就继续往下找，找不到的都是垃圾</p>
-<p>算法<br>1.标记清楚法(Mark-Sweep)，会导致内存碎片化的问题；<br>2.Copy算法，会导致浪费空间的问题，每次都只用一半的内存；<br>3.标记压缩算法，效率比较低</p>
-<p>内存布局<br>|eden(伊甸区)|Survivor0|S1|Tenured|<br>|          young         |  old  |<br>新生代一次回收的垃圾比较多，要求算法比较快<br>1.新生代有用的拷到s0，清空新生代；<br>2.新生代有用的拷到s1，s0拷到s1，清空新生代和s0；<br>3….<br>4.存活n次以后的对象移至老年代(ps的age是15，cms的age是6)；</p>
-<p>分代垃圾回收器，young old 搭配使用(单线程、多线程)<br>young             old<br>Serial            Serial Old<br>Parallel Scavenge Parallel Old<br>ParaNew           Concurent Mark Sweep</p>
-<p>不分代垃圾回收器<br>G1, ZGC, Shenandoah</p>
-<p>CMS,Concurent Mark Sweep, 并发标记清除，一边工作一边进行垃圾回收；<br>采用三色标记算法：<br>1.已经触达且所有字节点都已经触达的标为黑色；<br>2.已经触达但是有字节点未触达的标为灰色；<br>3.未触达的标为白色；<br>存在问题：白色被黑色引用，黑色已经触达不会再扫，所以白色会被回收；<br>解决：incremental update, 当白色被黑色引用的时候，要重新扫描一遍，重新标记。</p>
-<p>JVM Tuning 调试，目的是为了尽量减少 FGC (无法避免)<br>FGC 导致 STW Stop the world<br>mirror gc = young gc; major gc = full gc;</p>
-<p>Xms Xmx 一致为了避免扩缩容；</p>
 
       
     </div>
@@ -708,7 +664,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-07 17:19:09" itemprop="dateModified" datetime="2021-04-07T17:19:09+08:00">2021-04-07</time>
+        <time title="修改时间：2021-04-15 15:17:17" itemprop="dateModified" datetime="2021-04-15T15:17:17+08:00">2021-04-15</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -730,8 +686,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>个人优势<br>1.目前负责项目日活跃50w，注册人数超过300w，注册商户超过1000w的 T-BCS 生态架构设计与研发；<br>2.对于构建高并发、高可用、分布式架构、大数据量处理，有丰富经验；<br>3.熟悉 JDK 中各种集合、队列、锁、多线程、高并发相关的底层结构及原理；<br>4.对 spring, mybatis, redis, elastic-job 等开源框架均深度阅读过源码；<br>5.熟悉常用的数据结构与算法，熟练应用设计模式；<br>6.熟悉各种 GC, 各种垃圾回收算法，有 JVM 调优经验；</p>
-<h3 id="2020-至今-清结算-项目"><a href="#2020-至今-清结算-项目" class="headerlink" title="2020 - 至今 清结算 项目"></a>2020 - 至今 清结算 项目</h3><h3 id="2019-至今-盒伙人业绩、分润-项目"><a href="#2019-至今-盒伙人业绩、分润-项目" class="headerlink" title="2019 - 至今 盒伙人业绩、分润 项目"></a>2019 - 至今 盒伙人业绩、分润 项目</h3><ul>
+          <p>王超<br>应聘岗位：JAVA工程师<br>联系电话：189006732719<br>邮箱：<a href="mailto:&#49;&#56;&#49;&#52;&#x36;&#57;&#56;&#x38;&#x35;&#64;&#113;&#113;&#46;&#99;&#111;&#x6d;">&#49;&#56;&#49;&#52;&#x36;&#57;&#56;&#x38;&#x35;&#64;&#113;&#113;&#46;&#99;&#111;&#x6d;</a><br>学历：本科<br>Github：<a href="https://ciaowong.github.io/">https://ciaowong.github.io/</a></p>
+<p>专业技能（从java基础，到中间件，数据库，然后到框架啥的）</p>
+<p>工作经历<br>在职时间  公司名称  担任职位</p>
+<p>个人优势、自我评价<br>1.目前负责项目日活跃50w，注册人数超过300w，注册商户超过1000w的 T-BCS 生态架构设计与研发；<br>2.对于构建高并发、高可用、分布式架构、大数据量处理，有丰富经验；<br>3.熟悉 JDK 中各种集合、队列、锁、多线程、高并发相关的底层结构及原理；<br>4.对 spring, mybatis, redis, elastic-job 等开源框架均深度阅读过源码；<br>5.熟悉常用的数据结构与算法，熟练应用设计模式；<br>6.熟悉各种 GC, 各种垃圾回收算法，有 JVM 调优经验；</p>
+<p>不要写N个不大不小的项目，一个公司你写一到两个比较大型和独特的项目就够了<br>项目一定要自己亲手负责的</p>
+<h3 id="2020-至今-清结算-项目"><a href="#2020-至今-清结算-项目" class="headerlink" title="2020 - 至今 清结算 项目"></a>2020 - 至今 清结算 项目</h3><h3 id="2017-至今-盒伙人APP、业绩、分润-项目"><a href="#2017-至今-盒伙人APP、业绩、分润-项目" class="headerlink" title="2017 - 至今 盒伙人APP、业绩、分润 项目"></a>2017 - 至今 盒伙人APP、业绩、分润 项目</h3><ul>
 <li>S:从原先每天处理40w笔记录，到 每天处理30e流水，200w笔记录；30w用户</li>
 <li>T:生成30份不同纬度的统计报表（个人、团队、合并，业绩、新增商户、产品）</li>
 </ul>
@@ -752,13 +712,7 @@
 <li>A:独自完成了20+项目的开发，部署测试环境；</li>
 <li>R:公司：项目完成半年时间内达到了单天1e的交易额；自己：对公司APP相关的后台系统全都摸了一遍，整体架构有了概念。</li>
 </ul>
-<h3 id="2017-2018-盒伙人APP-项目"><a href="#2017-2018-盒伙人APP-项目" class="headerlink" title="2017 - 2018 盒伙人APP 项目"></a>2017 - 2018 盒伙人APP 项目</h3><ul>
-<li>S:发布会新功能；常规项目迭代；合规任务；</li>
-<li>T:按时完成迭代；</li>
-<li>A:系统详细设计、架构设计、开发、测试、上线；</li>
-<li>R:保障300w用户正常使用APP上各项功能。</li>
-</ul>
-<h3 id="技术应用"><a href="#技术应用" class="headerlink" title="技术应用"></a>技术应用</h3><ul>
+<h3 id="2016-中兴通讯-IT-网站"><a href="#2016-中兴通讯-IT-网站" class="headerlink" title="2016 中兴通讯 IT 网站"></a>2016 中兴通讯 IT 网站</h3><h3 id="2014-2016-长威-OA"><a href="#2014-2016-长威-OA" class="headerlink" title="2014-2016 长威 OA"></a>2014-2016 长威 OA</h3><h3 id="2013-永辉超市-OA"><a href="#2013-永辉超市-OA" class="headerlink" title="2013 永辉超市 OA"></a>2013 永辉超市 OA</h3><h3 id="技术应用"><a href="#技术应用" class="headerlink" title="技术应用"></a>技术应用</h3><ul>
 <li><kbd>Redis</kbd></li>
 <li><kbd>Kafka</kbd></li>
 <li><kbd>Elastic-job</kbd></li>
@@ -824,7 +778,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-15 10:07:00" itemprop="dateModified" datetime="2021-04-15T10:07:00+08:00">2021-04-15</time>
+        <time title="修改时间：2021-04-15 13:45:31" itemprop="dateModified" datetime="2021-04-15T13:45:31+08:00">2021-04-15</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
