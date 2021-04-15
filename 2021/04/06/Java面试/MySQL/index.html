@@ -23,18 +23,20 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"ciaowong.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
-<meta name="description" content="数据库其实也是程序。数据结构+算法 索引偏移量、长度存储在硬盘中，会预加载进内存；分页中存储着指向下一块索引页的地址；索引维护，如果不是按照自增 id 插入数据，可能会引起页分裂比如要一个 id 正好在一个页现有的2个 id 之间，这时候页满了，就要把页拆成2个新的页，把新数据放进去；由下往上，可能上面的索引页也会引起分裂；反之删除数据，引起页合并；联合索引：一个索引包含多个索引列；基数 (DV">
+<meta name="description" content="数据库其实也是程序。数据结构+算法 索引偏移量、长度存储在硬盘中，会预加载进内存；分页中存储着指向下一块索引页的地址； InnoDB 数据插入的时候跟索引存储在一起； 有主键的话就跟主键存在一起，没有跟唯一键，再没有跟隐藏键 rowid； 聚簇&#x2F;非聚簇索引 的区别就是看 数据 跟 索引是否存放在一起； 基数 (DV distinct value) 足够多创建才有意义，如果只有0，1，效果很差，反而">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL">
 <meta property="og:url" content="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/MySQL/index.html">
 <meta property="og:site_name" content="Stepping Stone">
-<meta property="og:description" content="数据库其实也是程序。数据结构+算法 索引偏移量、长度存储在硬盘中，会预加载进内存；分页中存储着指向下一块索引页的地址；索引维护，如果不是按照自增 id 插入数据，可能会引起页分裂比如要一个 id 正好在一个页现有的2个 id 之间，这时候页满了，就要把页拆成2个新的页，把新数据放进去；由下往上，可能上面的索引页也会引起分裂；反之删除数据，引起页合并；联合索引：一个索引包含多个索引列；基数 (DV">
+<meta property="og:description" content="数据库其实也是程序。数据结构+算法 索引偏移量、长度存储在硬盘中，会预加载进内存；分页中存储着指向下一块索引页的地址； InnoDB 数据插入的时候跟索引存储在一起； 有主键的话就跟主键存在一起，没有跟唯一键，再没有跟隐藏键 rowid； 聚簇&#x2F;非聚簇索引 的区别就是看 数据 跟 索引是否存放在一起； 基数 (DV distinct value) 足够多创建才有意义，如果只有0，1，效果很差，反而">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210415115633.png">
 <meta property="article:published_time" content="2021-04-05T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-04-13T06:51:27.182Z">
+<meta property="article:modified_time" content="2021-04-15T03:57:57.165Z">
 <meta property="article:author" content="Ciu Wong">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210415115633.png">
 
 
 <link rel="canonical" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/MySQL/">
@@ -161,7 +163,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">1.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-B-%E6%A0%91"><span class="nav-number">2.</span> <span class="nav-text">数据结构 B+树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%8E%9F%E7%90%86"><span class="nav-number">2.0.1.</span> <span class="nav-text">局部原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E8%A1%A8"><span class="nav-number">2.0.2.</span> <span class="nav-text">回表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E8%A6%86%E7%9B%96"><span class="nav-number">2.0.3.</span> <span class="nav-text">索引覆盖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E5%B7%A6%E5%8C%B9%E9%85%8D"><span class="nav-number">2.0.4.</span> <span class="nav-text">最左匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E4%B8%8B%E6%8E%A8-index-condition-pushdown-%EF%BC%9A"><span class="nav-number">2.0.5.</span> <span class="nav-text">索引下推 (index_condition_pushdown)：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97"><span class="nav-number">3.</span> <span class="nav-text">日志</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">1.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%BB%B4%E6%8A%A4"><span class="nav-number">1.1.</span> <span class="nav-text">索引维护</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95"><span class="nav-number">1.2.</span> <span class="nav-text">联合索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E8%A6%86%E7%9B%96"><span class="nav-number">1.3.</span> <span class="nav-text">索引覆盖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E4%B8%8B%E6%8E%A8-index-condition-pushdown-5-7%E5%90%8E%E9%BB%98%E8%AE%A4%E5%BC%80%E5%90%AF%EF%BC%9A"><span class="nav-number">1.4.</span> <span class="nav-text">索引下推 (index_condition_pushdown) 5.7后默认开启：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B5"><span class="nav-number">2.</span> <span class="nav-text">页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-B-%E6%A0%91"><span class="nav-number">3.</span> <span class="nav-text">数据结构 B+树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">局部原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E8%A1%A8"><span class="nav-number">5.</span> <span class="nav-text">回表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E5%B7%A6%E5%8C%B9%E9%85%8D"><span class="nav-number">6.</span> <span class="nav-text">最左匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A5%E5%BF%97"><span class="nav-number">7.</span> <span class="nav-text">日志</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -269,7 +271,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-13 14:51:27" itemprop="dateModified" datetime="2021-04-13T14:51:27+08:00">2021-04-13</time>
+        <time title="修改时间：2021-04-15 11:57:57" itemprop="dateModified" datetime="2021-04-15T11:57:57+08:00">2021-04-15</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -299,21 +301,62 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>数据库其实也是程序。数据结构+算法</p>
-<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>偏移量、长度<br>存储在硬盘中，会预加载进内存；分页中存储着指向下一块索引页的地址；<br>索引维护，如果不是按照自增 id 插入数据，可能会引起页分裂<br>比如要一个 id 正好在一个页现有的2个 id 之间，这时候页满了，就要把页拆成2个新的页，把新数据放进去；由下往上，可能上面的索引页也会引起分裂；<br>反之删除数据，引起页合并；<br>联合索引：一个索引包含多个索引列；<br>基数 (DV distinct value) 足够多创建才有意义，如果只有0，1，效果很差，反而查询很慢；</p>
-<p>一页默认大小 16kb 16384</p>
-<p>InnoDB 数据插入的时候跟索引存储在一起；<br>有主键的话就跟主键存在一起，没有跟唯一键，再没有跟隐藏键 rowid；</p>
-<p>聚簇/非聚簇索引 的区别就是看数据跟索引是否存放在一起；</p>
-<h2 id="数据结构-B-树"><a href="#数据结构-B-树" class="headerlink" title="数据结构 B+树"></a>数据结构 B+树</h2><p>3-4层的 B+ 树就能支持 千万级别的 数据量<br>树要足够矮，减少检索的次数<br>保证key尽可能小地占用空间<br>叶子节点存储所有插入的数据<br>叶子节点之间存在指针，双向的<br>叶子节点有多个元素且排好序的</p>
+<h4 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h4><p>偏移量、长度<br>存储在硬盘中，会预加载进内存；分页中存储着指向下一块索引页的地址；</p>
+<p>InnoDB 数据插入的时候跟索引存储在一起；</p>
+<p>有主键的话就跟主键存在一起，没有跟唯一键，再没有跟隐藏键 rowid；</p>
+<p><strong>聚簇/非聚簇索引</strong> 的区别就是看 <strong>数据</strong> 跟 索引是否存<strong>放在一起</strong>；</p>
+<p><strong>基数 (DV distinct value)</strong> 足够多创建才有意义，如果只有0，1，效果很差，反而查询很慢；</p>
+<ul>
+<li><h5 id="索引维护"><a href="#索引维护" class="headerlink" title="索引维护"></a>索引维护</h5><p>如果不是按照自增 id 插入数据，可能会引起页分裂<br>比如要一个 id 正好在一个页现有的2个 id 之间，这时候页满了，就要把页拆成2个新的页，把新数据放进去；由下往上，可能上面的索引页也会引起分裂；<br>反之删除数据，引起页合并；</p>
+</li>
+<li><h5 id="联合索引"><a href="#联合索引" class="headerlink" title="联合索引"></a>联合索引</h5><p>一个索引包含多个索引列；</p>
+</li>
+<li><h5 id="索引覆盖"><a href="#索引覆盖" class="headerlink" title="索引覆盖"></a>索引覆盖</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id,name <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> name <span class="operator">=</span> ?;</span><br></pre></td></tr></table></figure>
+
+<p>根据 name 去 B+ 树上取到了 id,name ，不需要回表，效率高； 这叫索引覆盖；</p>
+</li>
+<li><h5 id="索引下推-index-condition-pushdown-5-7后默认开启："><a href="#索引下推-index-condition-pushdown-5-7后默认开启：" class="headerlink" title="索引下推 (index_condition_pushdown) 5.7后默认开启："></a>索引下推 (index_condition_pushdown) 5.7后默认开启：</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> id <span class="operator">=</span> ? <span class="keyword">and</span> name <span class="operator">=</span> ?;</span><br></pre></td></tr></table></figure>
+
+<p>没开启:先根据 name 去存储引擎拉去符合结果的数据返回 server 再对 age 进行过滤；<br>开启后:直接根据2个条件进行拉取；</p>
+<p>“下推”就是本来是 server 层做的事情推到 存储引擎去做了；</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">client</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>server</strong> 连接、分析、优化、执行</td>
+</tr>
+<tr>
+<td align="center">存储引擎 <strong>innodb myisam</strong></td>
+</tr>
+</tbody></table>
+<h4 id="页"><a href="#页" class="headerlink" title="页"></a>页</h4><p>默认大小 16kb 16384byte</p>
+<h4 id="数据结构-B-树"><a href="#数据结构-B-树" class="headerlink" title="数据结构 B+树"></a>数据结构 B+树</h4><p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210415115633.png"></p>
+<p>3-4层的 B+ 树就能支持 千万级别的 数据量<br>树要足够矮，减少检索的次数<br>保证key尽可能小地占用空间<br>叶子节点存储所有插入的数据<br>叶子节点之间存在指针，双向的<br>叶子节点有多个元素且排好序的</p>
 <h4 id="局部原理"><a href="#局部原理" class="headerlink" title="局部原理"></a>局部原理</h4><p>每次读取，周边一定范围内的数据也会被读到，一起加载进内存；<br>innodb 每页默认大小 16kb</p>
 <p>减少IO</p>
 <p>表a 有 id name age  id 主键 name 索引<br>select * from table where id = ? ; 可以根据主键直接找到记录；</p>
-<h4 id="回表"><a href="#回表" class="headerlink" title="回表"></a>回表</h4><p>：where name = ?; 1.根据索引找到主键，再根据主键找到记录，这叫回表；（效率不高，IO</p>
-<h4 id="索引覆盖"><a href="#索引覆盖" class="headerlink" title="索引覆盖"></a>索引覆盖</h4><p>：select id,name from table where name = ?; 根据 name 去 B+ 树上取到了 id,name ，不需要回表，效率高； 这叫索引覆盖；</p>
-<h4 id="最左匹配"><a href="#最左匹配" class="headerlink" title="最左匹配"></a>最左匹配</h4><p>： where name = ? 符合；<br>where name = ? and age = ? 符合；<br>where age = ? and name = ? 符合；（mysql 优化器会进行优化，因为调整顺序不影响查询结果）<br>where age = ? 不符合；</p>
-<h4 id="索引下推-index-condition-pushdown-："><a href="#索引下推-index-condition-pushdown-：" class="headerlink" title="索引下推 (index_condition_pushdown)："></a>索引下推 (index_condition_pushdown)：</h4><p>没开启之前，先根据 name 去存储引擎拉去符合结果的数据返回 server 再对 age 进行过滤；<br>开启后，直接根据2个条件进行拉取；</p>
-<p>client<br>server 连接、分析、优化、执行<br>存储引擎 innodb myisam</p>
-<p>下推的意思就是本来是 server 层做的事情推到 存储引擎去做了；5.7后默认开启</p>
-<h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>binlog  二阶段提交<br>redolog<br>undolog –&gt; mvcc</p>
+<h4 id="回表"><a href="#回表" class="headerlink" title="回表"></a>回表</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> id <span class="operator">=</span> ? <span class="keyword">and</span> name <span class="operator">=</span> ?;</span><br></pre></td></tr></table></figure>
+
+<p> 1.根据索引找到主键，再根据主键找到记录，这叫回表；（效率不高，IO</p>
+<h4 id="最左匹配"><a href="#最左匹配" class="headerlink" title="最左匹配"></a>最左匹配</h4><p>table 建立了 name,age 的复合索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> name <span class="operator">=</span> ? ;<span class="comment">--符合</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> name <span class="operator">=</span> ? <span class="keyword">and</span> age <span class="operator">=</span> ? ;<span class="comment">--符合</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> age <span class="operator">=</span> ? <span class="keyword">and</span> name <span class="operator">=</span> ? ;<span class="comment">--符合（mysql 优化器会进行优化，因为调整顺序不影响查询结果）</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> age <span class="operator">=</span> ? ; <span class="comment">--不符合</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h4><ul>
+<li>binlog  二阶段提交</li>
+<li>redolog</li>
+<li>undolog –&gt; mvcc</li>
+</ul>
 
     </div>
 
