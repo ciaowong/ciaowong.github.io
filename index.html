@@ -170,13 +170,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -312,6 +312,268 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/25/%E9%A1%B9%E7%9B%AE/%E7%BA%BF%E7%A8%8B%E5%8D%A0%E7%94%A8%E6%97%A0%E6%B3%95%E9%87%8A%E6%94%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/25/%E9%A1%B9%E7%9B%AE/%E7%BA%BF%E7%A8%8B%E5%8D%A0%E7%94%A8%E6%97%A0%E6%B3%95%E9%87%8A%E6%94%BE/" class="post-title-link" itemprop="url">线程占用无法释放</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-04-25 00:00:00 / 修改时间：11:27:16" itemprop="dateCreated datePublished" datetime="2021-04-25T00:00:00+08:00">2021-04-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">项目</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h4 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h4><p>平时3分过几秒钟完成的任务，生产上隔了几分钟才完成</p>
+<p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210425112501.png"></p>
+<h4 id="推导"><a href="#推导" class="headerlink" title="推导"></a>推导</h4><p>通过jstack 查询堆栈信息，相关脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">\#!/bin/sh</span><br><span class="line"></span><br><span class="line">user=`ps -ef|grep java |grep &#x27;/opt/appl&#x27; |grep -v grep |grep -v logstash |awk &#x27;&#123;print $1&#125;&#x27;`</span><br><span class="line"></span><br><span class="line">pid=`ps -ef|grep java |grep &#x27;/opt/appl&#x27; |grep -v grep |grep -v logstash |awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line"></span><br><span class="line">su - $user &lt;&lt;EOF</span><br><span class="line"></span><br><span class="line">mkdir -p /tmp/$&#123;pid&#125;;</span><br><span class="line"></span><br><span class="line">jmap -dump:live,file=/tmp/$&#123;pid&#125;/jmap_dum.$$ $&#123;pid&#125;;</span><br><span class="line"></span><br><span class="line">jstat -gcutil $&#123;pid&#125; &gt; /tmp/$&#123;pid&#125;/jstat_gcutil.$$ ;</span><br><span class="line"></span><br><span class="line">jmap -histo:live $&#123;pid&#125; &gt;/tmp/$&#123;pid&#125;/jmap_histo.$$ ;</span><br><span class="line"></span><br><span class="line">jstack -l $&#123;pid&#125; &gt;/tmp/$&#123;pid&#125;/jstack_1.$$;</span><br><span class="line"></span><br><span class="line">jstack -l $&#123;pid&#125; &gt; /tmp/$&#123;pid&#125;/jstack_2.$$ ;</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p>大量线程处于 RUNNABLE 状态，定位到具体方法，是这个 </p>
+<p>statMktTradeHhr statMktTradePersonal mergeMktTrade</p>
+<p>这个sql一直读区数据，导致线程没有回收，影响了后面其他任务。</p>
+<p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210425112558.png"></p>
+<p>正常的线程</p>
+<p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210425112620.png"></p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>1.通过控制线程的超时时间，执行一段时间报错回收，不让其一直执行；</p>
+<p>2.优化慢查询的sql</p>
+<h5 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h5><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/75701f282af4">https://www.jianshu.com/p/75701f282af4</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.twle.cn/c/yufei/javatm/javatm-basic-executorservice.html">https://www.twle.cn/c/yufei/javatm/javatm-basic-executorservice.html</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/25/%E9%A1%B9%E7%9B%AE/OOM%20Dump%20%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/25/%E9%A1%B9%E7%9B%AE/OOM%20Dump%20%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">OOM Dump 分析</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-04-25 00:00:00 / 修改时间：11:15:59" itemprop="dateCreated datePublished" datetime="2021-04-25T00:00:00+08:00">2021-04-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">项目</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>首先要在 tomcat 的 catalina.sh 中配置 ，当出现oom时输出二进制bin文件到指定路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPTS=&quot;$JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/appl/tomcat/logs/gc_dump_`date +&#x27;%Y-%m-%d_%H-%M-%S&#x27;`.bin&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210425110313.png"></p>
+<p>这样，在出现 oom 的时候就会有 dump 文件生成</p>
+<p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210425110338.png"></p>
+<p>注意。Dump 文件的大小应该与堆相同，如图有6G（8M的文件生成不完整，原因未知）。可以先压缩再进行下载，压缩后大小仅1.2G（用的zip，tar可能会更小）。下载到本地后就可以使用工具分析，这里用的是 MAT，下载地址 <a target="_blank" rel="noopener" href="https://www.eclipse.org/mat/downloads.php">https://www.eclipse.org/mat/downloads.php</a> 。下载后直接打开会报错，修改配置就可以打开dump文件了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">修改路径</span><br><span class="line">-data</span><br><span class="line">&#x2F;Users&#x2F;wong&#x2F;开发&#x2F;mat_data</span><br><span class="line">增大分配的内存，否则大的文件打不开</span><br><span class="line">-Xmx8g</span><br><span class="line">-XX:-UseGCOverheadLimit</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210425110505.png"></p>
+<p>通过 leak suspe 可以发现疑似内存泄漏的地方。</p>
+<p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210425110938.png"></p>
+<p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210425111205.png"><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210425111223.png"></p>
+<p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210425110951.png"></p>
+<p>一个集合放了 1e 个对象是否合理？？接下来就可以针对这些地方进行分析。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/22/%E9%A1%B9%E7%9B%AE/%E9%A1%B9%E7%9B%AE%E5%9B%B0%E9%9A%BE%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/22/%E9%A1%B9%E7%9B%AE/%E9%A1%B9%E7%9B%AE%E5%9B%B0%E9%9A%BE%E7%82%B9/" class="post-title-link" itemprop="url">项目困难点</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-22 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-22T00:00:00+08:00">2021-04-22</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-25 11:24:39" itemprop="dateModified" datetime="2021-04-25T11:24:39+08:00">2021-04-25</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">项目</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h4 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h4><p>前提条件：每次查出来的记录数都是固定的才能进行分页</p>
+<h4 id="OOM"><a href="#OOM" class="headerlink" title="OOM"></a>OOM</h4><p>通过分析dump文件找到可能导致内存泄漏的地方，进行分析。</p>
+<h4 id="频繁-Full-GC"><a href="#频繁-Full-GC" class="headerlink" title="频繁 Full GC"></a>频繁 Full GC</h4><p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210425111619.png"></p>
+<p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210425111701.png"></p>
+<p>JVM配置问题：总共堆2048，新生代配置2048，old区为0，不full gc才怪了！</p>
+<h4 id="数据库字段"><a href="#数据库字段" class="headerlink" title="数据库字段"></a>数据库字段</h4><p>DBA：varchar2设至得过小 = 作茧自缚 。</p>
+<h4 id="线程占用无法释放"><a href="#线程占用无法释放" class="headerlink" title="线程占用无法释放"></a>线程占用无法释放</h4><p>多线程处理任务的时候，有满查询，线程没有超时时间，一直阻塞后面的任务。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/21/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -393,6 +655,86 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/21/%E7%AE%97%E6%B3%95/%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E8%B6%85%E8%BF%87%E4%B8%80%E5%8D%8A%E7%9A%84%E6%95%B0%E5%AD%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/21/%E7%AE%97%E6%B3%95/%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E8%B6%85%E8%BF%87%E4%B8%80%E5%8D%8A%E7%9A%84%E6%95%B0%E5%AD%97/" class="post-title-link" itemprop="url">数组中出现次数超过一半的数字</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-04-21 00:00:00 / 修改时间：17:31:58" itemprop="dateCreated datePublished" datetime="2021-04-21T00:00:00+08:00">2021-04-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为 9 的数组 {1,2,3,2,2,2,5,4,2}。由于数字 2 在数组中出现了 5 次，超过数组长度的一半，因此输出 2。如果不存在则输出 0。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">MoreThanHalfNum_Solution</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (array.length == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (array.length == <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> array[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> len = array.length;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">      <span class="keyword">int</span> tmp = array[i];</span><br><span class="line">      <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; len; j++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (tmp == array[j]) &#123;</span><br><span class="line">          count++;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (count &gt; len / <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> tmp;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>数组只有0个1个的情况！</li>
+<li>走一遍就能知道这个数有没有超过半数，有直接返回（假定只有1个超过半数的数字）</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/19/Java%E9%9D%A2%E8%AF%95/Spring%E6%BA%90%E7%A0%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -424,7 +766,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-20 09:23:22" itemprop="dateModified" datetime="2021-04-20T09:23:22+08:00">2021-04-20</time>
+        <time title="修改时间：2021-04-21 15:56:46" itemprop="dateModified" datetime="2021-04-21T15:56:46+08:00">2021-04-21</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -486,7 +828,60 @@
 </tr>
 </tbody></table>
 <p>@Resource 是 Java 层的注解，更底层；@Autowired 是 Spring 层的注解；</p>
-<h4 id="Bean的生命周期"><a href="#Bean的生命周期" class="headerlink" title="Bean的生命周期"></a>Bean的生命周期</h4>
+<h4 id="创建Bean的几种方式"><a href="#创建Bean的几种方式" class="headerlink" title="创建Bean的几种方式"></a>创建Bean的几种方式</h4><ul>
+<li>类注解（声明式）</li>
+<li>编程式</li>
+<li>ApplicationContext 从上下文获取</li>
+<li>ClassPathXml 从项目路径下的 xml 配置文件获取</li>
+<li>FileSystemXml 从系统文件路径下的 xml 配置文件获取</li>
+<li>单例池</li>
+<li>BeanFactory</li>
+</ul>
+<h4 id="Refresh方法"><a href="#Refresh方法" class="headerlink" title="Refresh方法"></a>Refresh方法</h4><p>相当于重启，销毁所有的 Bean 对象，重新生成</p>
+<h4 id="Bean的生命周期"><a href="#Bean的生命周期" class="headerlink" title="Bean的生命周期"></a>Bean的生命周期</h4><ul>
+<li>从循环依赖引出 Bean 创建的生命周期</li>
+<li>Spring 通过3级缓存解决循环依赖问题<ul>
+<li>2级缓存解决不了 AOP 问题（ 赋值给B的A是原始对象而不是代理对象）</li>
+</ul>
+</li>
+<li>如果出现多个循环依赖，会创建多个 A 的代理对象，用二级缓存，存不完整的代理对象<ul>
+<li>不完整的 Bean 不能放入单例池</li>
+<li>单例池存放的是有完整生命周期的 bean</li>
+</ul>
+</li>
+<li>构造方法有相互依赖 Spring 解决不了，报错（通过 @Lazy 解决）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AService</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Resource</span></span><br><span class="line">  <span class="keyword">private</span> BService bService;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BService</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Resource</span></span><br><span class="line">  <span class="keyword">private</span> AService aService;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">A创建⬇️</th>
+<th align="center">⬅️需要A</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">需要B➡️</td>
+<td align="center">B创建⬆️</td>
+</tr>
+</tbody></table>
+<ol>
+<li>creatingSet.add&lt;’aService’&gt;</li>
+<li>Aservice 类-&gt;实例化-&gt; Aservice 对象(原始对象)-&gt; map&lt;’beanName’,lambda(beanName,AService原始对象,beanDefinition)&gt;</li>
+<li>填充 bService 属性-&gt;去单例池 (ConcurrentHashMap singletonObject ) 查找-&gt;没有找到-&gt;二级缓存( HashMap earlySingletonObject) -&gt; 创建 BService 的 Bean<ol>
+<li>BService类 -&gt; 实例化-&gt; BService对象(原始对象)</li>
+<li>填充 aService 属性 -&gt;去单例池查找-&gt;没有找到-&gt; aService 在 creatingSet 中？-&gt; 出现循环依赖 -&gt; 二级缓存(找不到) -&gt; 三级缓存(存的是 lambda 表达式) -&gt; 执行表达式生成对象，移除表达式 -&gt; 放入二级缓存</li>
+<li>填充其他属性</li>
+<li>放入单例池</li>
+</ol>
+</li>
+<li>填充其他属性</li>
+<li>要不要进行 AOP -&gt; AOP -&gt; AService 代理对象</li>
+<li>aService -&gt; 二级缓存 -&gt; AService 代理对象</li>
+<li>放入单例池</li>
+<li>creatingSet.remove&lt;’aService’&gt;</li>
+</ol>
+
       
     </div>
 
@@ -729,411 +1124,6 @@
 <h5 id="JDK8-优化"><a href="#JDK8-优化" class="headerlink" title="JDK8 优化"></a>JDK8 优化</h5><p>红黑树</p>
 <p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210415135407.png"></p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/07/Java%E9%9D%A2%E8%AF%95/%E7%94%B5%E5%95%86%E8%B6%85%E5%8D%96%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/07/Java%E9%9D%A2%E8%AF%95/%E7%94%B5%E5%95%86%E8%B6%85%E5%8D%96%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">电商超卖问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-04-07 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-07T00:00:00+08:00">2021-04-07</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-15 15:01:46" itemprop="dateModified" datetime="2021-04-15T15:01:46+08:00">2021-04-15</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>怎么防止电商超卖？</p>
-<h5 id="情况1-单机，高并发"><a href="#情况1-单机，高并发" class="headerlink" title="情况1: 单机，高并发"></a>情况1: 单机，高并发</h5><p>用 synchronized 关键字加锁；</p>
-<h5 id="情况2-多机"><a href="#情况2-多机" class="headerlink" title="情况2: 多机"></a>情况2: 多机</h5><p>引入中介防止订单重复：</p>
-<h6 id="中介1"><a href="#中介1" class="headerlink" title="中介1:"></a>中介1:</h6><p>生成订单通过 MySQL 主键，防止重复；</p>
-<h6 id="中介2"><a href="#中介2" class="headerlink" title="中介2:"></a>中介2:</h6><p>通过 Redis setnx key value；引发下列问题：</p>
-<h6 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h6><p>Q1: 无法释放锁？</p>
-<p>A：加超时时间 expire time ;<br>Q2: 生成完成后其他请求获取不到锁？</p>
-<p>A：要释放锁 delete key;<br>Q3: 怎么确定你删除的锁是你自己加的锁？</p>
-<p>A：给锁增加线程唯一标识，删除前先判断标识是否匹配；<br>Q4: 超时时间内无法执行完怎么办？</p>
-<p>A：通过 watch dog 临近结束前增加超时时间;(Redission)；<br>Q5: Redis 挂了，由于数据同步异步问题，导致2个线程获得同一把锁怎么办？</p>
-<p>A：部署奇数台 Redis，依次获取锁，当成功获取半数以上的锁才视为加锁成功；<br>Q6: 2个线程都在争锁，其中一台 Redis 挂了，一个请求只要获得4台中的2台就拿到锁了；这时候重启，另一请求拿到了剩下3台的锁，也拿到锁成功？</p>
-<p>A：告诉运维，等key都过期了再重启；<br>Q7: 如果多台 Redis 挂了怎么办？</p>
-<p>A：部署多台 Redis 的目的就是为了防止某台挂掉，最后还挂了多台，要把运维开了。</p>
-<p>终极解决方案 MySQL 乐观锁 + zk</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/JVM%E7%9F%A5%E8%AF%86%E7%82%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/JVM%E7%9F%A5%E8%AF%86%E7%82%B9/" class="post-title-link" itemprop="url">JVM</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-09 09:49:46" itemprop="dateModified" datetime="2021-04-09T09:49:46+08:00">2021-04-09</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>识别垃圾的方法<br>1.标记算法，有标记+1，没标记-1，标记为0的时候认为是垃圾<br>问题：循环依赖，大家都有标记，但是大家都是垃圾，无法处理；<br>2.根可达算法（RootSearching）<br>有引用就继续往下找，找不到的都是垃圾</p>
-<p>算法<br>1.标记清楚法(Mark-Sweep)，会导致内存碎片化的问题；<br>2.Copy算法，会导致浪费空间的问题，每次都只用一半的内存；<br>3.标记压缩算法，效率比较低</p>
-<p>内存布局<br>|eden(伊甸区)|Survivor0|S1|Tenured|<br>|          young         |  old  |<br>新生代一次回收的垃圾比较多，要求算法比较快<br>1.新生代有用的拷到s0，清空新生代；<br>2.新生代有用的拷到s1，s0拷到s1，清空新生代和s0；<br>3….<br>4.存活n次以后的对象移至老年代(ps的age是15，cms的age是6)；</p>
-<p>分代垃圾回收器，young old 搭配使用(单线程、多线程)<br>young             old<br>Serial            Serial Old<br>Parallel Scavenge Parallel Old<br>ParaNew           Concurent Mark Sweep</p>
-<p>不分代垃圾回收器<br>G1, ZGC, Shenandoah</p>
-<p>CMS,Concurent Mark Sweep, 并发标记清除，一边工作一边进行垃圾回收；<br>采用三色标记算法：<br>1.已经触达且所有字节点都已经触达的标为黑色；<br>2.已经触达但是有字节点未触达的标为灰色；<br>3.未触达的标为白色；<br>存在问题：白色被黑色引用，黑色已经触达不会再扫，所以白色会被回收；<br>解决：incremental update, 当白色被黑色引用的时候，要重新扫描一遍，重新标记。</p>
-<p>JVM Tuning 调试，目的是为了尽量减少 FGC (无法避免)<br>FGC 导致 STW Stop the world<br>mirror gc = young gc; major gc = full gc;</p>
-<p>Xms Xmx 一致为了避免扩缩容；</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/JVM%E7%9F%A5%E8%AF%86%E7%82%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/JVM%E7%9F%A5%E8%AF%86%E7%82%B9/" class="post-title-link" itemprop="url">JVM</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-15 15:17:07" itemprop="dateModified" datetime="2021-04-15T15:17:07+08:00">2021-04-15</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h5 id="识别垃圾的方法"><a href="#识别垃圾的方法" class="headerlink" title="识别垃圾的方法"></a>识别垃圾的方法</h5><p>1.标记算法，有引用标记+1，没引用标记-1，标记为0的时候认为是垃圾；<br>问题：循环依赖，大家都有标记，但是大家都是垃圾，无法处理；<br>2.根可达算法（RootSearching）<br>有引用就继续往下找，找不到的都是垃圾</p>
-<h5 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h5><p>1.标记清楚法(Mark-Sweep)，会导致内存碎片化的问题；<br>2.Copy算法，会导致浪费空间的问题，每次都只用一半的内存；<br>3.标记压缩算法，效率比较低</p>
-<h5 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h5><table>
-<thead>
-<tr>
-<th>eden(伊甸区)</th>
-<th>Survivor0</th>
-<th>S1</th>
-<th>Tenured</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>young</td>
-<td>young</td>
-<td>young</td>
-<td>old</td>
-</tr>
-</tbody></table>
-<p>新生代一次回收的垃圾比较多，要求算法比较快<br>1.新生代有用的拷到s0，清空新生代；<br>2.新生代有用的拷到s1，s0拷到s1，清空新生代和s0；<br>3….<br>4.存活n次以后的对象移至老年代(ps的age是15，cms的age是6)；</p>
-<h5 id="分代垃圾回收器"><a href="#分代垃圾回收器" class="headerlink" title="分代垃圾回收器"></a>分代垃圾回收器</h5><table>
-<thead>
-<tr>
-<th align="center">young</th>
-<th align="center">old</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Serial</td>
-<td align="center">Serial Old</td>
-</tr>
-<tr>
-<td align="center">Parallel Scavenge</td>
-<td align="center">Parallel Old (JDK 默认)</td>
-</tr>
-<tr>
-<td align="center">ParaNew</td>
-<td align="center">Concurent Mark Sweep</td>
-</tr>
-</tbody></table>
-<p>young old 搭配使用(单线程、多线程)；</p>
-<p>ParaNew 就是 Serial 改了一下支持多线程，搭配 CMS 使用；</p>
-<h5 id="CMS"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</h5><p>Concurent Mark Sweep, 并发标记清除，一边工作一边进行垃圾回收；</p>
-<p>CMS极端情况会用 SerialOld 全部清除，特别慢</p>
-<ol>
-<li>初始标记根对象(STW，Stop The World)</li>
-<li>并发标记</li>
-<li>重新标记(STW)</li>
-<li>并发清理</li>
-</ol>
-<h5 id="采用三色标记算法："><a href="#采用三色标记算法：" class="headerlink" title="采用三色标记算法："></a>采用三色标记算法：</h5><ol>
-<li>已经触达且所有字节点都已经触达的标为黑色；</li>
-<li>已经触达但是有字节点未触达的标为灰色；</li>
-<li>未触达的标为白色；</li>
-</ol>
-<p>存在问题：白色被黑色引用，黑色已经触达不会再扫，所以白色会被回收；<br>解决：incremental update, 当白色被黑色引用的时候，要重新扫描一遍，重新标记。</p>
-<h5 id="不分代垃圾回收器"><a href="#不分代垃圾回收器" class="headerlink" title="不分代垃圾回收器"></a>不分代垃圾回收器</h5><p>G1, ZGC, Shenandoah</p>
-<h5 id="JVM-Tuning"><a href="#JVM-Tuning" class="headerlink" title="JVM Tuning"></a>JVM Tuning</h5><p>调试，目的是为了尽量减少 FGC (无法避免)；FGC 导致 STW Stop the world<br>mirror gc = young gc; major gc = full gc;</p>
-<ul>
-<li><p>重启(🐶)</p>
-</li>
-<li><p>jmap -histo xxx | head -20<br>列出占用最多的前20个对象，不适合电商，会产生 fullgc</p>
-</li>
-<li><p>arthas 工具</p>
-</li>
-</ul>
-<h5 id="CPU突然飙高怎么办？"><a href="#CPU突然飙高怎么办？" class="headerlink" title="CPU突然飙高怎么办？"></a>CPU突然飙高怎么办？</h5><p>1.列出线程<br>2.分析哪些是业务线程、哪些是垃圾回收线程；</p>
-<h5 id="参数配置"><a href="#参数配置" class="headerlink" title="参数配置"></a>参数配置</h5><p>Xms Xmx 一致为了避免扩缩容；</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/JVM%E8%B0%83%E4%BC%98%E5%AE%9E%E4%BE%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/JVM%E8%B0%83%E4%BC%98%E5%AE%9E%E4%BE%8B/" class="post-title-link" itemprop="url">JVM调优实例</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-07 09:19:20" itemprop="dateModified" datetime="2021-04-07T09:19:20+08:00">2021-04-07</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
       
     </div>
 
