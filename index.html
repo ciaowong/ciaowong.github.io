@@ -761,7 +761,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-30 21:35:21" itemprop="dateModified" datetime="2021-04-30T21:35:21+08:00">2021-04-30</time>
+        <time title="修改时间：2021-04-30 21:44:24" itemprop="dateModified" datetime="2021-04-30T21:44:24+08:00">2021-04-30</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -783,7 +783,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h4 id="自旋锁代码实现"><a href="#自旋锁代码实现" class="headerlink" title="自旋锁代码实现"></a>自旋锁代码实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> AtomicReference&lt;Thread&gt; cas = <span class="keyword">new</span> AtomicReference&lt;Thread&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Thread current = Thread.currentThread();</span><br><span class="line">    <span class="comment">// 利用CAS</span></span><br><span class="line">    <span class="keyword">while</span> (!cas.compareAndSet(<span class="keyword">null</span>, current)) &#123;</span><br><span class="line">      <span class="comment">// DO nothing</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Thread current = Thread.currentThread();</span><br><span class="line">    cas.compareAndSet(current, <span class="keyword">null</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+          <h4 id="自旋锁代码实现"><a href="#自旋锁代码实现" class="headerlink" title="自旋锁代码实现"></a>自旋锁代码实现</h4><p><a href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">原理</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> AtomicReference&lt;Thread&gt; cas = <span class="keyword">new</span> AtomicReference&lt;Thread&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Thread current = Thread.currentThread();</span><br><span class="line">    <span class="comment">// 利用CAS</span></span><br><span class="line">    <span class="keyword">while</span> (!cas.compareAndSet(<span class="keyword">null</span>, current)) &#123;</span><br><span class="line">      <span class="comment">// DO nothing</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Thread current = Thread.currentThread();</span><br><span class="line">    cas.compareAndSet(current, <span class="keyword">null</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h3><h4 id="限流算法"><a href="#限流算法" class="headerlink" title="限流算法"></a>限流算法</h4><ul>
 <li>固定窗口计数器算法</li>
@@ -791,7 +792,7 @@
 <li>漏桶算法</li>
 <li>令牌桶算法</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://snailclimb.gitee.io/javaguide/#/docs/system-design/high-availability/limit-request">https://snailclimb.gitee.io/javaguide/#/docs/system-design/high-availability/limit-request</a></p>
+<p><a target="_blank" rel="noopener" href="https://snailclimb.gitee.io/javaguide/#/docs/system-design/high-availability/limit-request">更多</a></p>
 <h4 id="分布式链路追踪实现"><a href="#分布式链路追踪实现" class="headerlink" title="分布式链路追踪实现"></a>分布式链路追踪实现</h4><p>SkyWalking</p>
 <p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210430172654.png"></p>
 <h4 id="服务降级怎么实现"><a href="#服务降级怎么实现" class="headerlink" title="服务降级怎么实现"></a>服务降级怎么实现</h4><ul>
@@ -804,11 +805,13 @@
 <li>预提交</li>
 <li>事务提交</li>
 </ul>
+<p><a href="https://ciaowong.github.io/2021/04/07/Java%E9%9D%A2%E8%AF%95/%E7%94%B5%E5%95%86%E8%B6%85%E5%8D%96%E9%97%AE%E9%A2%98/">分布式锁</a></p>
 <h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><h4 id="kafka"><a href="#kafka" class="headerlink" title="kafka"></a>kafka</h4><p>生产者消费者模型</p>
 <p>和MQ的优缺点对比</p>
 <p>消息中间件，kafka怎么保持消息不丢失。kafka分区之间有没有顺序。</p>
 <p>Kafka消息是有序的吗？丢了怎么办。</p>
-<h4 id="zookpeer"><a href="#zookpeer" class="headerlink" title="zookpeer"></a>zookpeer</h4><h4 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h4><p>数据类型&amp;结构</p>
+<h4 id="zookpeer"><a href="#zookpeer" class="headerlink" title="zookpeer"></a>zookpeer</h4><p><a href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/Zookeeper/">如何保证一致性</a></p>
+<h4 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h4><p>数据类型&amp;结构</p>
 <p>内存数据库支持的数据结构，底层实现原理</p>
 <p>AOF重写，新的AOF替换旧的AOF，怎么保证原子性。</p>
 <p>RDB+AOF 再次触发RDB的条件是啥</p>
@@ -825,9 +828,14 @@
 <p>Redis和MySQL数据的同步，代码级别大致可以这样做：<br>读: 读redis-&gt;没有，读MySQL-&gt;把mysql数据写回redis<br>写: 写mysql-&gt;成功，写redis</p>
 <p>并发不高的情况：<br>读: 读redis-&gt;没有，读mysql-&gt;把mysql数据写回redis，有的话直接从redis中取；<br>写: 写mysql-&gt;成功，再写redis；</p>
 <p>并发高的情况：<br>读: 读redis-&gt;没有，读mysql-&gt;把mysql数据写回redis，有的话直接从redis中取；<br>写：异步话，先写入redis的缓存，就直接返回；定期或特定动作将数据保存到mysql，可以做到多次更新，一次保存；</p>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>无序数组中找到最长连续子序列</p>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p><a href="https://ciaowong.github.io/2021/04/28/%E7%AE%97%E6%B3%95/%E6%9C%AA%E5%87%BA%E7%8E%B0%E7%9A%84%E6%9C%80%E5%B0%8F%E7%9A%84%E6%AD%A3%E6%95%B4%E6%95%B0/">未出现的最小的正整数</a></p>
+<p><a href="https://ciaowong.github.io/2021/04/29/%E7%AE%97%E6%B3%95/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E4%B8%B2/">最大的公共子串</a></p>
+<p><a href="https://ciaowong.github.io/2021/04/26/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/">二叉树的最大深度</a></p>
+<p>无序数组中找到最长连续子序列</p>
 <h3 id="DB"><a href="#DB" class="headerlink" title="DB"></a>DB</h3><p>二叉树/红黑树/b树/b+树,B+树与B树对比，除了范围查询外，还有哪些优点</p>
 <p><strong>3-4</strong> 层的 B+ 树就能支持 <strong>千万级别</strong>的 数据量<br>树要足够矮，减少检索的次数，保证 key 尽可能小地占用空间<br>叶子节点存储所有插入的数据<br>叶子节点之间存在指针，<strong>双向的</strong><br>叶子节点有多个元素且排好序的</p>
+<p><a href="https://ciaowong.github.io/2021/04/06/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/">各种树</a></p>
+<p><a href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/MySQL/">MySQL</a></p>
 <p>索引/联合索引的实现原理，和使用规范</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">1.1.61 【强制】 只在需要建立索引的字段建立索引，比如：筛选字段、被关联字段、排序字段、分组字段等建立索引， 不需要建立索引的字段不能建立多余索引</span><br><span class="line"></span><br><span class="line">1.1.62 【强制】 索引列的分布基数越大索引效果越好，能建立唯一索引尽量使用唯一索引，不在基数很小的字段建立索引，比如 type、sex 字段等</span><br><span class="line"></span><br><span class="line">1.1.63 【强制】 不能在索引字段使用处理函数或表达式，因为这种操作会导致索引失效</span><br><span class="line"></span><br><span class="line">反例：create index username on tbl_userinfo (username);</span><br><span class="line"></span><br><span class="line">       select count (*) from  tbl_userinfo t where upper (t.username) &#x3D; &#39;JIMMY&#39;;     # 索引字段使用函数导致索引失效</span><br><span class="line"></span><br><span class="line">正例：</span><br><span class="line"></span><br><span class="line">       select count(*) from  tbl_userinfo t where t.username &#x3D; upper(&#39;jimmy&#39;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1.1.64 【强制】 过滤字段的传入值应该保持与字段的数据类型一致，关联字段应使用相同的数据类型，避免因隐式转换导致索引失效</span><br><span class="line"></span><br><span class="line">例如：select count (*) from  tbl_userinfo where username&#x3D; 9999;   # 过滤字段是 varchar，而传入值是数值类型，导致隐式转换</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">1.1.65 【强制】 不能在相同的字段重复建立冗余的索引</span><br><span class="line"></span><br><span class="line">例如：create index ix_ui_username1 on tbl_userinfo(username);</span><br><span class="line"></span><br><span class="line">再次创建相同索引： create index ix_ui_username2  on tbl_userinfo(username); </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">1.1.66 【参考】 Like 操作前模糊匹配，比如： like &#39;% keyword%&#39; 、 like &#39;% keyword&#39;  会导致索引失效，有此类操作且数据量很大要使用搜索引擎代替</span><br><span class="line"></span><br><span class="line">1.1.67 【强制】 建立复合索引时，基数大的字段和经常查询的字段应该放在最前面</span><br><span class="line"></span><br><span class="line">1.1.68 【参考】 尽量使用短索引，如果 varchar (200) 前 20 个字符就能唯一确定值的唯一了那就使用前 20 个字符建立就好了，短索引的存储空间比普通索引小，查询效率和存储效率更高 </span><br></pre></td></tr></table></figure>
 
