@@ -23,15 +23,15 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"ciaowong.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
-<meta name="description" content="字节飞书-Java后台-视频初试 1.聊项目，聊的过程中挑一些细节，看看是如何实现，聊的时间比较长 2.kafka 生产者消费者模型，客户端相关代码什么写 3.自旋锁，如何用代码实现 4.限流算法，现场代码实现 除了理论也要问代码的问题。 字节跳动-飞书-Java后台 三阶段提交， 服务降级怎么实现， 分布式链路追踪实现， 限流算法实现， 主要还是分布式，微服务，项目 字节飞书-java开发-第一">
+<meta name="description" content="自旋锁代码实现1234567891011121314private AtomicReference&lt;Thread&gt; cas &#x3D; new AtomicReference&lt;Thread&gt;();  public void lock() &amp;#123;    Thread current &#x3D; Thread.currentThread();    &#x2F;&#x2F; 利用CAS    while (">
 <meta property="og:type" content="article">
 <meta property="og:title" content="字节真题">
 <meta property="og:url" content="https://ciaowong.github.io/2021/04/27/%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/%E5%AD%97%E8%8A%82%E7%9C%9F%E9%A2%98/index.html">
 <meta property="og:site_name" content="Stepping Stone">
-<meta property="og:description" content="字节飞书-Java后台-视频初试 1.聊项目，聊的过程中挑一些细节，看看是如何实现，聊的时间比较长 2.kafka 生产者消费者模型，客户端相关代码什么写 3.自旋锁，如何用代码实现 4.限流算法，现场代码实现 除了理论也要问代码的问题。 字节跳动-飞书-Java后台 三阶段提交， 服务降级怎么实现， 分布式链路追踪实现， 限流算法实现， 主要还是分布式，微服务，项目 字节飞书-java开发-第一">
+<meta property="og:description" content="自旋锁代码实现1234567891011121314private AtomicReference&lt;Thread&gt; cas &#x3D; new AtomicReference&lt;Thread&gt;();  public void lock() &amp;#123;    Thread current &#x3D; Thread.currentThread();    &#x2F;&#x2F; 利用CAS    while (">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-04-26T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-04-27T13:23:57.924Z">
+<meta property="article:modified_time" content="2021-04-30T13:27:24.646Z">
 <meta property="article:author" content="Ciu Wong">
 <meta name="twitter:card" content="summary">
 
@@ -147,7 +147,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -160,6 +160,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">自旋锁代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F"><span class="nav-number"></span> <span class="nav-text">分布式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%90%E6%B5%81%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">限流算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">分布式链路追踪实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E9%99%8D%E7%BA%A7%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">服务降级怎么实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4"><span class="nav-number">4.</span> <span class="nav-text">三阶段提交</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-number"></span> <span class="nav-text">中间件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kafka"><span class="nav-number">1.</span> <span class="nav-text">kafka</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zookpeer"><span class="nav-number">2.</span> <span class="nav-text">zookpeer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis"><span class="nav-number">3.</span> <span class="nav-text">Redis</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95"><span class="nav-number"></span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DB"><span class="nav-number"></span> <span class="nav-text">DB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E5%90%88"><span class="nav-number"></span> <span class="nav-text">集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OS"><span class="nav-number"></span> <span class="nav-text">OS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number"></span> <span class="nav-text">设计模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C"><span class="nav-number"></span> <span class="nav-text">网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="nav-number"></span> <span class="nav-text">大数据处理</span></a></div>
         </div>
         <!--/noindex-->
 
@@ -259,10 +260,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-04-27 00:00:00 / 修改时间：21:23:57" itemprop="dateCreated datePublished" datetime="2021-04-27T00:00:00+08:00">2021-04-27</time>
+      <time title="创建时间：2021-04-27 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-27T00:00:00+08:00">2021-04-27</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-30 21:27:24" itemprop="dateModified" datetime="2021-04-30T21:27:24+08:00">2021-04-30</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -290,13 +297,67 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>字节飞书-Java后台-视频初试 1.聊项目，聊的过程中挑一些细节，看看是如何实现，聊的时间比较长 2.kafka 生产者消费者模型，客户端相关代码什么写 3.自旋锁，如何用代码实现 4.限流算法，现场代码实现 除了理论也要问代码的问题。</p>
-<p>字节跳动-飞书-Java后台 三阶段提交， 服务降级怎么实现， 分布式链路追踪实现， 限流算法实现， 主要还是分布式，微服务，项目</p>
-<p>字节飞书-java开发-第一轮飞书视频 首先作了一下自我介绍; 然后问了一下项目的架构，模块。 然后挑自我介绍中的熟悉的模块提问，涉及到分布式锁，redis，以及如何保证幕等性，项目中的消息队列使用情况 算法题：给定一个整型数组，筛选出当中未出现的最小的正整数： 比如：[4,3,1],输出的是2 [1,3,2,4]，输出的是5</p>
-<p>字节飞书-Java-70分钟-视频初试-主要问了项目，其中的难点怎么解决的，中间件，怎么用的，底层的一些技术，算法是2个字符串，找出最大的公共子串，候选人说就底层的接触不多，其他会的还Ok</p>
-<p>飞书-Java-晚上八点到九点四十，一个面试官，主要问了Java基础，操作系统，Mysql，算法还有一些底层的东西，基础，操作系统跟算法回答的还可以，mysql跟底层回答的很一般，最后说hr一周会给反馈。</p>
-<p>字节跳动-飞书-后台开发第一轮视频面：<br>数据结构方面，树要非常熟悉，二叉树/红黑树/b树/b+树等<br>数据库方面，索引/联合索引的实现原理，和使用规范<br>golang的协程实现原理和机制，操作系统的多线程机制等<br>redis内存数据库支持的数据结构，底层实现原理<br>自己做过的项目，一定要精通，刨根到底的问</p>
-<p>飞书深圳-Java后端开发-视频初面<br>1.算法:无序数组中找到最长连续子序列<br>2.MySQL:索引失效情况,SQL优化,分库分表,分页原理<br>3.ConcurrentHashMap 底层结构<br>4.项目情况<br>5.设计模式,分类,常用的<br>6.Redis 数据类型&amp;结构<br>7.CAS 原理</p>
+        <h4 id="自旋锁代码实现"><a href="#自旋锁代码实现" class="headerlink" title="自旋锁代码实现"></a>自旋锁代码实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> AtomicReference&lt;Thread&gt; cas = <span class="keyword">new</span> AtomicReference&lt;Thread&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Thread current = Thread.currentThread();</span><br><span class="line">    <span class="comment">// 利用CAS</span></span><br><span class="line">    <span class="keyword">while</span> (!cas.compareAndSet(<span class="keyword">null</span>, current)) &#123;</span><br><span class="line">      <span class="comment">// DO nothing</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Thread current = Thread.currentThread();</span><br><span class="line">    cas.compareAndSet(current, <span class="keyword">null</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h3><h4 id="限流算法"><a href="#限流算法" class="headerlink" title="限流算法"></a>限流算法</h4><ul>
+<li>固定窗口计数器算法</li>
+<li>滑动窗口计数器算法</li>
+<li>漏桶算法</li>
+<li>令牌桶算法</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://snailclimb.gitee.io/javaguide/#/docs/system-design/high-availability/limit-request">https://snailclimb.gitee.io/javaguide/#/docs/system-design/high-availability/limit-request</a></p>
+<h4 id="分布式链路追踪实现"><a href="#分布式链路追踪实现" class="headerlink" title="分布式链路追踪实现"></a>分布式链路追踪实现</h4><p>SkyWalking</p>
+<p>![image-20210430172701799](/Users/wong/Library/Application Support/typora-user-images/image-20210430172701799.png)</p>
+<h4 id="服务降级怎么实现"><a href="#服务降级怎么实现" class="headerlink" title="服务降级怎么实现"></a>服务降级怎么实现</h4><ul>
+<li>服务层降级</li>
+<li>数据层降级</li>
+<li>网络层降级</li>
+</ul>
+<h4 id="三阶段提交"><a href="#三阶段提交" class="headerlink" title="三阶段提交"></a>三阶段提交</h4><ul>
+<li>预询盘</li>
+<li>预提交</li>
+<li>事务提交</li>
+</ul>
+<h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><h4 id="kafka"><a href="#kafka" class="headerlink" title="kafka"></a>kafka</h4><p>生产者消费者模型</p>
+<p>和MQ的优缺点对比</p>
+<p>消息中间件，kafka怎么保持消息不丢失。kafka分区之间有没有顺序。</p>
+<p>Kafka消息是有序的吗？丢了怎么办。</p>
+<h4 id="zookpeer"><a href="#zookpeer" class="headerlink" title="zookpeer"></a>zookpeer</h4><h4 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h4><p>数据类型&amp;结构</p>
+<p>内存数据库支持的数据结构，底层实现原理</p>
+<p>AOF重写，新的AOF替换旧的AOF，怎么保证原子性。</p>
+<p>RDB+AOF 再次触发RDB的条件是啥</p>
+<p>Redis持久化的方式？AOF和rdb。</p>
+<p>Redis和db数据怎么保持一致。最好的方式是什么？<br>Redis高可用怎么部署，我们这边五主主从怎么部署的？<br>高可用可以用哨兵。Sentinel系统可以监视主服务器以及主服务属下的所有从服务器。<br>并且在主服务进入下线状态时，自动将主服务属下的某个从服务器自动升级<br>为主服务器。然后由新的主服务器来继续处理命令。</p>
+<p>Redis和db数据怎么保持一致？</p>
+<p>方式1：数据库保存数据，redis不persist<br>redis启动后，从数据库加载数据<br>不要求强一致实时性的读请求，都由redis处理<br>要求强一致实时性的读请求，由数据库处理<br>写请求有2种处理方式，由数据库处理</p>
+<ul>
+<li>应用先写到数据库，然后更新redis</li>
+<li>应用先写到数据库，然后其它daemon同步到redis<br>优点：redis启动不用处理redis数据和数据库不一致<br>缺点：redis启动给数据库很大的读压力</li>
+</ul>
+<p>方式2：数据库和redis分别处理不同的数据类型<br>数据库处理要求强一致实时性的数据，例如金融数据、交易数据</p>
+<p>Redis处理不要求强一致实时性的数据，例如网站最热贴排行榜</p>
+<p>Redis和MySQL数据的同步，代码级别大致可以这样做：<br>读: 读redis-&gt;没有，读MySQL-&gt;把mysql数据写回redis<br>写: 写mysql-&gt;成功，写redis</p>
+<p>并发不高的情况：<br>读: 读redis-&gt;没有，读mysql-&gt;把mysql数据写回redis，有的话直接从redis中取；<br>写: 写mysql-&gt;成功，再写redis；</p>
+<p>并发高的情况：<br>读: 读redis-&gt;没有，读mysql-&gt;把mysql数据写回redis，有的话直接从redis中取；<br>写：异步话，先写入redis的缓存，就直接返回；定期或特定动作将数据保存到mysql，可以做到多次更新，一次保存；</p>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>无序数组中找到最长连续子序列</p>
+<h3 id="DB"><a href="#DB" class="headerlink" title="DB"></a>DB</h3><p>二叉树/红黑树/b树/b+树,B+树与B树对比，除了范围查询外，还有哪些优点</p>
+<p><strong>3-4</strong> 层的 B+ 树就能支持 <strong>千万级别</strong>的 数据量<br>树要足够矮，减少检索的次数，保证 key 尽可能小地占用空间<br>叶子节点存储所有插入的数据<br>叶子节点之间存在指针，<strong>双向的</strong><br>叶子节点有多个元素且排好序的</p>
+<p>索引/联合索引的实现原理，和使用规范</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">1.1.61 【强制】 只在需要建立索引的字段建立索引，比如：筛选字段、被关联字段、排序字段、分组字段等建立索引， 不需要建立索引的字段不能建立多余索引</span><br><span class="line"></span><br><span class="line">1.1.62 【强制】 索引列的分布基数越大索引效果越好，能建立唯一索引尽量使用唯一索引，不在基数很小的字段建立索引，比如 type、sex 字段等</span><br><span class="line"></span><br><span class="line">1.1.63 【强制】 不能在索引字段使用处理函数或表达式，因为这种操作会导致索引失效</span><br><span class="line"></span><br><span class="line">反例：create index username on tbl_userinfo (username);</span><br><span class="line"></span><br><span class="line">       select count (*) from  tbl_userinfo t where upper (t.username) &#x3D; &#39;JIMMY&#39;;     # 索引字段使用函数导致索引失效</span><br><span class="line"></span><br><span class="line">正例：</span><br><span class="line"></span><br><span class="line">       select count(*) from  tbl_userinfo t where t.username &#x3D; upper(&#39;jimmy&#39;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1.1.64 【强制】 过滤字段的传入值应该保持与字段的数据类型一致，关联字段应使用相同的数据类型，避免因隐式转换导致索引失效</span><br><span class="line"></span><br><span class="line">例如：select count (*) from  tbl_userinfo where username&#x3D; 9999;   # 过滤字段是 varchar，而传入值是数值类型，导致隐式转换</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">1.1.65 【强制】 不能在相同的字段重复建立冗余的索引</span><br><span class="line"></span><br><span class="line">例如：create index ix_ui_username1 on tbl_userinfo(username);</span><br><span class="line"></span><br><span class="line">再次创建相同索引： create index ix_ui_username2  on tbl_userinfo(username); </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">1.1.66 【参考】 Like 操作前模糊匹配，比如： like &#39;% keyword%&#39; 、 like &#39;% keyword&#39;  会导致索引失效，有此类操作且数据量很大要使用搜索引擎代替</span><br><span class="line"></span><br><span class="line">1.1.67 【强制】 建立复合索引时，基数大的字段和经常查询的字段应该放在最前面</span><br><span class="line"></span><br><span class="line">1.1.68 【参考】 尽量使用短索引，如果 varchar (200) 前 20 个字符就能唯一确定值的唯一了那就使用前 20 个字符建立就好了，短索引的存储空间比普通索引小，查询效率和存储效率更高 </span><br></pre></td></tr></table></figure>
+
+<p>索引失效情况,SQL优化,分库分表,分页原理</p>
+<p>Db的事务<br>Db的哪几种隔离级别，为什么。<br>Db乐观锁和悲观锁区别。</p>
+<p>聚簇索引,非聚簇索引</p>
+<p>索引结构除了哈希和B树还有哪些</p>
+<p>redo log的存储结构是什么样，大小多大</p>
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p>ConcurrentHashMap 底层结构</p>
+<p>怎么设计一个hashmap。</p>
+<h3 id="OS"><a href="#OS" class="headerlink" title="OS"></a>OS</h3><p>多线程机制</p>
+<h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><h3 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h3><p>NIO fd的集合存储在哪里</p>
+<p>Epool的原理</p>
+<h3 id="大数据处理"><a href="#大数据处理" class="headerlink" title="大数据处理"></a>大数据处理</h3><p>es kafka mysql redis 还有分布式 还有亿级别的文件处理</p>
+<p>给定一个五千万的url，找出某个url在不在？我说使用布隆过滤器，用位图实现。</p>
+<p>主要体现在计算机网络中的tcp和http，tcp挥手阶段time-wait状态、拥塞控制，linux中的进程和线程以及swap虚拟内存；kafka的消息可靠性；redis问的蛮多，比如主从同步、过期策略、内存淘汰算法、mysql的索引，存储引擎，hashMap的实现</p>
 
     </div>
 
