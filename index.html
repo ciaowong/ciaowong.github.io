@@ -170,7 +170,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -233,6 +233,225 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/05/07/%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/%E8%B4%A7%E6%8B%89%E6%8B%89%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/05/07/%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/%E8%B4%A7%E6%8B%89%E6%8B%89%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/" class="post-title-link" itemprop="url">货拉拉面试经验</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-07 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-07T00:00:00+08:00">2021-05-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-05-08 14:09:59" itemprop="dateModified" datetime="2021-05-08T14:09:59+08:00">2021-05-08</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/" itemprop="url" rel="index"><span itemprop="name">面试复盘</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="Q1-ConcurrentHashMap-底层结构？"><a href="#Q1-ConcurrentHashMap-底层结构？" class="headerlink" title="Q1: ConcurrentHashMap 底层结构？"></a>Q1: ConcurrentHashMap 底层结构？</h3><h5 id="保证线程安全的方案："><a href="#保证线程安全的方案：" class="headerlink" title="保证线程安全的方案："></a>保证线程安全的方案：</h5><ul>
+<li><p>JDK1.8：synchronized+CAS+HashEntry + 红黑树；</p>
+</li>
+<li><p>JDK1.7：ReentrantLock+Segment+HashEntry。</p>
+</li>
+</ul>
+<p>volatile 修饰了 HashEntry ，保证了多线程环境下数据获取时的<strong>可见性</strong>！</p>
+<p>key 和 value 是都不能为 null 的。<strong>在并发的情况下带来难以容忍的二义性</strong>。</p>
+<ol>
+<li>这个 key 从来没有在 map 中映射过。</li>
+<li>这个 key 的 value 在设置的时候，就是 null。</li>
+</ol>
+<p>1.7: ConcurrnetHashMap 由很多个 Segment 组合，egment 的个数一旦<strong>初始化就不能改变</strong>，默认 Segment 的个数是 16 个。</p>
+<h3 id="Q2-CMS-回收过程？"><a href="#Q2-CMS-回收过程？" class="headerlink" title="Q2: CMS 回收过程？"></a>Q2: CMS 回收过程？</h3><p>标记**-**清除，边工作边垃圾回收。</p>
+<p>三色标记法；初始标记-&gt;并发标记-&gt;重新标记-&gt;并发清除，1，3会发生 STW；</p>
+<h3 id="Q3-讲讲-G1-垃圾回收器？"><a href="#Q3-讲讲-G1-垃圾回收器？" class="headerlink" title="Q3: 讲讲 G1 垃圾回收器？"></a>Q3: 讲讲 G1 垃圾回收器？</h3><p>面向服务器的垃圾收集器，主要针对配备多颗处理器及大容量内存的机器。降低 GC 停顿时间，还具备高吞吐量性能特征。</p>
+<p>初始标记-&gt;并发标记-&gt;最终标记-&gt;筛选回收；</p>
+<p>在后台维护了一个优先列表，每次根据允许的收集时间，优先选择回收价值最大的区 (Garbage First)。</p>
+<h3 id="Q4-堆外内存怎么回收？"><a href="#Q4-堆外内存怎么回收？" class="headerlink" title="Q4: 堆外内存怎么回收？"></a>Q4: 堆外内存怎么回收？</h3><p>DirectByteBuffer</p>
+<h3 id="Q5-聊聊-AQS，ReentrantLock，CountDownLatch-？"><a href="#Q5-聊聊-AQS，ReentrantLock，CountDownLatch-？" class="headerlink" title="Q5: 聊聊 AQS，ReentrantLock，CountDownLatch ？"></a>Q5: 聊聊 AQS，ReentrantLock，CountDownLatch ？</h3><p><a target="_blank" rel="noopener" href="https://snailclimb.gitee.io/javaguide/#/docs/java/multi-thread/AQS%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8AAQS%E5%90%8C%E6%AD%A5%E7%BB%84%E4%BB%B6%E6%80%BB%E7%BB%93">详见</a></p>
+<h3 id="Q6-Synchronized-加锁-Integer-对象会有什么问题？"><a href="#Q6-Synchronized-加锁-Integer-对象会有什么问题？" class="headerlink" title="Q6: Synchronized 加锁 Integer 对象会有什么问题？"></a>Q6: Synchronized 加锁 Integer 对象会有什么问题？</h3><p>Integer 的 value final 修饰不可变的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i = Integer.valueOf(i.intValue() + ``<span class="number">1</span>``);　　``<span class="comment">//涵盖了包装类与基本类型的装箱和拆箱原理成分</span></span><br></pre></td></tr></table></figure>
+
+<p>在-128-127 取的是缓存，不在缓存内新建一个对象（Integer，Character、Short、Long ）</p>
+<p>加锁的不是同一个对象，无法实现线程安全。</p>
+<h3 id="Q7-架构设计原理有哪些？"><a href="#Q7-架构设计原理有哪些？" class="headerlink" title="Q7: 架构设计原理有哪些？"></a>Q7: 架构设计原理有哪些？</h3><p>三高、容错，削峰降级，解耦，设计模式…</p>
+<h3 id="Q8-504-错误怎么解决？"><a href="#Q8-504-错误怎么解决？" class="headerlink" title="Q8: 504 错误怎么解决？"></a>Q8: 504 错误怎么解决？</h3><p><a target="_blank" rel="noopener" href="https://www.runoob.com/http/http-status-codes.html">常见HTTP状态码</a></p>
+<p>504 都是后端的问题，一般是 CDN -&gt; WAF -&gt; 外网 SLB -&gt; Nginx -&gt; 内网 SLB -&gt; 后端应用这一链条中任意一个点可能超时或无响应；nginx超时。</p>
+<h3 id="Q9-缓存在高并发下的应用？内存缓存用过吗？"><a href="#Q9-缓存在高并发下的应用？内存缓存用过吗？" class="headerlink" title="Q9: 缓存在高并发下的应用？内存缓存用过吗？"></a>Q9: 缓存在高并发下的应用？内存缓存用过吗？</h3><p>guava，自己写个map</p>
+<h3 id="Q10-分布式事务怎么解决？2-3阶段提交是什么？"><a href="#Q10-分布式事务怎么解决？2-3阶段提交是什么？" class="headerlink" title="Q10: 分布式事务怎么解决？2/3阶段提交是什么？"></a>Q10: 分布式事务怎么解决？2/3阶段提交是什么？</h3><h3 id="Q11-Redis-使用规范？"><a href="#Q11-Redis-使用规范？" class="headerlink" title="Q11: Redis 使用规范？"></a>Q11: Redis 使用规范？</h3><ul>
+<li>key 规范。可读</li>
+<li>拒绝 bigkey，不要用 del 删除 bigkey；控制生命周期 expire</li>
+<li>生产禁用命令 keys flushall 等</li>
+<li>批量操作 pipeline</li>
+</ul>
+<h3 id="Q12-Redis-为什么快？有哪些事务？zset的底层数据结构是什么？了解跳表吗？"><a href="#Q12-Redis-为什么快？有哪些事务？zset的底层数据结构是什么？了解跳表吗？" class="headerlink" title="Q12: Redis 为什么快？有哪些事务？zset的底层数据结构是什么？了解跳表吗？"></a>Q12: Redis 为什么快？有哪些事务？zset的底层数据结构是什么？了解跳表吗？</h3><p>数据结构简单，纯内存操作，I/O 多路复用程序，单线程操作避免线程切换</p>
+<p>瓶颈在 IO 和网络 </p>
+<p>Redis 可以通过 MULTI，EXEC，DISCARD 和 WATCH 等命令来实现事务(transaction)功能。不支持 roll back；</p>
+<p>hash: ziplist, hashtable;</p>
+<p>set: hashtable, inset;</p>
+<p>zset: ziplist, dict + skiplist;</p>
+<h3 id="Q13-缓存击穿怎么处理？"><a href="#Q13-缓存击穿怎么处理？" class="headerlink" title="Q13: 缓存击穿怎么处理？"></a>Q13: 缓存击穿怎么处理？</h3><ol>
+<li>缓存和数据库都查不到也设置一个到缓存中去；</li>
+<li>布隆过滤器 ( Guava BlloomFilter) ，把所有可能存在的请求的值都存放在布隆过滤器中，当用户请求过来，先判断用户发来的请求的值是否存在于布隆过滤器中。不存在的话，直接返回请求参数错误信息给客户端。</li>
+</ol>
+<h3 id="Q14-Spring-用到了哪些设计模式？"><a href="#Q14-Spring-用到了哪些设计模式？" class="headerlink" title="Q14: Spring 用到了哪些设计模式？"></a>Q14: Spring 用到了哪些设计模式？</h3><ul>
+<li><strong>工厂设计模式</strong> : Spring 使用工厂模式通过 <code>BeanFactory</code>、<code>ApplicationContext</code> 创建 bean 对象。</li>
+<li><strong>代理设计模式</strong> : Spring AOP 功能的实现。</li>
+<li><strong>单例设计模式</strong> : Spring 中的 Bean 默认都是单例的。</li>
+<li><strong>模板方法模式</strong> : Spring 中 <code>jdbcTemplate</code>、<code>hibernateTemplate</code> 等以 Template 结尾的对数据库操作的类，它们就使用到了模板模式。</li>
+<li><strong>包装器设计模式</strong> : 我们的项目需要连接多个数据库，而且不同的客户在每次访问中根据需要会去访问不同的数据库。这种模式让我们可以根据客户的需求能够动态切换不同的数据源。</li>
+<li><strong>观察者模式:</strong> Spring 事件驱动模型就是观察者模式很经典的一个应用。</li>
+<li><strong>适配器模式</strong> :Spring AOP 的增强或通知 (Advice) 使用到了适配器模式、spring MVC 中也是用到了适配器模式适配 <code>Controller</code>。</li>
+</ul>
+<h3 id="Q15-循环依赖怎么解决？"><a href="#Q15-循环依赖怎么解决？" class="headerlink" title="Q15: 循环依赖怎么解决？"></a>Q15: 循环依赖怎么解决？</h3><h3 id="Q16-ElasticJob-工作原理？怎么实现？"><a href="#Q16-ElasticJob-工作原理？怎么实现？" class="headerlink" title="Q16: ElasticJob 工作原理？怎么实现？"></a>Q16: ElasticJob 工作原理？怎么实现？</h3><h3 id="Q17-MySQL-隔离级别？怎么避免幻读？"><a href="#Q17-MySQL-隔离级别？怎么避免幻读？" class="headerlink" title="Q17: MySQL 隔离级别？怎么避免幻读？"></a>Q17: MySQL 隔离级别？怎么避免幻读？</h3><p>读取未提交/读取已提交/可重复读/可串行化</p>
+<p>InnoDB 存储引擎在 <strong>REPEATABLE-READ（可重读）</strong> 事务隔离级别下，允许应用使用 <strong>Next-Key Lock</strong> 锁算法来避免幻读的产生。</p>
+<h3 id="Q18-聊聊限流算法？令牌桶实现原理？"><a href="#Q18-聊聊限流算法？令牌桶实现原理？" class="headerlink" title="Q18: 聊聊限流算法？令牌桶实现原理？"></a>Q18: 聊聊限流算法？令牌桶实现原理？</h3><p>[4种算法</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/05/07/%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/%E9%87%91%E8%9D%B6%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/05/07/%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/%E9%87%91%E8%9D%B6%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/" class="post-title-link" itemprop="url">金蝶面试复盘</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-07 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-07T00:00:00+08:00">2021-05-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-05-08 14:10:01" itemprop="dateModified" datetime="2021-05-08T14:10:01+08:00">2021-05-08</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/" itemprop="url" rel="index"><span itemprop="name">面试复盘</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Q1: 线上 OOM 这么处理？</p>
+<p>Q2: 多线程怎么实现？</p>
+<p>Q3: JDK 自带队列使用？</p>
+<p>Q4: DUBBO 使用的协议？</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/05/01/%E5%AD%A6%E4%B9%A0%E7%BB%9F%E8%AE%A1/%E5%AD%A6%E4%B9%A0%E7%BB%9F%E8%AE%A12021.5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -264,7 +483,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-20 09:21:30" itemprop="dateModified" datetime="2021-04-20T09:21:30+08:00">2021-04-20</time>
+        <time title="修改时间：2021-05-08 14:10:06" itemprop="dateModified" datetime="2021-05-08T14:10:06+08:00">2021-05-08</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -286,7 +505,56 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          
+          <table>
+<thead>
+<tr>
+<th align="center">日期</th>
+<th align="center">学习Java知识</th>
+<th align="center">读书</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2021.5.1</td>
+<td align="center">🍅*3</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">2021.5.2</td>
+<td align="center">🍅*3</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">2021.5.3</td>
+<td align="center">🍅*2</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">2021.5.4</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">2021.5.5</td>
+<td align="center">🍅*9</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">2021.5.6</td>
+<td align="center">🍅*3</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">2021.5.7</td>
+<td align="center">🍅*3</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">2021.5.7</td>
+<td align="center">🍅</td>
+<td align="center">🍅</td>
+</tr>
+</tbody></table>
+
       
     </div>
 
@@ -730,7 +998,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/27/%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/%E5%AD%97%E8%8A%82%E7%9C%9F%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/27/%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/%E7%9C%9F%E9%A2%98%E9%9B%86%E5%90%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -743,7 +1011,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/27/%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/%E5%AD%97%E8%8A%82%E7%9C%9F%E9%A2%98/" class="post-title-link" itemprop="url">字节真题</a>
+          <a href="/2021/04/27/%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/%E7%9C%9F%E9%A2%98%E9%9B%86%E5%90%88/" class="post-title-link" itemprop="url">真题集合</a>
         </h2>
 
         <div class="post-meta-container">
@@ -761,7 +1029,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-30 21:44:24" itemprop="dateModified" datetime="2021-04-30T21:44:24+08:00">2021-04-30</time>
+        <time title="修改时间：2021-05-08 14:10:04" itemprop="dateModified" datetime="2021-05-08T14:10:04+08:00">2021-05-08</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -783,7 +1051,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h4 id="自旋锁代码实现"><a href="#自旋锁代码实现" class="headerlink" title="自旋锁代码实现"></a>自旋锁代码实现</h4><p><a href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">原理</a></p>
+          <h3 id="锁相关"><a href="#锁相关" class="headerlink" title="锁相关"></a>锁相关</h3><h4 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h4><p><a target="_blank" rel="noopener" href="https://snailclimb.gitee.io/javaguide/#/docs/java/multi-thread/AQS%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8AAQS%E5%90%8C%E6%AD%A5%E7%BB%84%E4%BB%B6%E6%80%BB%E7%BB%93">详见</a></p>
+<h4 id="Synchronized-加锁-Integer-对象会有什么问题？"><a href="#Synchronized-加锁-Integer-对象会有什么问题？" class="headerlink" title="Synchronized 加锁 Integer 对象会有什么问题？"></a>Synchronized 加锁 Integer 对象会有什么问题？</h4><p>Integer 的 value final 修饰不可变的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i = Integer.valueOf(i.intValue() + ``<span class="number">1</span>``);　　``<span class="comment">//涵盖了包装类与基本类型的装箱和拆箱原理成分</span></span><br></pre></td></tr></table></figure>
+
+<p>在-128-127 取的是缓存，不在缓存内新建一个对象（Integer，Character、Short、Long ）</p>
+<p>加锁的不是同一个对象，无法实现线程安全。</p>
+<h4 id="自旋锁代码实现"><a href="#自旋锁代码实现" class="headerlink" title="自旋锁代码实现"></a>自旋锁代码实现</h4><p><a href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">原理</a></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> AtomicReference&lt;Thread&gt; cas = <span class="keyword">new</span> AtomicReference&lt;Thread&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Thread current = Thread.currentThread();</span><br><span class="line">    <span class="comment">// 利用CAS</span></span><br><span class="line">    <span class="keyword">while</span> (!cas.compareAndSet(<span class="keyword">null</span>, current)) &#123;</span><br><span class="line">      <span class="comment">// DO nothing</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Thread current = Thread.currentThread();</span><br><span class="line">    cas.compareAndSet(current, <span class="keyword">null</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h3><h4 id="限流算法"><a href="#限流算法" class="headerlink" title="限流算法"></a>限流算法</h4><ul>
@@ -811,7 +1085,21 @@
 <p>消息中间件，kafka怎么保持消息不丢失。kafka分区之间有没有顺序。</p>
 <p>Kafka消息是有序的吗？丢了怎么办。</p>
 <h4 id="zookpeer"><a href="#zookpeer" class="headerlink" title="zookpeer"></a>zookpeer</h4><p><a href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/Zookeeper/">如何保证一致性</a></p>
-<h4 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h4><p>数据类型&amp;结构</p>
+<h4 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h4><h5 id="Redis-使用规范？"><a href="#Redis-使用规范？" class="headerlink" title="Redis 使用规范？"></a>Redis 使用规范？</h5><ul>
+<li>key 规范。可读</li>
+<li>拒绝 bigkey，不要用 del 删除 bigkey；控制生命周期 expire</li>
+<li>生产禁用命令 keys flushall 等</li>
+<li>批量操作 pipeline</li>
+</ul>
+<h5 id="为什么快？"><a href="#为什么快？" class="headerlink" title="为什么快？"></a>为什么快？</h5><p>数据结构简单，纯内存操作，I/O 多路复用程序，单线程操作避免线程切换；瓶颈在 IO 和网络 </p>
+<h5 id="支不支持事务？"><a href="#支不支持事务？" class="headerlink" title="支不支持事务？"></a>支不支持事务？</h5><p>Redis 可以通过 MULTI，EXEC，DISCARD 和 WATCH 等命令来实现事务(transaction)功能。不支持 roll back；</p>
+<h5 id="数据类型-amp-结构"><a href="#数据类型-amp-结构" class="headerlink" title="数据类型&amp;结构"></a>数据类型&amp;结构</h5><p>hash: ziplist, hashtable;</p>
+<p>set: hashtable, inset;</p>
+<p>zset: ziplist, dict + skiplist;</p>
+<h5 id="缓存击穿怎么处理？"><a href="#缓存击穿怎么处理？" class="headerlink" title="缓存击穿怎么处理？"></a>缓存击穿怎么处理？</h5><ol>
+<li>缓存和数据库都查不到也设置一个到缓存中去；</li>
+<li>布隆过滤器 ( Guava BlloomFilter) ，把所有可能存在的请求的值都存放在布隆过滤器中，当用户请求过来，先判断用户发来的请求的值是否存在于布隆过滤器中。不存在的话，直接返回请求参数错误信息给客户端。</li>
+</ol>
 <p>内存数据库支持的数据结构，底层实现原理</p>
 <p>AOF重写，新的AOF替换旧的AOF，怎么保证原子性。</p>
 <p>RDB+AOF 再次触发RDB的条件是啥</p>
@@ -832,6 +1120,12 @@
 <p><a href="https://ciaowong.github.io/2021/04/29/%E7%AE%97%E6%B3%95/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E4%B8%B2/">最大的公共子串</a></p>
 <p><a href="https://ciaowong.github.io/2021/04/26/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/">二叉树的最大深度</a></p>
 <p>无序数组中找到最长连续子序列</p>
+<h3 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h3><h4 id="CMS-回收过程？"><a href="#CMS-回收过程？" class="headerlink" title="CMS 回收过程？"></a>CMS 回收过程？</h4><p>标记**-**清除，边工作边垃圾回收。</p>
+<p>三色标记法；初始标记-&gt;并发标记-&gt;重新标记-&gt;并发清除，1，3会发生 STW；</p>
+<h4 id="讲讲-G1-垃圾回收器？"><a href="#讲讲-G1-垃圾回收器？" class="headerlink" title="讲讲 G1 垃圾回收器？"></a>讲讲 G1 垃圾回收器？</h4><p>面向服务器的垃圾收集器，主要针对配备多颗处理器及大容量内存的机器。降低 GC 停顿时间，还具备高吞吐量性能特征。</p>
+<p>初始标记-&gt;并发标记-&gt;最终标记-&gt;筛选回收；</p>
+<p>在后台维护了一个优先列表，每次根据允许的收集时间，优先选择回收价值最大的区 (Garbage First)。</p>
+<h4 id="堆外内存怎么回收？"><a href="#堆外内存怎么回收？" class="headerlink" title="堆外内存怎么回收？"></a>堆外内存怎么回收？</h4><p>DirectByteBuffer</p>
 <h3 id="DB"><a href="#DB" class="headerlink" title="DB"></a>DB</h3><p>二叉树/红黑树/b树/b+树,B+树与B树对比，除了范围查询外，还有哪些优点</p>
 <p><strong>3-4</strong> 层的 B+ 树就能支持 <strong>千万级别</strong>的 数据量<br>树要足够矮，减少检索的次数，保证 key 尽可能小地占用空间<br>叶子节点存储所有插入的数据<br>叶子节点之间存在指针，<strong>双向的</strong><br>叶子节点有多个元素且排好序的</p>
 <p><a href="https://ciaowong.github.io/2021/04/06/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/">各种树</a></p>
@@ -844,10 +1138,34 @@
 <p>聚簇索引,非聚簇索引</p>
 <p>索引结构除了哈希和B树还有哪些</p>
 <p>redo log的存储结构是什么样，大小多大</p>
-<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p>ConcurrentHashMap 底层结构</p>
-<p>怎么设计一个hashmap。</p>
+<h4 id="MySQL-隔离级别？怎么避免幻读？"><a href="#MySQL-隔离级别？怎么避免幻读？" class="headerlink" title="MySQL 隔离级别？怎么避免幻读？"></a>MySQL 隔离级别？怎么避免幻读？</h4><p>读取未提交/读取已提交/可重复读/可串行化</p>
+<p>InnoDB 存储引擎在 <strong>REPEATABLE-READ（可重读）</strong> 事务隔离级别下，允许应用使用 <strong>Next-Key Lock</strong> 锁算法来避免幻读的产生。</p>
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><h4 id="ConcurrentHashMap-底层结构"><a href="#ConcurrentHashMap-底层结构" class="headerlink" title="ConcurrentHashMap 底层结构"></a>ConcurrentHashMap 底层结构</h4><h5 id="保证线程安全的方案："><a href="#保证线程安全的方案：" class="headerlink" title="保证线程安全的方案："></a>保证线程安全的方案：</h5><ul>
+<li><p>JDK1.8：synchronized+CAS+HashEntry + 红黑树；</p>
+</li>
+<li><p>JDK1.7：ReentrantLock+Segment+HashEntry。</p>
+</li>
+</ul>
+<p>volatile 修饰了 HashEntry ，保证了多线程环境下数据获取时的<strong>可见性</strong>！</p>
+<p>key 和 value 是都不能为 null 的。<strong>在并发的情况下带来难以容忍的二义性</strong>。</p>
+<ol>
+<li>这个 key 从来没有在 map 中映射过。</li>
+<li>这个 key 的 value 在设置的时候，就是 null。</li>
+</ol>
+<p>1.7: ConcurrnetHashMap 由很多个 Segment 组合，egment 的个数一旦<strong>初始化就不能改变</strong>，默认 Segment 的个数是 16 个。</p>
 <h3 id="OS"><a href="#OS" class="headerlink" title="OS"></a>OS</h3><p>多线程机制</p>
-<h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><h3 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h3><p>NIO fd的集合存储在哪里</p>
+<h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><h4 id="Spring-用到了哪些设计模式？"><a href="#Spring-用到了哪些设计模式？" class="headerlink" title="Spring 用到了哪些设计模式？"></a>Spring 用到了哪些设计模式？</h4><ul>
+<li><strong>工厂设计模式</strong> : Spring 使用工厂模式通过 <code>BeanFactory</code>、<code>ApplicationContext</code> 创建 bean 对象。</li>
+<li><strong>代理设计模式</strong> : Spring AOP 功能的实现。</li>
+<li><strong>单例设计模式</strong> : Spring 中的 Bean 默认都是单例的。</li>
+<li><strong>模板方法模式</strong> : Spring 中 <code>jdbcTemplate</code>、<code>hibernateTemplate</code> 等以 Template 结尾的对数据库操作的类，它们就使用到了模板模式。</li>
+<li><strong>包装器设计模式</strong> : 我们的项目需要连接多个数据库，而且不同的客户在每次访问中根据需要会去访问不同的数据库。这种模式让我们可以根据客户的需求能够动态切换不同的数据源。</li>
+<li><strong>观察者模式:</strong> Spring 事件驱动模型就是观察者模式很经典的一个应用。</li>
+<li><strong>适配器模式</strong> :Spring AOP 的增强或通知 (Advice) 使用到了适配器模式、spring MVC 中也是用到了适配器模式适配 <code>Controller</code>。</li>
+</ul>
+<h3 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h3><h4 id="504-错误怎么解决？"><a href="#504-错误怎么解决？" class="headerlink" title="504 错误怎么解决？"></a>504 错误怎么解决？</h4><p><a target="_blank" rel="noopener" href="https://www.runoob.com/http/http-status-codes.html">常见HTTP状态码</a></p>
+<p>504 都是后端的问题，一般是 CDN -&gt; WAF -&gt; 外网 SLB -&gt; Nginx -&gt; 内网 SLB -&gt; 后端应用这一链条中任意一个点可能超时或无响应；nginx超时。</p>
+<p>NIO fd的集合存储在哪里</p>
 <p>Epool的原理</p>
 <h3 id="大数据处理"><a href="#大数据处理" class="headerlink" title="大数据处理"></a>大数据处理</h3><p>es kafka mysql redis 还有分布式 还有亿级别的文件处理</p>
 <p>给定一个五千万的url，找出某个url在不在？我说使用布隆过滤器，用位图实现。</p>
@@ -927,167 +1245,6 @@
     <div class="post-body" itemprop="articleBody">
           <h4 id="扫描路径"><a href="#扫描路径" class="headerlink" title="扫描路径"></a>扫描路径</h4><p>目前项目中 API 包内一般都会有 dubbo 的配置文件，如果在引用方的 AppConfig 的 <strong>classpath 加了 * 号</strong>, 代表加载的时候<strong>会扫描 jar 包里面的文件</strong>。那么自己就可以不写 dubbo 声明文件，反之得加。建议不扫描jar包,一来扫描jar包可能会引用很多依赖有很多问题，二来自己写一下声明文件也比较清楚引用了哪些东西。</p>
 <p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210426145234.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/26/%E9%A1%B9%E7%9B%AE/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8A%9B%E9%87%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/26/%E9%A1%B9%E7%9B%AE/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8A%9B%E9%87%8F/" class="post-title-link" itemprop="url">索引的力量</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-04-26 00:00:00 / 修改时间：14:53:31" itemprop="dateCreated datePublished" datetime="2021-04-26T00:00:00+08:00">2021-04-26</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">项目</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>1000w数据查询，没加索引<strong>18s</strong>，加了索引<strong>2.5s</strong>。</p>
-<p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210426144601.png"></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> index I$SUMDATE </span><br><span class="line"><span class="keyword">on</span> tbl_a</span><br><span class="line">(SUM_DATE ) online;</span><br><span class="line"><span class="keyword">create</span> index I$SUMDATE </span><br><span class="line"><span class="keyword">on</span> tbl_b</span><br><span class="line">(SUM_DATE ) online;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/26/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/26/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/" class="post-title-link" itemprop="url">二叉树的最大深度</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-04-26 00:00:00 / 修改时间：15:12:05" itemprop="dateCreated datePublished" datetime="2021-04-26T00:00:00+08:00">2021-04-26</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>求给定二叉树的最大深度，<br>最大深度是指树的根结点到最远叶子结点的最长路径上结点的数量。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val = <span class="number">0</span>;</span><br><span class="line">    TreeNode left = <span class="keyword">null</span>;</span><br><span class="line">    TreeNode right = <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    List&lt;TreeNode&gt; arr = <span class="keyword">new</span> ArrayList&lt;TreeNode&gt;();</span><br><span class="line">    List&lt;TreeNode&gt; tmp = <span class="keyword">new</span> ArrayList&lt;TreeNode&gt;();</span><br><span class="line">    arr.add(root);</span><br><span class="line">    <span class="keyword">int</span> dep = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!arr.isEmpty()) &#123;</span><br><span class="line">      <span class="keyword">for</span> (Iterator iter = arr.iterator(); iter.hasNext();) &#123;</span><br><span class="line">        TreeNode t = (TreeNode)iter.next();</span><br><span class="line">        iter.remove();</span><br><span class="line">        <span class="keyword">if</span> (t.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">          tmp.add(t.left);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (t.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">          tmp.add(t.right);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; tmp.size(); i++) &#123;</span><br><span class="line">        arr.add(tmp.get(i));</span><br><span class="line">      &#125;</span><br><span class="line">      tmp.clear();</span><br><span class="line">      dep++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dep;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    TreeNode a = <span class="keyword">new</span> TreeNode();</span><br><span class="line">    TreeNode b = <span class="keyword">new</span> TreeNode();</span><br><span class="line">    TreeNode c = <span class="keyword">new</span> TreeNode();</span><br><span class="line">    TreeNode d = <span class="keyword">new</span> TreeNode();</span><br><span class="line">    TreeNode e = <span class="keyword">new</span> TreeNode();</span><br><span class="line"></span><br><span class="line">    a.val = <span class="number">3</span>;</span><br><span class="line">    b.val = <span class="number">9</span>;</span><br><span class="line">    c.val = <span class="number">20</span>;</span><br><span class="line">    d.val = <span class="number">15</span>;</span><br><span class="line">    e.val = <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line">    a.left = b;</span><br><span class="line">    a.right = c;</span><br><span class="line">    b.left = d;</span><br><span class="line">    d.left = e;</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;层数maxDepth &quot;</span> + maxDepth(a));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>java里面 treeNode 是一个接口，算法题里面 TreeNode 的树是自己定义的一个二叉树</li>
-<li>采用一层一层遍历的思想，想将每一层的所有节点存入一个数组中，当数组为空的时候说明树已经遍历完了</li>
-</ol>
-<p>给定一个二叉树，返回该二叉树层序遍历的结果，（从左到右，一层一层地遍历）<br>例如：<br>给定的二叉树是 {3,9,20,#,#,15,7},<br><img src="https://uploadfiles.nowcoder.com/images/20210114/999991351_1610616074120/036DC34FF19FB24652AFFEB00A119A76" alt="img"><br>该二叉树层序遍历的结果是<br>[<br>[3],<br>[9,20],<br>[15,7]<br>]</p>
-<p>稍加改造，就能实现层序遍历的代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val = <span class="number">0</span>;</span><br><span class="line">    TreeNode left = <span class="keyword">null</span>;</span><br><span class="line">    TreeNode right = <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt; maxDepth(TreeNode root) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ArrayList&lt;ArrayList&lt;Integer&gt;&gt; arrLen = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    ArrayList&lt;Integer&gt; arrNode = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    arrNode.add(root.val);</span><br><span class="line">    arrLen.add(arrNode);</span><br><span class="line"></span><br><span class="line">    List&lt;TreeNode&gt; arr = <span class="keyword">new</span> ArrayList&lt;TreeNode&gt;();</span><br><span class="line">    List&lt;TreeNode&gt; tmp = <span class="keyword">new</span> ArrayList&lt;TreeNode&gt;();</span><br><span class="line">    arr.add(root);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!arr.isEmpty()) &#123;</span><br><span class="line">      <span class="keyword">for</span> (Iterator iter = arr.iterator(); iter.hasNext();) &#123;</span><br><span class="line">        TreeNode t = (TreeNode)iter.next();</span><br><span class="line">        iter.remove();</span><br><span class="line">        <span class="keyword">if</span> (t.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">          tmp.add(t.left);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (t.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">          tmp.add(t.right);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      arrNode = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; tmp.size(); i++) &#123;</span><br><span class="line">        arr.add(tmp.get(i));</span><br><span class="line">        arrNode.add(tmp.get(i).val);</span><br><span class="line">      &#125;</span><br><span class="line">      tmp.clear();</span><br><span class="line">      <span class="keyword">if</span> (!arrNode.isEmpty()) &#123;</span><br><span class="line">        arrLen.add(arrNode);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arrLen;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    TreeNode a = <span class="keyword">new</span> TreeNode();</span><br><span class="line">    TreeNode b = <span class="keyword">new</span> TreeNode();</span><br><span class="line">    TreeNode c = <span class="keyword">new</span> TreeNode();</span><br><span class="line">    TreeNode d = <span class="keyword">new</span> TreeNode();</span><br><span class="line">    TreeNode e = <span class="keyword">new</span> TreeNode();</span><br><span class="line"></span><br><span class="line">    a.val = <span class="number">1</span>;</span><br><span class="line">    b.val = <span class="number">2</span>;</span><br><span class="line">    c.val = <span class="number">3</span>;</span><br><span class="line">    d.val = <span class="number">4</span>;</span><br><span class="line">    e.val = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">    a.left = b;</span><br><span class="line">    a.right = c;</span><br><span class="line">    b.left = d;</span><br><span class="line">    c.right = e;</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;层数maxDepth &quot;</span> + maxDepth(<span class="keyword">null</span>));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
 
       
     </div>
