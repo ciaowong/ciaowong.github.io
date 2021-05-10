@@ -170,7 +170,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -224,6 +224,241 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/Zookeeper/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/Zookeeper/" class="post-title-link" itemprop="url">Zookeeper</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-23 15:13:08" itemprop="dateModified" datetime="2021-04-23T15:13:08+08:00">2021-04-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>zk由 Java 编写</p>
+<p>zk保证最终一致性</p>
+<h4 id="ZAB协议"><a href="#ZAB协议" class="headerlink" title="ZAB协议"></a>ZAB协议</h4><ul>
+<li><p>Zookeeper Atomic Broadcast Zk原子广播</p>
+</li>
+<li><p>快速领导者选举：谁的数据越新谁就做领导；</p>
+<ul>
+<li>zxid 相同的时候比较myid；（myid 一开始配置好，配置相同的会报错）</li>
+<li>zxid 低32位事务 ID 自增，高32位年代 ID epoch；</li>
+<li>epoch -&gt; zxid -&gt; myid 成为 leader 比较顺序；</li>
+</ul>
+</li>
+<li><p>节点多了，写效率会下降，所以设计了一种 Observer 状态，只读，不参与领导选举；</p>
+</li>
+</ul>
+<h4 id="2PC"><a href="#2PC" class="headerlink" title="2PC"></a>2PC</h4><p>两阶段提交</p>
+<ol>
+<li>接收请求-&gt;记录日志（zxid，事物 ID 自增）-&gt;持久化</li>
+<li>预提交事务，向 follwer 发送日志；<ol>
+<li>follower 接到日志并持久化；</li>
+<li>更新 DataTree</li>
+</ol>
+</li>
+<li>等着接收 follwer 的 ack，判断接受数是否过半；</li>
+<li>提交事务<ol>
+<li>向 follower 发送提交事务请求；</li>
+<li>向 Observer 发送提交事务请求；</li>
+</ol>
+</li>
+<li>更新 DataTree</li>
+</ol>
+<h4 id="投票过程"><a href="#投票过程" class="headerlink" title="投票过程"></a>投票过程</h4><table>
+<thead>
+<tr>
+<th>zk1</th>
+<th>zk2</th>
+<th>observer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>zxid = 100</td>
+<td>zxid = 100</td>
+<td></td>
+</tr>
+<tr>
+<td>myid = 1</td>
+<td>myid = 2</td>
+<td></td>
+</tr>
+<tr>
+<td>投票箱</td>
+<td>我,投谁,当前 zxid</td>
+<td></td>
+</tr>
+<tr>
+<td>[1,1,100]</td>
+<td>[2,2,100]</td>
+<td>1</td>
+</tr>
+<tr>
+<td>[1,2,100],[2,2,100]</td>
+<td>[2,2,100],[1,2,100]</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<ol>
+<li>机器启动后建立连接，互换选票进行PK比较；第一票都投给自己；</li>
+<li>收到选票后进行比较，把输的票换成赢的信息；<ol>
+<li>本来zk1选票是 [1,1,100]，但是zk2比zk1的myid大，所以要选zk2，所以zk1的选票改成了[1,2,100]</li>
+<li>然后再把 [1,2,100] 这张选票发给zk2</li>
+</ol>
+</li>
+</ol>
+<h4 id="脑裂、高可用"><a href="#脑裂、高可用" class="headerlink" title="脑裂、高可用"></a>脑裂、高可用</h4><table>
+<thead>
+<tr>
+<th>机房1</th>
+<th>连接</th>
+<th>机房2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>follower</td>
+<td></td>
+<td>Leader</td>
+</tr>
+<tr>
+<td>follower</td>
+<td>&lt;–&gt;</td>
+<td>follower</td>
+</tr>
+<tr>
+<td>follower</td>
+<td></td>
+<td>follower</td>
+</tr>
+</tbody></table>
+<p>6台机器，机房之间连接断掉就<strong>不可用了</strong>，超过半数需要4张票，2边的机器都拿不到超过半数的选票（过半机制），都不会产生新领导，就不会脑裂，没有选好领导不会处理C端请求；</p>
+<table>
+<thead>
+<tr>
+<th>机房1</th>
+<th>连接</th>
+<th>机房2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>follower</td>
+<td></td>
+<td>Leader</td>
+</tr>
+<tr>
+<td>follower</td>
+<td>&lt;–&gt;</td>
+<td>follower</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>follower</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>follower</td>
+</tr>
+</tbody></table>
+<p>6台机器，换一种2:4的部署方式，就<strong>可用</strong>了；就算网络断掉，右边可以拿到超过半数也就是4张票，可以选出leader；</p>
+<table>
+<thead>
+<tr>
+<th>机房1</th>
+<th>连接</th>
+<th>机房2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>follower</td>
+<td></td>
+<td>Leader</td>
+</tr>
+<tr>
+<td>follower</td>
+<td>&lt;–&gt;</td>
+<td>follower</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>follower</td>
+</tr>
+</tbody></table>
+<p>5台机器，机房之间连接断掉，超过半数需要3张票，3台机子的 leader 拿到3张票，还是leader，2台机子拿不到足够的票，没有 leader，还是不会脑裂；</p>
+<h4 id="部署数"><a href="#部署数" class="headerlink" title="部署数"></a>部署数</h4><p>部署6台，要超过4台正常才正常，最多挂2台；</p>
+<p>部署5台，要超过3台正常才正常，最多挂2台；</p>
+<p>同样可以容忍挂2台，少部署一台少很多事。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 

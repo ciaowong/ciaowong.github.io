@@ -170,7 +170,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -233,6 +233,85 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/09/Java%E9%9D%A2%E8%AF%95/%E5%8D%95%E4%BE%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/09/Java%E9%9D%A2%E8%AF%95/%E5%8D%95%E4%BE%8B/" class="post-title-link" itemprop="url">单例</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-09 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-09T00:00:00+08:00">2021-04-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-27 11:18:03" itemprop="dateModified" datetime="2021-04-27T11:18:03+08:00">2021-04-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * volatile 防止指令重排</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 构造方式私有化，防止调用者私自构造</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getSingleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">        <span class="comment">// DLC double lock check 防止多线程，线程1new完，线程2判断不通过就返回</span></span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">          singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> singleton;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/07/Java%E9%9D%A2%E8%AF%95/HashMap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -264,7 +343,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-19 14:06:53" itemprop="dateModified" datetime="2021-04-19T14:06:53+08:00">2021-04-19</time>
+        <time title="修改时间：2021-05-10 21:37:50" itemprop="dateModified" datetime="2021-05-10T21:37:50+08:00">2021-05-10</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -290,6 +369,8 @@
 <h5 id="算法：哈希算法-gt-底层"><a href="#算法：哈希算法-gt-底层" class="headerlink" title="算法：哈希算法-&gt;底层"></a>算法：哈希算法-&gt;底层</h5><p>取模目的是为了节省空间，但是会引起哈希碰撞，所以要用链表进行存储；数组只能存一个对象；</p>
 <h5 id="JDK8-优化"><a href="#JDK8-优化" class="headerlink" title="JDK8 优化"></a>JDK8 优化</h5><p>红黑树</p>
 <p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210415135407.png"></p>
+<p>jdk1.7 扩容是重新计算 hash；jdk1.8 是要看看原来的 hash 值新增的那个 bit 是 1 还是 0 好了，如果是 0 则索引没变，如果是 1 则索引变成 “原索引 + oldCap”. 这是 jdk1.8 的亮点，设计的确实非常的巧妙，即省去了重新计算 hash 值得时间，又均匀的把之前的冲突的节点分散到新的数组 bucket 上</p>
+<p>jdk1.7 在 rehash 的时候，旧链表迁移到新链表的时候，如果在新表的数组索引位置相同，则链表元素会倒置，但是 jdk1.8 不会倒置</p>
 
       
     </div>
@@ -1126,241 +1207,6 @@
     
     <div class="post-body" itemprop="articleBody">
           
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/Zookeeper/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/Zookeeper/" class="post-title-link" itemprop="url">Zookeeper</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-23 15:13:08" itemprop="dateModified" datetime="2021-04-23T15:13:08+08:00">2021-04-23</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>zk由 Java 编写</p>
-<p>zk保证最终一致性</p>
-<h4 id="ZAB协议"><a href="#ZAB协议" class="headerlink" title="ZAB协议"></a>ZAB协议</h4><ul>
-<li><p>Zookeeper Atomic Broadcast Zk原子广播</p>
-</li>
-<li><p>快速领导者选举：谁的数据越新谁就做领导；</p>
-<ul>
-<li>zxid 相同的时候比较myid；（myid 一开始配置好，配置相同的会报错）</li>
-<li>zxid 低32位事务 ID 自增，高32位年代 ID epoch；</li>
-<li>epoch -&gt; zxid -&gt; myid 成为 leader 比较顺序；</li>
-</ul>
-</li>
-<li><p>节点多了，写效率会下降，所以设计了一种 Observer 状态，只读，不参与领导选举；</p>
-</li>
-</ul>
-<h4 id="2PC"><a href="#2PC" class="headerlink" title="2PC"></a>2PC</h4><p>两阶段提交</p>
-<ol>
-<li>接收请求-&gt;记录日志（zxid，事物 ID 自增）-&gt;持久化</li>
-<li>预提交事务，向 follwer 发送日志；<ol>
-<li>follower 接到日志并持久化；</li>
-<li>更新 DataTree</li>
-</ol>
-</li>
-<li>等着接收 follwer 的 ack，判断接受数是否过半；</li>
-<li>提交事务<ol>
-<li>向 follower 发送提交事务请求；</li>
-<li>向 Observer 发送提交事务请求；</li>
-</ol>
-</li>
-<li>更新 DataTree</li>
-</ol>
-<h4 id="投票过程"><a href="#投票过程" class="headerlink" title="投票过程"></a>投票过程</h4><table>
-<thead>
-<tr>
-<th>zk1</th>
-<th>zk2</th>
-<th>observer</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>zxid = 100</td>
-<td>zxid = 100</td>
-<td></td>
-</tr>
-<tr>
-<td>myid = 1</td>
-<td>myid = 2</td>
-<td></td>
-</tr>
-<tr>
-<td>投票箱</td>
-<td>我,投谁,当前 zxid</td>
-<td></td>
-</tr>
-<tr>
-<td>[1,1,100]</td>
-<td>[2,2,100]</td>
-<td>1</td>
-</tr>
-<tr>
-<td>[1,2,100],[2,2,100]</td>
-<td>[2,2,100],[1,2,100]</td>
-<td>2</td>
-</tr>
-</tbody></table>
-<ol>
-<li>机器启动后建立连接，互换选票进行PK比较；第一票都投给自己；</li>
-<li>收到选票后进行比较，把输的票换成赢的信息；<ol>
-<li>本来zk1选票是 [1,1,100]，但是zk2比zk1的myid大，所以要选zk2，所以zk1的选票改成了[1,2,100]</li>
-<li>然后再把 [1,2,100] 这张选票发给zk2</li>
-</ol>
-</li>
-</ol>
-<h4 id="脑裂、高可用"><a href="#脑裂、高可用" class="headerlink" title="脑裂、高可用"></a>脑裂、高可用</h4><table>
-<thead>
-<tr>
-<th>机房1</th>
-<th>连接</th>
-<th>机房2</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>follower</td>
-<td></td>
-<td>Leader</td>
-</tr>
-<tr>
-<td>follower</td>
-<td>&lt;–&gt;</td>
-<td>follower</td>
-</tr>
-<tr>
-<td>follower</td>
-<td></td>
-<td>follower</td>
-</tr>
-</tbody></table>
-<p>6台机器，机房之间连接断掉就<strong>不可用了</strong>，超过半数需要4张票，2边的机器都拿不到超过半数的选票（过半机制），都不会产生新领导，就不会脑裂，没有选好领导不会处理C端请求；</p>
-<table>
-<thead>
-<tr>
-<th>机房1</th>
-<th>连接</th>
-<th>机房2</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>follower</td>
-<td></td>
-<td>Leader</td>
-</tr>
-<tr>
-<td>follower</td>
-<td>&lt;–&gt;</td>
-<td>follower</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>follower</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>follower</td>
-</tr>
-</tbody></table>
-<p>6台机器，换一种2:4的部署方式，就<strong>可用</strong>了；就算网络断掉，右边可以拿到超过半数也就是4张票，可以选出leader；</p>
-<table>
-<thead>
-<tr>
-<th>机房1</th>
-<th>连接</th>
-<th>机房2</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>follower</td>
-<td></td>
-<td>Leader</td>
-</tr>
-<tr>
-<td>follower</td>
-<td>&lt;–&gt;</td>
-<td>follower</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>follower</td>
-</tr>
-</tbody></table>
-<p>5台机器，机房之间连接断掉，超过半数需要3张票，3台机子的 leader 拿到3张票，还是leader，2台机子拿不到足够的票，没有 leader，还是不会脑裂；</p>
-<h4 id="部署数"><a href="#部署数" class="headerlink" title="部署数"></a>部署数</h4><p>部署6台，要超过4台正常才正常，最多挂2台；</p>
-<p>部署5台，要超过3台正常才正常，最多挂2台；</p>
-<p>同样可以容忍挂2台，少部署一台少很多事。</p>
-
       
     </div>
 
