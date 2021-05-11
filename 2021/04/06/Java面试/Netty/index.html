@@ -31,7 +31,7 @@
 <meta property="og:description" content="常见错误码   状态码 英文 描述 解决    500 Internal Server Error 服务器内部错误，无法完成请求 代码bug   501 Not Implemented 服务器不支持请求的功能，无法完成请求    502 Bad Gateway 作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应 刷新，nginx   503 Service Unavai">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-04-05T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-05-11T01:26:14.924Z">
+<meta property="article:modified_time" content="2021-05-11T05:57:00.811Z">
 <meta property="article:author" content="Ciu Wong">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -161,7 +161,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">常见错误码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C10K-C10M-%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">C10K C10M 问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BIO"><span class="nav-number">3.</span> <span class="nav-text">BIO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NIO"><span class="nav-number">4.</span> <span class="nav-text">NIO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">多路复用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EPOLL"><span class="nav-number">6.</span> <span class="nav-text">EPOLL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#COPY-ON-WRITE"><span class="nav-number">7.</span> <span class="nav-text">COPY-ON-WRITE</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">常见错误码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OSI-%E4%B8%83%E5%B1%82%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">OSI 七层协议模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C10K-C10M-%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">C10K C10M 问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BIO"><span class="nav-number">4.</span> <span class="nav-text">BIO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NIO"><span class="nav-number">5.</span> <span class="nav-text">NIO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-number">6.</span> <span class="nav-text">多路复用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EPOLL"><span class="nav-number">7.</span> <span class="nav-text">EPOLL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#COPY-ON-WRITE"><span class="nav-number">8.</span> <span class="nav-text">COPY-ON-WRITE</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -269,7 +269,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-11 09:26:14" itemprop="dateModified" datetime="2021-05-11T09:26:14+08:00">2021-05-11</time>
+        <time title="修改时间：2021-05-11 13:57:00" itemprop="dateModified" datetime="2021-05-11T13:57:00+08:00">2021-05-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -356,6 +356,7 @@
 <td>输入用户密码</td>
 </tr>
 </tbody></table>
+<h4 id="OSI-七层协议模型"><a href="#OSI-七层协议模型" class="headerlink" title="OSI 七层协议模型"></a>OSI 七层协议模型</h4><p>应用层（Application）、表示层（Presentation）、会话层（Session）、传输层（Transport）、网络层（Network）、数据链路层（Data Link）、物理层（Physical）。</p>
 <h4 id="C10K-C10M-问题"><a href="#C10K-C10M-问题" class="headerlink" title="C10K C10M 问题"></a>C10K C10M 问题</h4><p>网络IO</p>
 <h4 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h4><ul>
 <li><p>客户端发来一个请求，建一个线程，一个线程一连接，有请求就处理，没有就一致阻塞等着。</p>

@@ -422,7 +422,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-11 08:56:18" itemprop="dateModified" datetime="2021-05-11T08:56:18+08:00">2021-05-11</time>
+        <time title="修改时间：2021-05-11 14:53:42" itemprop="dateModified" datetime="2021-05-11T14:53:42+08:00">2021-05-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -445,7 +445,7 @@
     
     <div class="post-body" itemprop="articleBody">
           <h4 id="数据结构时间复杂度"><a href="#数据结构时间复杂度" class="headerlink" title="数据结构时间复杂度"></a>数据结构时间复杂度</h4><p>数组时间复杂度：查询 <strong>O(1)</strong> 快, 插入删除 <strong>O(N)</strong> 慢；<br>链表时间复杂度：查询 <strong>O(N)</strong> 慢, 插入删除 <strong>O(1)</strong> 快；</p>
-<p>红黑树查询时间复杂度：**O(Log(N))**。</p>
+<p>红黑树查询时间复杂度：O(Log(N))。</p>
 <h4 id="哈希算法"><a href="#哈希算法" class="headerlink" title="哈希算法"></a>哈希算法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(key == <span class="keyword">null</span>) ? <span class="number">0</span>: (h = key.hashcode()) ^ (h&gt;&gt;&gt;<span class="number">16</span>);</span><br></pre></td></tr></table></figure>
 
 <p>取模目的是为了节省空间，但是会引起哈希碰撞，所以要用链表进行存储；数组只能存一个对象；</p>
@@ -711,7 +711,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-11 10:20:46" itemprop="dateModified" datetime="2021-05-11T10:20:46+08:00">2021-05-11</time>
+        <time title="修改时间：2021-05-11 14:53:23" itemprop="dateModified" datetime="2021-05-11T14:53:23+08:00">2021-05-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -733,7 +733,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h5 id="常用参数配置"><a href="#常用参数配置" class="headerlink" title="常用参数配置"></a>常用参数配置</h5><p>下列为4G机器，给 JVM 分配2G 为例。Xms Xmx 一致为了避免扩缩容；</p>
+          <h4 id="常用参数配置"><a href="#常用参数配置" class="headerlink" title="常用参数配置"></a>常用参数配置</h4><p>下列为4G机器，给 JVM 分配2G 为例。Xms Xmx 一致为了避免扩缩容；</p>
 <table>
 <thead>
 <tr>
@@ -794,9 +794,9 @@
 <td>设置 dump 文件路径</td>
 </tr>
 </tbody></table>
-<h5 id="识别垃圾的方法"><a href="#识别垃圾的方法" class="headerlink" title="识别垃圾的方法"></a>识别垃圾的方法</h5><p>1.标记算法，有引用标记+1，没引用标记-1，标记为0的时候认为是垃圾；<br>问题：循环依赖，大家都有标记，但是大家都是垃圾，无法处理；<br>2.根可达算法（RootSearching）<br>有引用就继续往下找，找不到的都是垃圾</p>
-<h5 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h5><p>1.标记清楚法(Mark-Sweep)，会导致内存碎片化的问题；<br>2.Copy算法，会导致浪费空间的问题，每次都只用一半的内存；<br>3.标记压缩算法，效率比较低</p>
-<h5 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h5><table>
+<h4 id="识别垃圾的方法"><a href="#识别垃圾的方法" class="headerlink" title="识别垃圾的方法"></a>识别垃圾的方法</h4><p>1.标记算法，有引用标记+1，没引用标记-1，标记为0的时候认为是垃圾；<br>问题：循环依赖，大家都有标记，但是大家都是垃圾，无法处理；<br>2.根可达算法（RootSearching）<br>有引用就继续往下找，找不到的都是垃圾</p>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p>1.标记清楚法(Mark-Sweep)，会导致内存碎片化的问题；<br>2.Copy算法，会导致浪费空间的问题，每次都只用一半的内存；<br>3.标记压缩算法，效率比较低</p>
+<h4 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h4><table>
 <thead>
 <tr>
 <th>eden(伊甸区)</th>
@@ -813,7 +813,7 @@
 </tr>
 </tbody></table>
 <p>新生代一次回收的垃圾比较多，要求算法比较快<br>1.新生代有用的拷到s0，清空新生代；<br>2.新生代有用的拷到s1，s0拷到s1，清空新生代和s0；<br>3….<br>4.存活n次以后的对象移至老年代(ps的age是15，cms的age是6)；</p>
-<h5 id="分代垃圾回收器"><a href="#分代垃圾回收器" class="headerlink" title="分代垃圾回收器"></a>分代垃圾回收器</h5><table>
+<h4 id="分代垃圾回收器"><a href="#分代垃圾回收器" class="headerlink" title="分代垃圾回收器"></a>分代垃圾回收器</h4><table>
 <thead>
 <tr>
 <th align="center">young</th>
@@ -835,26 +835,25 @@
 </tbody></table>
 <p>young old 搭配使用(单线程、多线程)；</p>
 <p>ParaNew 就是 Serial 改了一下支持多线程，搭配 CMS 使用；</p>
-<h5 id="CMS"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</h5><p>Concurent Mark Sweep, <strong>并发标记清除</strong>，一边工作一边进行垃圾回收；</p>
+<h4 id="CMS"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</h4><p>Concurent Mark Sweep, <strong>并发标记清除</strong>，一边工作一边进行垃圾回收；</p>
 <p>CMS极端情况会用 SerialOld 全部清除，特别慢</p>
-<p><strong>回收过程：</strong></p>
-<ol>
+<h4 id="回收过程："><a href="#回收过程：" class="headerlink" title="回收过程："></a><strong>回收过程：</strong></h4><ol>
 <li>初始标记根对象(STW，Stop The World)</li>
 <li>并发标记</li>
 <li>重新标记(STW)</li>
 <li>并发清理</li>
 </ol>
-<h5 id="采用三色标记算法："><a href="#采用三色标记算法：" class="headerlink" title="采用三色标记算法："></a>采用三色标记算法：</h5><ol>
+<h4 id="采用三色标记算法："><a href="#采用三色标记算法：" class="headerlink" title="采用三色标记算法："></a>采用三色标记算法：</h4><ol>
 <li>已经触达且所有字节点都已经触达的标为黑色；</li>
 <li>已经触达但是有字节点未触达的标为灰色；</li>
 <li>未触达的标为白色；</li>
 </ol>
 <p>存在问题：白色被黑色引用，黑色已经触达不会再扫，所以白色会被回收；<br>解决：incremental update, 当白色被黑色引用的时候，要重新扫描一遍，重新标记。</p>
-<h5 id="不分代垃圾回收器"><a href="#不分代垃圾回收器" class="headerlink" title="不分代垃圾回收器"></a>不分代垃圾回收器</h5><p>G1, ZGC, Shenandoah</p>
-<h5 id="G1-垃圾回收器？"><a href="#G1-垃圾回收器？" class="headerlink" title="G1 垃圾回收器？"></a>G1 垃圾回收器？</h5><p>面向服务器的垃圾收集器，主要针对配备多颗处理器及大容量内存的机器。降低 GC 停顿时间，还具备高吞吐量性能特征。</p>
+<h4 id="不分代垃圾回收器"><a href="#不分代垃圾回收器" class="headerlink" title="不分代垃圾回收器"></a>不分代垃圾回收器</h4><p>G1, ZGC, Shenandoah</p>
+<h4 id="G1-垃圾回收器？"><a href="#G1-垃圾回收器？" class="headerlink" title="G1 垃圾回收器？"></a>G1 垃圾回收器？</h4><p>面向服务器的垃圾收集器，主要针对配备多颗处理器及大容量内存的机器。降低 GC 停顿时间，还具备高吞吐量性能特征。</p>
 <p>初始标记-&gt;并发标记-&gt;最终标记-&gt;筛选回收；</p>
 <p>在后台维护了一个优先列表，每次根据允许的收集时间，优先选择回收价值最大的区 (Garbage First)。</p>
-<h5 id="JVM-Tuning"><a href="#JVM-Tuning" class="headerlink" title="JVM Tuning"></a>JVM Tuning</h5><p>调试，目的是为了尽量减少 FGC (无法避免)；FGC 导致 STW Stop the world<br>mirror gc = young gc; major gc = full gc;</p>
+<h4 id="JVM-Tuning"><a href="#JVM-Tuning" class="headerlink" title="JVM Tuning"></a>JVM Tuning</h4><p>调试，目的是为了尽量减少 FGC (无法避免)；FGC 导致 STW Stop the world<br>mirror gc = young gc; major gc = full gc;</p>
 <ul>
 <li>重启(🐶)</li>
 <li>jps / jstat / jstack</li>
@@ -865,8 +864,20 @@
 </ul>
 </li>
 </ul>
-<h5 id="CPU突然飙高怎么办？"><a href="#CPU突然飙高怎么办？" class="headerlink" title="CPU突然飙高怎么办？"></a>CPU突然飙高怎么办？</h5><p>1.列出线程<br>2.分析哪些是业务线程、哪些是垃圾回收线程；</p>
-<h5 id="堆外内存怎么回收？"><a href="#堆外内存怎么回收？" class="headerlink" title="堆外内存怎么回收？"></a>堆外内存怎么回收？</h5><p>DirectByteBuffer</p>
+<h4 id="CPU突然飙高怎么办？"><a href="#CPU突然飙高怎么办？" class="headerlink" title="CPU突然飙高怎么办？"></a>CPU突然飙高怎么办？</h4><p>1.列出线程<br>2.分析哪些是业务线程、哪些是垃圾回收线程；</p>
+<h4 id="堆外内存怎么回收？"><a href="#堆外内存怎么回收？" class="headerlink" title="堆外内存怎么回收？"></a>堆外内存怎么回收？</h4><p>DirectByteBuffer</p>
+<h4 id="类加载？"><a href="#类加载？" class="headerlink" title="类加载？"></a>类加载？</h4><p>JVM 将描述类的数据从 class 文件加载到内存，对数据进行校验、解析、初始化，最终形成能够被 JVM 直接使用的 Java 类型。</p>
+<h4 id="类加载什么时候被触发？"><a href="#类加载什么时候被触发？" class="headerlink" title="类加载什么时候被触发？"></a>类加载什么时候被触发？</h4><ul>
+<li>使用 new 关键字实例化对象</li>
+<li>读取或者设置一个类的<strong>静态变量</strong>的时候</li>
+<li>调用类对应的<strong>静态方法</strong>的时候</li>
+<li>对类进行<strong>反射</strong>调用的时候</li>
+<li><strong>初始化子类</strong>的时候</li>
+<li>定义了 <strong>main() 方法</strong>的那个类先初始化</li>
+</ul>
+<h4 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h4><p>1.加载；2.验证；3.准备；4.解析；5.初始化；</p>
+<h4 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h4><p>bootstrap、extclassloader、appclassloader、myclassloader</p>
+<h4 id="双亲委派？"><a href="#双亲委派？" class="headerlink" title="双亲委派？"></a>双亲委派？</h4><p>如果一个类加载器收到了类加载请求，它并不会自己先去加载，而是把这个请求委托给父类的加载器去执行，如果父类加载器还存在其父类加载器，则进一步向上委托，依次递归，请求最终将到达顶层的启动类加载器，如果父类加载器可以完成类加载任务，就成功返回，倘若父类加载器无法完成此加载任务，子加载器才会尝试自己去加载，这就是双亲委派模式。</p>
 
       
     </div>
@@ -1003,7 +1014,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-11 09:26:14" itemprop="dateModified" datetime="2021-05-11T09:26:14+08:00">2021-05-11</time>
+        <time title="修改时间：2021-05-11 13:57:00" itemprop="dateModified" datetime="2021-05-11T13:57:00+08:00">2021-05-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1083,6 +1094,7 @@
 <td>输入用户密码</td>
 </tr>
 </tbody></table>
+<h4 id="OSI-七层协议模型"><a href="#OSI-七层协议模型" class="headerlink" title="OSI 七层协议模型"></a>OSI 七层协议模型</h4><p>应用层（Application）、表示层（Presentation）、会话层（Session）、传输层（Transport）、网络层（Network）、数据链路层（Data Link）、物理层（Physical）。</p>
 <h4 id="C10K-C10M-问题"><a href="#C10K-C10M-问题" class="headerlink" title="C10K C10M 问题"></a>C10K C10M 问题</h4><p>网络IO</p>
 <h4 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h4><ul>
 <li><p>客户端发来一个请求，建一个线程，一个线程一连接，有请求就处理，没有就一致阻塞等着。</p>
