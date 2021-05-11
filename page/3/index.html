@@ -170,7 +170,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -224,6 +224,85 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/16/Java%E9%9D%A2%E8%AF%95/SSH%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/16/Java%E9%9D%A2%E8%AF%95/SSH%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88/" class="post-title-link" itemprop="url">SSH框架整合</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-16 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-16T00:00:00+08:00">2021-04-16</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-19 14:07:24" itemprop="dateModified" datetime="2021-04-19T14:07:24+08:00">2021-04-19</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -343,7 +422,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-10 21:37:50" itemprop="dateModified" datetime="2021-05-10T21:37:50+08:00">2021-05-10</time>
+        <time title="修改时间：2021-05-11 08:56:18" itemprop="dateModified" datetime="2021-05-11T08:56:18+08:00">2021-05-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -365,12 +444,38 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h5 id="数据结构：链表、数组"><a href="#数据结构：链表、数组" class="headerlink" title="数据结构：链表、数组"></a>数据结构：链表、数组</h5><p>数组时间复杂度：查询 <strong>O(1)</strong> 快, 插入删除 <strong>O(N)</strong> 慢；<br>链表时间复杂度：查询 <strong>O(N)</strong> 慢, 插入删除 <strong>O(1)</strong> 快；</p>
-<h5 id="算法：哈希算法-gt-底层"><a href="#算法：哈希算法-gt-底层" class="headerlink" title="算法：哈希算法-&gt;底层"></a>算法：哈希算法-&gt;底层</h5><p>取模目的是为了节省空间，但是会引起哈希碰撞，所以要用链表进行存储；数组只能存一个对象；</p>
-<h5 id="JDK8-优化"><a href="#JDK8-优化" class="headerlink" title="JDK8 优化"></a>JDK8 优化</h5><p>红黑树</p>
+          <h4 id="数据结构时间复杂度"><a href="#数据结构时间复杂度" class="headerlink" title="数据结构时间复杂度"></a>数据结构时间复杂度</h4><p>数组时间复杂度：查询 <strong>O(1)</strong> 快, 插入删除 <strong>O(N)</strong> 慢；<br>链表时间复杂度：查询 <strong>O(N)</strong> 慢, 插入删除 <strong>O(1)</strong> 快；</p>
+<p>红黑树查询时间复杂度：**O(Log(N))**。</p>
+<h4 id="哈希算法"><a href="#哈希算法" class="headerlink" title="哈希算法"></a>哈希算法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(key == <span class="keyword">null</span>) ? <span class="number">0</span>: (h = key.hashcode()) ^ (h&gt;&gt;&gt;<span class="number">16</span>);</span><br></pre></td></tr></table></figure>
+
+<p>取模目的是为了节省空间，但是会引起哈希碰撞，所以要用链表进行存储；数组只能存一个对象；</p>
+<h4 id="为什么使用2的幂作为哈希表的大小？"><a href="#为什么使用2的幂作为哈希表的大小？" class="headerlink" title="为什么使用2的幂作为哈希表的大小？"></a>为什么使用2的幂作为哈希表的大小？</h4><p>tableSizeFor() 方法。取余(%)操作中如果数是2的幂次则等价与其除数减1的与(&amp;)操作； 提高运算效率。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hash % length == hash &amp; (length - <span class="number">1</span>) ; </span><br></pre></td></tr></table></figure>
+
+<h4 id="多线程死循环问题？"><a href="#多线程死循环问题？" class="headerlink" title="多线程死循环问题？"></a>多线程死循环问题？</h4><p>并发下 Rehash 会造成元素之间形成一个循环链表。jdk1.8解决，还是不建议用。</p>
+<h4 id="JDK8-优化"><a href="#JDK8-优化" class="headerlink" title="JDK8 优化"></a>JDK8 优化</h4><p>红黑树</p>
 <p><img src="https://raw.githubusercontent.com/ciaowong/NotePics/main/20210415135407.png"></p>
-<p>jdk1.7 扩容是重新计算 hash；jdk1.8 是要看看原来的 hash 值新增的那个 bit 是 1 还是 0 好了，如果是 0 则索引没变，如果是 1 则索引变成 “原索引 + oldCap”. 这是 jdk1.8 的亮点，设计的确实非常的巧妙，即省去了重新计算 hash 值得时间，又均匀的把之前的冲突的节点分散到新的数组 bucket 上</p>
-<p>jdk1.7 在 rehash 的时候，旧链表迁移到新链表的时候，如果在新表的数组索引位置相同，则链表元素会倒置，但是 jdk1.8 不会倒置</p>
+<h4 id="扩容相关"><a href="#扩容相关" class="headerlink" title="扩容相关"></a>扩容相关</h4><ul>
+<li>1.7: 重新计算 hash</li>
+<li>1.8: 看原来的 hash 值新增的那个 bit，0 则索引没变， 1 则索引变成 “原索引 + oldCap”。省去了重新计算 hash 值得时间，又均匀的把之前的冲突的节点分散到新的数组 bucket 上。</li>
+</ul>
+<h4 id="Rehash"><a href="#Rehash" class="headerlink" title="Rehash"></a>Rehash</h4><ul>
+<li>1.7: 旧链表迁移到新链表的时候，如果在新表的数组索引位置相同，则链表元素会倒置</li>
+<li>1.8: 不会倒置</li>
+</ul>
+<h4 id="ConcurrentHashMap-底层结构？"><a href="#ConcurrentHashMap-底层结构？" class="headerlink" title="ConcurrentHashMap 底层结构？"></a>ConcurrentHashMap 底层结构？</h4><h5 id="保证线程安全的方案："><a href="#保证线程安全的方案：" class="headerlink" title="保证线程安全的方案："></a>保证线程安全的方案：</h5><ul>
+<li><p>JDK1.8：synchronized(只锁红黑二叉树的首节点)+CAS+HashEntry + 红黑树；</p>
+</li>
+<li><p>JDK1.7：ReentrantLock+Segment+HashEntry。</p>
+</li>
+</ul>
+<p>volatile 修饰了 HashEntry ，保证了多线程环境下数据获取时的<strong>可见性</strong>！</p>
+<p>key 和 value 是都不能为 null 的。<strong>在并发的情况下带来难以容忍的二义性</strong>。</p>
+<ol>
+<li>这个 key 从来没有在 map 中映射过。</li>
+<li>这个 key 的 value 在设置的时候，就是 null。</li>
+</ol>
+<p>1.7: ConcurrnetHashMap 由很多个 Segment 组合，egment 的个数一旦<strong>初始化就不能改变</strong>，默认 Segment 的个数是 16 个。</p>
 
       
     </div>
@@ -606,7 +711,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-19 14:07:10" itemprop="dateModified" datetime="2021-04-19T14:07:10+08:00">2021-04-19</time>
+        <time title="修改时间：2021-05-11 10:20:46" itemprop="dateModified" datetime="2021-05-11T10:20:46+08:00">2021-05-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -628,7 +733,68 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h5 id="识别垃圾的方法"><a href="#识别垃圾的方法" class="headerlink" title="识别垃圾的方法"></a>识别垃圾的方法</h5><p>1.标记算法，有引用标记+1，没引用标记-1，标记为0的时候认为是垃圾；<br>问题：循环依赖，大家都有标记，但是大家都是垃圾，无法处理；<br>2.根可达算法（RootSearching）<br>有引用就继续往下找，找不到的都是垃圾</p>
+          <h5 id="常用参数配置"><a href="#常用参数配置" class="headerlink" title="常用参数配置"></a>常用参数配置</h5><p>下列为4G机器，给 JVM 分配2G 为例。Xms Xmx 一致为了避免扩缩容；</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-Xms2048m</td>
+<td>初始化堆空间大小</td>
+</tr>
+<tr>
+<td>-Xmx2048m</td>
+<td>最大堆空间大小</td>
+</tr>
+<tr>
+<td>-Xmn32m</td>
+<td>年轻代的空间大小</td>
+</tr>
+<tr>
+<td>-XX:SurvivorRatio = 6</td>
+<td>Eden 区与 Survivor 区的大小比值</td>
+</tr>
+<tr>
+<td>-XX:MaxTenuringThreshold = 6</td>
+<td>晋升老年代年龄</td>
+</tr>
+<tr>
+<td>-Xss256K</td>
+<td>设置线程栈空间大小</td>
+</tr>
+<tr>
+<td>-XX:LargePageSizeInBytes=128m</td>
+<td>设置堆的内存页大小</td>
+</tr>
+<tr>
+<td>-XX:MetaspaceSize=64m</td>
+<td>元空间大小</td>
+</tr>
+<tr>
+<td>-XX:MaxMetaspaceSize=384m</td>
+<td>元空间最大值</td>
+</tr>
+<tr>
+<td>-XX:+UseParNewGC</td>
+<td>使用 ParNew young 回收器</td>
+</tr>
+<tr>
+<td>-XX:+UseConcMarkSweepGC</td>
+<td>使用 CMS old 回收器</td>
+</tr>
+<tr>
+<td>-XX:+HeapDumpOnOutOfMemoryError</td>
+<td>抛出 OOM 时进行 HeapDump</td>
+</tr>
+<tr>
+<td>-XX:HeapDumpPath</td>
+<td>设置 dump 文件路径</td>
+</tr>
+</tbody></table>
+<h5 id="识别垃圾的方法"><a href="#识别垃圾的方法" class="headerlink" title="识别垃圾的方法"></a>识别垃圾的方法</h5><p>1.标记算法，有引用标记+1，没引用标记-1，标记为0的时候认为是垃圾；<br>问题：循环依赖，大家都有标记，但是大家都是垃圾，无法处理；<br>2.根可达算法（RootSearching）<br>有引用就继续往下找，找不到的都是垃圾</p>
 <h5 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h5><p>1.标记清楚法(Mark-Sweep)，会导致内存碎片化的问题；<br>2.Copy算法，会导致浪费空间的问题，每次都只用一半的内存；<br>3.标记压缩算法，效率比较低</p>
 <h5 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h5><table>
 <thead>
@@ -669,8 +835,9 @@
 </tbody></table>
 <p>young old 搭配使用(单线程、多线程)；</p>
 <p>ParaNew 就是 Serial 改了一下支持多线程，搭配 CMS 使用；</p>
-<h5 id="CMS"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</h5><p>Concurent Mark Sweep, 并发标记清除，一边工作一边进行垃圾回收；</p>
+<h5 id="CMS"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</h5><p>Concurent Mark Sweep, <strong>并发标记清除</strong>，一边工作一边进行垃圾回收；</p>
 <p>CMS极端情况会用 SerialOld 全部清除，特别慢</p>
+<p><strong>回收过程：</strong></p>
 <ol>
 <li>初始标记根对象(STW，Stop The World)</li>
 <li>并发标记</li>
@@ -684,17 +851,22 @@
 </ol>
 <p>存在问题：白色被黑色引用，黑色已经触达不会再扫，所以白色会被回收；<br>解决：incremental update, 当白色被黑色引用的时候，要重新扫描一遍，重新标记。</p>
 <h5 id="不分代垃圾回收器"><a href="#不分代垃圾回收器" class="headerlink" title="不分代垃圾回收器"></a>不分代垃圾回收器</h5><p>G1, ZGC, Shenandoah</p>
+<h5 id="G1-垃圾回收器？"><a href="#G1-垃圾回收器？" class="headerlink" title="G1 垃圾回收器？"></a>G1 垃圾回收器？</h5><p>面向服务器的垃圾收集器，主要针对配备多颗处理器及大容量内存的机器。降低 GC 停顿时间，还具备高吞吐量性能特征。</p>
+<p>初始标记-&gt;并发标记-&gt;最终标记-&gt;筛选回收；</p>
+<p>在后台维护了一个优先列表，每次根据允许的收集时间，优先选择回收价值最大的区 (Garbage First)。</p>
 <h5 id="JVM-Tuning"><a href="#JVM-Tuning" class="headerlink" title="JVM Tuning"></a>JVM Tuning</h5><p>调试，目的是为了尽量减少 FGC (无法避免)；FGC 导致 STW Stop the world<br>mirror gc = young gc; major gc = full gc;</p>
 <ul>
-<li><p>重启(🐶)</p>
-</li>
-<li><p>jmap -histo xxx | head -20<br>列出占用最多的前20个对象，不适合电商，会产生 fullgc</p>
-</li>
-<li><p>arthas 工具</p>
+<li>重启(🐶)</li>
+<li>jps / jstat / jstack</li>
+<li>jmap -histo xxx | head -20<br>列出占用最多的前20个对象，不适合电商，会产生 fullgc</li>
+<li>arthas 工具<ul>
+<li>dashboard / watch / trace</li>
+<li>jad</li>
+</ul>
 </li>
 </ul>
 <h5 id="CPU突然飙高怎么办？"><a href="#CPU突然飙高怎么办？" class="headerlink" title="CPU突然飙高怎么办？"></a>CPU突然飙高怎么办？</h5><p>1.列出线程<br>2.分析哪些是业务线程、哪些是垃圾回收线程；</p>
-<h5 id="参数配置"><a href="#参数配置" class="headerlink" title="参数配置"></a>参数配置</h5><p>Xms Xmx 一致为了避免扩缩容；</p>
+<h5 id="堆外内存怎么回收？"><a href="#堆外内存怎么回收？" class="headerlink" title="堆外内存怎么回收？"></a>堆外内存怎么回收？</h5><p>DirectByteBuffer</p>
 
       
     </div>
@@ -831,7 +1003,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-26 15:52:11" itemprop="dateModified" datetime="2021-04-26T15:52:11+08:00">2021-04-26</time>
+        <time title="修改时间：2021-05-11 09:26:14" itemprop="dateModified" datetime="2021-05-11T09:26:14+08:00">2021-05-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -853,7 +1025,65 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h4 id="C10K-C10M-问题"><a href="#C10K-C10M-问题" class="headerlink" title="C10K C10M 问题"></a>C10K C10M 问题</h4><p>网络IO</p>
+          <h4 id="常见错误码"><a href="#常见错误码" class="headerlink" title="常见错误码"></a>常见错误码</h4><table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>英文</th>
+<th>描述</th>
+<th>解决</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>500</td>
+<td>Internal Server Error</td>
+<td>服务器内部错误，无法完成请求</td>
+<td>代码bug</td>
+</tr>
+<tr>
+<td>501</td>
+<td>Not Implemented</td>
+<td>服务器不支持请求的功能，无法完成请求</td>
+<td></td>
+</tr>
+<tr>
+<td>502</td>
+<td>Bad Gateway</td>
+<td>作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应</td>
+<td>刷新，nginx</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Service Unavailable</td>
+<td>由于超载或系统维护，服务器暂时的无法处理客户端的请求。延时的长度可包含在服务器的 Retry-After 头信息中</td>
+<td></td>
+</tr>
+<tr>
+<td>504</td>
+<td>Gateway Time-out</td>
+<td>充当网关或代理的服务器，未及时从远端服务器获取请求</td>
+<td>一般是 CDN -&gt; WAF -&gt; 外网 SLB -&gt; Nginx -&gt; 内网 SLB -&gt; 后端应用这一链条中任意一个点可能超时或无响应。处理超时</td>
+</tr>
+<tr>
+<td>505</td>
+<td>HTTP Version not supported</td>
+<td>服务器不支持请求的 HTTP 协议的版本，无法完成处理</td>
+<td></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden</td>
+<td>服务器理解请求客户端的请求，但是拒绝执行此请求</td>
+<td>没有权限</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized</td>
+<td>请求要求用户的身份认证</td>
+<td>输入用户密码</td>
+</tr>
+</tbody></table>
+<h4 id="C10K-C10M-问题"><a href="#C10K-C10M-问题" class="headerlink" title="C10K C10M 问题"></a>C10K C10M 问题</h4><p>网络IO</p>
 <h4 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h4><ul>
 <li><p>客户端发来一个请求，建一个线程，一个线程一连接，有请求就处理，没有就一致阻塞等着。</p>
 </li>
@@ -1128,85 +1358,6 @@
 </li>
 </ul>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/ServiceMash/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/06/Java%E9%9D%A2%E8%AF%95/ServiceMash/" class="post-title-link" itemprop="url">ServiceMash</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-06T00:00:00+08:00">2021-04-06</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-20 21:01:15" itemprop="dateModified" datetime="2021-04-20T21:01:15+08:00">2021-04-20</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
       
     </div>
 

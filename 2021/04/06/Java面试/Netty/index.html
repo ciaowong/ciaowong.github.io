@@ -23,15 +23,15 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"ciaowong.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
-<meta name="description" content="C10K C10M 问题网络IO BIO 客户端发来一个请求，建一个线程，一个线程一连接，有请求就处理，没有就一致阻塞等着。  内核中实现顺序：socket-&gt;bind-&gt;listen   NIOnoneblock 伪代码如下： 123456configBlocking(false); &#x2F;&#x2F;非阻塞while(true)&amp;#123;  read Fd8()... &#x2F;&#x2F; 有请求就处理，没有">
+<meta name="description" content="常见错误码   状态码 英文 描述 解决    500 Internal Server Error 服务器内部错误，无法完成请求 代码bug   501 Not Implemented 服务器不支持请求的功能，无法完成请求    502 Bad Gateway 作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应 刷新，nginx   503 Service Unavai">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Netty">
 <meta property="og:url" content="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/Netty/index.html">
 <meta property="og:site_name" content="Stepping Stone">
-<meta property="og:description" content="C10K C10M 问题网络IO BIO 客户端发来一个请求，建一个线程，一个线程一连接，有请求就处理，没有就一致阻塞等着。  内核中实现顺序：socket-&gt;bind-&gt;listen   NIOnoneblock 伪代码如下： 123456configBlocking(false); &#x2F;&#x2F;非阻塞while(true)&amp;#123;  read Fd8()... &#x2F;&#x2F; 有请求就处理，没有">
+<meta property="og:description" content="常见错误码   状态码 英文 描述 解决    500 Internal Server Error 服务器内部错误，无法完成请求 代码bug   501 Not Implemented 服务器不支持请求的功能，无法完成请求    502 Bad Gateway 作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应 刷新，nginx   503 Service Unavai">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-04-05T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-04-26T07:52:11.472Z">
+<meta property="article:modified_time" content="2021-05-11T01:26:14.924Z">
 <meta property="article:author" content="Ciu Wong">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -161,7 +161,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#C10K-C10M-%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">C10K C10M 问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BIO"><span class="nav-number">2.</span> <span class="nav-text">BIO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NIO"><span class="nav-number">3.</span> <span class="nav-text">NIO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">多路复用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EPOLL"><span class="nav-number">5.</span> <span class="nav-text">EPOLL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#COPY-ON-WRITE"><span class="nav-number">6.</span> <span class="nav-text">COPY-ON-WRITE</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">常见错误码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C10K-C10M-%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">C10K C10M 问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BIO"><span class="nav-number">3.</span> <span class="nav-text">BIO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NIO"><span class="nav-number">4.</span> <span class="nav-text">NIO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">多路复用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EPOLL"><span class="nav-number">6.</span> <span class="nav-text">EPOLL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#COPY-ON-WRITE"><span class="nav-number">7.</span> <span class="nav-text">COPY-ON-WRITE</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -174,7 +174,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -269,7 +269,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-26 15:52:11" itemprop="dateModified" datetime="2021-04-26T15:52:11+08:00">2021-04-26</time>
+        <time title="修改时间：2021-05-11 09:26:14" itemprop="dateModified" datetime="2021-05-11T09:26:14+08:00">2021-05-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -298,7 +298,65 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h4 id="C10K-C10M-问题"><a href="#C10K-C10M-问题" class="headerlink" title="C10K C10M 问题"></a>C10K C10M 问题</h4><p>网络IO</p>
+        <h4 id="常见错误码"><a href="#常见错误码" class="headerlink" title="常见错误码"></a>常见错误码</h4><table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>英文</th>
+<th>描述</th>
+<th>解决</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>500</td>
+<td>Internal Server Error</td>
+<td>服务器内部错误，无法完成请求</td>
+<td>代码bug</td>
+</tr>
+<tr>
+<td>501</td>
+<td>Not Implemented</td>
+<td>服务器不支持请求的功能，无法完成请求</td>
+<td></td>
+</tr>
+<tr>
+<td>502</td>
+<td>Bad Gateway</td>
+<td>作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应</td>
+<td>刷新，nginx</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Service Unavailable</td>
+<td>由于超载或系统维护，服务器暂时的无法处理客户端的请求。延时的长度可包含在服务器的 Retry-After 头信息中</td>
+<td></td>
+</tr>
+<tr>
+<td>504</td>
+<td>Gateway Time-out</td>
+<td>充当网关或代理的服务器，未及时从远端服务器获取请求</td>
+<td>一般是 CDN -&gt; WAF -&gt; 外网 SLB -&gt; Nginx -&gt; 内网 SLB -&gt; 后端应用这一链条中任意一个点可能超时或无响应。处理超时</td>
+</tr>
+<tr>
+<td>505</td>
+<td>HTTP Version not supported</td>
+<td>服务器不支持请求的 HTTP 协议的版本，无法完成处理</td>
+<td></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden</td>
+<td>服务器理解请求客户端的请求，但是拒绝执行此请求</td>
+<td>没有权限</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized</td>
+<td>请求要求用户的身份认证</td>
+<td>输入用户密码</td>
+</tr>
+</tbody></table>
+<h4 id="C10K-C10M-问题"><a href="#C10K-C10M-问题" class="headerlink" title="C10K C10M 问题"></a>C10K C10M 问题</h4><p>网络IO</p>
 <h4 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h4><ul>
 <li><p>客户端发来一个请求，建一个线程，一个线程一连接，有请求就处理，没有就一致阻塞等着。</p>
 </li>
