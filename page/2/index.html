@@ -170,7 +170,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -233,6 +233,82 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/27/%E7%AE%97%E6%B3%95/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ciu Wong">
+      <meta itemprop="description" content="2021-3-30">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stepping Stone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/27/%E7%AE%97%E6%B3%95/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">反转链表</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-04-27 00:00:00 / 修改时间：22:41:53" itemprop="dateCreated datePublished" datetime="2021-04-27T00:00:00+08:00">2021-04-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>输入一个链表，反转链表后，输出新链表的表头。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    ListNode next = <span class="keyword">null</span>;</span><br><span class="line">    ListNode(<span class="keyword">int</span> val) &#123;</span><br><span class="line">      <span class="keyword">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">ReverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode rev = ReverseList(head.next);</span><br><span class="line">    head.next.next = head;</span><br><span class="line">    head.next = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">return</span> rev;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    ListNode list1 = <span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">    ListNode list2 = <span class="keyword">new</span> ListNode(<span class="number">2</span>);</span><br><span class="line">    ListNode list3 = <span class="keyword">new</span> ListNode(<span class="number">3</span>);</span><br><span class="line">    ListNode list4 = <span class="keyword">new</span> ListNode(<span class="number">4</span>);</span><br><span class="line">    list1.next = list2;</span><br><span class="line">    list2.next = list3;</span><br><span class="line">    list3.next = list4;</span><br><span class="line">    ListNode rev = ReverseList(list1);</span><br><span class="line"></span><br><span class="line">    System.out.println(rev);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>递归，从后往前，且每次用完把最后一个链表置空扔掉</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/27/%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/%E7%9C%9F%E9%A2%98%E9%9B%86%E5%90%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -264,7 +340,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-10 21:37:46" itemprop="dateModified" datetime="2021-05-10T21:37:46+08:00">2021-05-10</time>
+        <time title="修改时间：2021-05-12 10:42:38" itemprop="dateModified" datetime="2021-05-12T10:42:38+08:00">2021-05-12</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -302,6 +378,14 @@
 </ul>
 <h4 id="抽象类能不能被实例化？"><a href="#抽象类能不能被实例化？" class="headerlink" title="抽象类能不能被实例化？"></a>抽象类能不能被实例化？</h4><p>抽象类不能直接通过 new 去实例化一个对象，那它就是不能实例化，要获取抽象类的对象， 需要先用一个类继承抽象类， 然后去实例化子类。也可以用匿名内部类，在抽象类中创建一个匿名的子类，继承抽象类，通过特殊的语法实例化子类的对象 </p>
 <h4 id="方法参数的传递是怎么传递？值传递跟引用传递？"><a href="#方法参数的传递是怎么传递？值传递跟引用传递？" class="headerlink" title="方法参数的传递是怎么传递？值传递跟引用传递？"></a>方法参数的传递是怎么传递？值传递跟引用传递？</h4><p>如果参数是基本类型，传递的是基本类型的字面量值的拷贝；<br>如果参数是引用类型，传递的是该参量所引用的对象在堆中地址值的拷贝。</p>
+<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><h4 id="线程切换的影响？"><a href="#线程切换的影响？" class="headerlink" title="线程切换的影响？"></a>线程切换的影响？</h4><p>内存泄漏、上下文切换、死锁 。</p>
+<h4 id="ThreadLocal-原理，是否每个线程都能定义？还是总的就一个？怎么利用-ThreadLocal-制造-OOM？"><a href="#ThreadLocal-原理，是否每个线程都能定义？还是总的就一个？怎么利用-ThreadLocal-制造-OOM？" class="headerlink" title="ThreadLocal 原理，是否每个线程都能定义？还是总的就一个？怎么利用 ThreadLocal 制造 OOM？"></a>ThreadLocal 原理，是否每个线程都能定义？还是总的就一个？怎么利用 ThreadLocal 制造 OOM？</h4><ul>
+<li>每一个线程都有自己的专属本地变量；</li>
+<li>创建了一个 <strong>ThreadLocal</strong> 变量，那么访问这个变量的每个线程都会有这个变量的本地副本；</li>
+<li>threadLocals，inheritableThreadLocals，都是 ThreadLocalMap，是 ThreadLocal 类实现的定制化的 HashMap，变量默认都是 null，调用 get() set() 的时候才创建，最终的变量是放在了当前线程的 <strong>ThreadLocalMap</strong> 中。</li>
+<li>ThreadLocalMap 是 ThreadLocal 的静态内部类。</li>
+<li>ThreadLocalMap 中使用的 key 为 ThreadLocal 的弱引用,而 value 是强引用。ThreadLocal 没有被外部强引用的情况下，在垃圾回收的时候，key 会被清理掉，而 value 不会被清理掉，导致 OOM。用完调用 remove() 释放。</li>
+</ul>
 <h3 id="锁相关"><a href="#锁相关" class="headerlink" title="锁相关"></a>锁相关</h3><h4 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h4><p><a target="_blank" rel="noopener" href="https://snailclimb.gitee.io/javaguide/#/docs/java/multi-thread/AQS%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8AAQS%E5%90%8C%E6%AD%A5%E7%BB%84%E4%BB%B6%E6%80%BB%E7%BB%93">详见</a></p>
 <h4 id="Synchronized-加锁-Integer-对象会有什么问题？"><a href="#Synchronized-加锁-Integer-对象会有什么问题？" class="headerlink" title="Synchronized 加锁 Integer 对象会有什么问题？"></a>Synchronized 加锁 Integer 对象会有什么问题？</h4><p>Integer 的 value final 修饰不可变的。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i = Integer.valueOf(i.intValue() + ``<span class="number">1</span>``);　　``<span class="comment">//涵盖了包装类与基本类型的装箱和拆箱原理成分</span></span><br></pre></td></tr></table></figure>
@@ -344,7 +428,7 @@
 </ul>
 <h5 id="为什么快？"><a href="#为什么快？" class="headerlink" title="为什么快？"></a>为什么快？</h5><p>数据结构简单，纯内存操作，I/O 多路复用程序，单线程操作避免线程切换；瓶颈在 IO 和网络 </p>
 <h5 id="支不支持事务？"><a href="#支不支持事务？" class="headerlink" title="支不支持事务？"></a>支不支持事务？</h5><p>Redis 可以通过 MULTI，EXEC，DISCARD 和 WATCH 等命令来实现事务(transaction)功能。不支持 roll back；</p>
-<h5 id="数据类型-amp-结构"><a href="#数据类型-amp-结构" class="headerlink" title="数据类型&amp;结构"></a>数据类型&amp;结构</h5><p>hash: ziplist, hashtable;</p>
+<h5 id="数据类型-amp-结构"><a href="#数据类型-amp-结构" class="headerlink" title="数据类型&amp;结构"></a>数据类型&amp;结构</h5><p>hash: ziplist, hashtable; key/value 的长度超过 64 个字节需要将 ziplist 转成 hashtab 对象。</p>
 <p>set: hashtable, inset;</p>
 <p>zset: ziplist, dict + skiplist;</p>
 <h5 id="缓存击穿怎么处理？"><a href="#缓存击穿怎么处理？" class="headerlink" title="缓存击穿怎么处理？"></a>缓存击穿怎么处理？</h5><ol>
@@ -377,7 +461,21 @@
 <p>初始标记-&gt;并发标记-&gt;最终标记-&gt;筛选回收；</p>
 <p>在后台维护了一个优先列表，每次根据允许的收集时间，优先选择回收价值最大的区 (Garbage First)。</p>
 <h4 id="堆外内存怎么回收？"><a href="#堆外内存怎么回收？" class="headerlink" title="堆外内存怎么回收？"></a>堆外内存怎么回收？</h4><p>DirectByteBuffer</p>
-<h3 id="DB"><a href="#DB" class="headerlink" title="DB"></a>DB</h3><p>二叉树/红黑树/b树/b+树,B+树与B树对比，除了范围查询外，还有哪些优点</p>
+<h4 id="怎么分析-OOM？"><a href="#怎么分析-OOM？" class="headerlink" title="怎么分析 OOM？"></a>怎么分析 OOM？</h4><ul>
+<li><p>jvm 命令 jps / jstat / jstack / jmap</p>
+</li>
+<li><p>eclipse MAT 工具分析</p>
+</li>
+<li><p>arthas dashboard / watch / trace</p>
+</li>
+</ul>
+<h3 id="DB"><a href="#DB" class="headerlink" title="DB"></a>DB</h3><h4 id="MySQL-隔离级别？怎么避免幻读？"><a href="#MySQL-隔离级别？怎么避免幻读？" class="headerlink" title="MySQL 隔离级别？怎么避免幻读？"></a>MySQL 隔离级别？怎么避免幻读？</h4><p>读取未提交/读取已提交/可重复读/可串行化</p>
+<p>InnoDB 存储引擎在 <strong>REPEATABLE-READ（可重读）</strong> 事务隔离级别下，允许应用使用 <strong>Next-Key Lock</strong> 锁算法来避免幻读的产生。</p>
+<h4 id="数据库事务原则？Oracle-怎么实现事务的一致性？"><a href="#数据库事务原则？Oracle-怎么实现事务的一致性？" class="headerlink" title="数据库事务原则？Oracle 怎么实现事务的一致性？"></a>数据库事务原则？Oracle 怎么实现事务的一致性？</h4><p>acid，原子性，一致性，隔离线，持久性</p>
+<p>要么全部成功要么全部失败，不存在中间状态，undo表空间，如果回滚会把数据还原到事务前。</p>
+<h4 id="事务的隔离机制？什么是幻读？为什么会产生幻读？事务回滚怎么实现？改变事务默认隔离级别怎么实现？"><a href="#事务的隔离机制？什么是幻读？为什么会产生幻读？事务回滚怎么实现？改变事务默认隔离级别怎么实现？" class="headerlink" title="事务的隔离机制？什么是幻读？为什么会产生幻读？事务回滚怎么实现？改变事务默认隔离级别怎么实现？"></a>事务的隔离机制？什么是幻读？为什么会产生幻读？事务回滚怎么实现？改变事务默认隔离级别怎么实现？</h4><p>隔离级别：读取未提交、读取已提交、可重复读、可串行化；</p>
+<p>除了可串行化都会发生幻读。它发生在一个事务(T1)读取了几行数 据，接着另一个并发事务(T2)插入了一些数据时。在随后的查询中，第一个事务(T1) 就会发现多了一些原本不存在的记录，就好像发生了幻觉一样，所以称为幻读。幻读的重点在于新 增或者删除比如多次读取一条记录发现记录增多或减少了。</p>
+<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><p>二叉树/红黑树/b树/b+树,B+树与B树对比，除了范围查询外，还有哪些优点</p>
 <p><strong>3-4</strong> 层的 B+ 树就能支持 <strong>千万级别</strong>的 数据量<br>树要足够矮，减少检索的次数，保证 key 尽可能小地占用空间<br>叶子节点存储所有插入的数据<br>叶子节点之间存在指针，<strong>双向的</strong><br>叶子节点有多个元素且排好序的</p>
 <p><a href="https://ciaowong.github.io/2021/04/06/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/">各种树</a></p>
 <p><a href="https://ciaowong.github.io/2021/04/06/Java%E9%9D%A2%E8%AF%95/MySQL/">MySQL</a></p>
@@ -389,8 +487,6 @@
 <p>聚簇索引,非聚簇索引</p>
 <p>索引结构除了哈希和B树还有哪些</p>
 <p>redo log的存储结构是什么样，大小多大</p>
-<h4 id="MySQL-隔离级别？怎么避免幻读？"><a href="#MySQL-隔离级别？怎么避免幻读？" class="headerlink" title="MySQL 隔离级别？怎么避免幻读？"></a>MySQL 隔离级别？怎么避免幻读？</h4><p>读取未提交/读取已提交/可重复读/可串行化</p>
-<p>InnoDB 存储引擎在 <strong>REPEATABLE-READ（可重读）</strong> 事务隔离级别下，允许应用使用 <strong>Next-Key Lock</strong> 锁算法来避免幻读的产生。</p>
 <h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><h4 id="ConcurrentHashMap-底层结构"><a href="#ConcurrentHashMap-底层结构" class="headerlink" title="ConcurrentHashMap 底层结构"></a>ConcurrentHashMap 底层结构</h4><h5 id="保证线程安全的方案："><a href="#保证线程安全的方案：" class="headerlink" title="保证线程安全的方案："></a>保证线程安全的方案：</h5><ul>
 <li><p>JDK1.8：synchronized+CAS+HashEntry + 红黑树；</p>
 </li>
@@ -420,6 +516,23 @@
 <p>504 都是后端的问题，一般是 CDN -&gt; WAF -&gt; 外网 SLB -&gt; Nginx -&gt; 内网 SLB -&gt; 后端应用这一链条中任意一个点可能超时或无响应；nginx超时。</p>
 <p>NIO fd的集合存储在哪里</p>
 <p>Epool的原理</p>
+<h4 id="网关鉴权怎么设计？Oath2-0-有没有用过？"><a href="#网关鉴权怎么设计？Oath2-0-有没有用过？" class="headerlink" title="网关鉴权怎么设计？Oath2.0 有没有用过？"></a>网关鉴权怎么设计？Oath2.0 有没有用过？</h4><ul>
+<li>HTTP 基本认证</li>
+<li>基于 Session 的认证</li>
+<li>基于 Token 的认证</li>
+<li>JWT OAuth 2.0</li>
+</ul>
+<p>OAuth 2.0 介绍：</p>
+<ol>
+<li>用户打开客户端以后，客户端要求用户给予授权。</li>
+<li>用户同意给予客户端授权。</li>
+<li>客户端使用上一步获得的授权，向认证服务器申请令牌。</li>
+<li>认证服务器对客户端进行认证以后，确认无误，同意发放令牌。</li>
+<li>客户端使用令牌，向资源服务器申请获取资源。</li>
+<li>资源服务器确认令牌无误，同意向客户端开放资源。</li>
+</ol>
+<h4 id="对称加密和非对称加密？"><a href="#对称加密和非对称加密？" class="headerlink" title="对称加密和非对称加密？"></a>对称加密和非对称加密？</h4><p>对称加密：<strong>文件加密和解密使用相同的密钥，即加密密钥也可以用作解密密钥</strong>。AES、DES</p>
+<p>非对称加密：<strong>两个密钥：公开密钥（publickey）和私有密钥，公有密钥加密，私有密钥解密</strong>。MD5(信息摘要)、SHA、HMAC</p>
 <h3 id="大数据处理"><a href="#大数据处理" class="headerlink" title="大数据处理"></a>大数据处理</h3><p>es kafka mysql redis 还有分布式 还有亿级别的文件处理</p>
 <p>给定一个五千万的url，找出某个url在不在？我说使用布隆过滤器，用位图实现。</p>
 <p>主要体现在计算机网络中的tcp和http，tcp挥手阶段time-wait状态、拥塞控制，linux中的进程和线程以及swap虚拟内存；kafka的消息可靠性；redis问的蛮多，比如主从同步、过期策略、内存淘汰算法、mysql的索引，存储引擎，hashMap的实现</p>
@@ -1088,179 +1201,6 @@
 <li>数组只有0个1个的情况！</li>
 <li>走一遍就能知道这个数有没有超过半数，有直接返回（假定只有1个超过半数的数字）</li>
 </ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ciaowong.github.io/2021/04/19/Java%E9%9D%A2%E8%AF%95/Spring%E6%BA%90%E7%A0%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ciu Wong">
-      <meta itemprop="description" content="2021-3-30">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stepping Stone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/19/Java%E9%9D%A2%E8%AF%95/Spring%E6%BA%90%E7%A0%81/" class="post-title-link" itemprop="url">Spring源码</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-04-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-19T00:00:00+08:00">2021-04-19</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-11 14:53:08" itemprop="dateModified" datetime="2021-05-11T14:53:08+08:00">2021-05-11</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JAVA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">JAVA技术</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h4 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h4><table>
-<thead>
-<tr>
-<th>bytype</th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>根据 Type 从 Spring 容器找到多个 Bean</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>判断是不是 isAutowireCandidate</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>判断是不是符合 Qualifier</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>取 @Primary 标注了的 Bean</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>取优先级最高的 Bean</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>根据属性名字选一个</td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>@Resource 是 Java 层的注解，更底层；@Autowired 是 Spring 层的注解；</p>
-<h4 id="创建Bean的几种方式"><a href="#创建Bean的几种方式" class="headerlink" title="创建Bean的几种方式"></a>创建Bean的几种方式</h4><ul>
-<li>类注解（声明式）</li>
-<li>编程式</li>
-<li>ApplicationContext 从上下文获取</li>
-<li>ClassPathXml 从项目路径下的 xml 配置文件获取</li>
-<li>FileSystemXml 从系统文件路径下的 xml 配置文件获取</li>
-<li>单例池</li>
-<li>BeanFactory</li>
-</ul>
-<h4 id="Refresh方法"><a href="#Refresh方法" class="headerlink" title="Refresh方法"></a>Refresh方法</h4><p>相当于重启，销毁所有的 Bean 对象，重新生成</p>
-<h4 id="Bean的生命周期"><a href="#Bean的生命周期" class="headerlink" title="Bean的生命周期"></a>Bean的生命周期</h4><ul>
-<li>从循环依赖引出 Bean 创建的生命周期</li>
-<li>Spring 通过3级缓存解决循环依赖问题<ul>
-<li>2级缓存解决不了 AOP 问题（ 赋值给B的A是原始对象而不是代理对象）</li>
-</ul>
-</li>
-<li>如果出现多个循环依赖，会创建多个 A 的代理对象，用二级缓存，存不完整的代理对象<ul>
-<li>不完整的 Bean 不能放入单例池</li>
-<li>单例池存放的是有完整生命周期的 bean</li>
-</ul>
-</li>
-<li>构造方法有相互依赖 Spring 解决不了，报错（通过 @Lazy 解决）</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AService</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Resource</span></span><br><span class="line">  <span class="keyword">private</span> BService bService;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BService</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Resource</span></span><br><span class="line">  <span class="keyword">private</span> AService aService;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th align="center">A创建⬇️</th>
-<th align="center">⬅️需要A</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">需要B➡️</td>
-<td align="center">B创建⬆️</td>
-</tr>
-</tbody></table>
-<ol>
-<li>creatingSet.add&lt;’aService’&gt;</li>
-<li>Aservice 类-&gt;实例化-&gt; Aservice 对象(原始对象)-&gt; map&lt;’beanName’,lambda(beanName,AService原始对象,beanDefinition)&gt;</li>
-<li>填充 bService 属性-&gt;去单例池 (ConcurrentHashMap singletonObject ) 查找-&gt;没有找到-&gt;二级缓存( HashMap earlySingletonObject) -&gt; 创建 BService 的 Bean<ol>
-<li>BService类 -&gt; 实例化-&gt; BService对象(原始对象)</li>
-<li>填充 aService 属性 -&gt;去单例池查找-&gt;没有找到-&gt; aService 在 creatingSet 中？-&gt; 出现循环依赖 -&gt; 二级缓存(找不到) -&gt; 三级缓存(存的是 lambda 表达式) -&gt; 执行表达式生成对象，移除表达式 -&gt; 放入二级缓存</li>
-<li>填充其他属性</li>
-<li>放入单例池</li>
-</ol>
-</li>
-<li>填充其他属性</li>
-<li>要不要进行 AOP -&gt; AOP -&gt; AService 代理对象</li>
-<li>aService -&gt; 二级缓存 -&gt; AService 代理对象</li>
-<li>放入单例池</li>
-<li>creatingSet.remove&lt;’aService’&gt;</li>
-</ol>
-<h4 id="AOP-原理"><a href="#AOP-原理" class="headerlink" title="AOP 原理"></a>AOP 原理</h4><p>基于动态代理的，如果要代理的对象，实现了某个接口，那么Spring AOP会使 用 <strong>JDK Proxy</strong>，去创建代理对象，而对于没有实现接口的对象，使用 <strong>Cglib</strong> 生成一个被代理对象的子类来作为代理。</p>
 
       
     </div>
