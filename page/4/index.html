@@ -264,7 +264,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-12 10:37:16" itemprop="dateModified" datetime="2021-05-12T10:37:16+08:00">2021-05-12</time>
+        <time title="修改时间：2021-05-12 12:03:04" itemprop="dateModified" datetime="2021-05-12T12:03:04+08:00">2021-05-12</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -287,18 +287,12 @@
     
     <div class="post-body" itemprop="articleBody">
           <ul>
-<li><p>官网 redis.io </p>
-</li>
-<li><p>最新版本 6.2.1</p>
-</li>
-<li><p>默认端口 6379</p>
-</li>
-<li><p>NoSQL 非关系型键值对数据库，数据存储在内存</p>
-</li>
-<li><p>C语言实现</p>
-</li>
-<li><p>5种数据类型，<strong>且每种类型都有自己的本地方法，让计算向数据移动</strong></p>
-<ul>
+<li>官网 redis.io </li>
+<li>最新版本 6.2.1</li>
+<li>默认端口 6379</li>
+<li>NoSQL 非关系型键值对数据库，数据存储在内存</li>
+<li>C语言实现</li>
+<li>5种数据类型，<strong>且每种类型都有自己的本地方法，让计算向数据移动</strong><ul>
 <li>string</li>
 <li>list 双向，实现栈（同向），队列（异向），数组（index）</li>
 <li>set 去重、无序，实现随机事件、验证码</li>
@@ -306,18 +300,26 @@
 <li>zset 去重、有序，实现排行榜、翻页、动态</li>
 </ul>
 </li>
-<li><p>单线程，串行化（6.x开始 IO threads 多线程）</p>
-</li>
-<li><p>快的原因：k v键值对作为缓存，缓存的数据就是<strong>不完整的，不要找关联关系。</strong></p>
-</li>
-<li><p>跟数据库的区别：<br>缓存：不重要，可以丢，减轻数据库的压力，到数据库的都是有效请求。<br>存储：珍惜。</p>
-</li>
-<li><p>分布式一致性太难了<br>减少你认为的所谓的高效并行</p>
-</li>
+<li>单线程，串行化（6.x开始 IO threads 多线程）</li>
+<li>快的原因<ul>
+<li>内存操作</li>
+<li>单线程操作，多路复用 IO  ，串行化</li>
+<li>数据类型简单，NoSQL，有本地方法</li>
+<li>k v键值对作为缓存，缓存的数据就是<strong>不完整的，不要找关联关系。</strong></li>
 </ul>
-<h5 id="数据类型-amp-结构"><a href="#数据类型-amp-结构" class="headerlink" title="数据类型&amp;结构"></a>数据类型&amp;结构</h5><p>hash: ziplist, hashtable; key/value 的长度超过 64 个字节需要将 ziplist 转成 hashtab 对象。</p>
+</li>
+<li>跟数据库的区别：<br>缓存：不重要，可以丢，减轻数据库的压力，到数据库的都是有效请求。<br>存储：珍惜。</li>
+<li>分布式一致性太难了<br>减少你认为的所谓的高效并行</li>
+</ul>
+<h4 id="数据类型-amp-结构"><a href="#数据类型-amp-结构" class="headerlink" title="数据类型&amp;结构"></a>数据类型&amp;结构</h4><p>String: 字符串、数值、bitmap</p>
+<p>hash: ziplist, hashtable; key/value 的长度超过 64 个字节需要将 ziplist 转成 hashtab 对象。</p>
 <p>set: hashtable, inset;</p>
 <p>zset: ziplist, dict + skiplist;</p>
+<h4 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h4><ul>
+<li>protobuf: 占内存小，依赖  JavaBean 的顺序</li>
+<li>JDK: 性能差，占用内存高，可读性差</li>
+<li>Json: 性能差，还可以接受，不依赖  JavaBean，可读性高</li>
+</ul>
 
       
     </div>
